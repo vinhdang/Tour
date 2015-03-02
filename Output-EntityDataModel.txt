@@ -1,8 +1,0 @@
-﻿The model was generated with warnings or errors.
-Please see the Error List for more details. These issues must be fixed before running your application.
-Loading metadata from the database took 00:00:00.6192053.
-Generating the model took 00:00:01.0583469.
-The model was generated with warnings or errors.
-Please see the Error List for more details. These issues must be fixed before running your application.
-Loading metadata from the database took 00:00:00.5797246.
-Generating the model took 00:00:01.2660202.
