@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_News.cshtml";
+}
+@using Domain;
+@using Service.Helpers;
+@model  Website.Model.Contact.ContactModel
+@if (Model != null && Model.Category != null)
+{
+    <ul class="breadcrum">
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
+            <span itemprop="title">Trang Chủ</span> </a>› </li>
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="@Model.Category.Url"
+            itemprop="url"><span itemprop="title">@Model.Category.Name</span> </a></li>
+    </ul>
+    <div class="tab2_content">
+        <div class="formBox tab2_description">
+            @using (Html.BeginForm("Index", "Contact", FormMethod.Post))
+            {
+                <div class="contact-form">
+                    <table border="0" class="form" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td class="text">
+                                Họ tên<span style="color: Red; font-size: 10px; padding: 0px 5px 0px 5px; vertical-align:top;">(*)</span>:
+                            </td>
+                            <td class="input">
+                                @Html.TextBoxFor(t => t.FullName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text">
+                                Email<span style="color: Red; font-size: 10px; padding: 0px 5px 0px 5px; vertical-align:top;">(*)</span>:
+                            </td>
+                            <td class="input">
+                                @Html.TextBoxFor(t => t.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text">
+                                Điện thoại<span style="color: Red; font-size: 10px; padding: 0px 5px 0px 5px; vertical-align:top;">(*)</span>:
+                            </td>
+                            <td class="input">
+                                @Html.TextBoxFor(t => t.Phone)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text">
+                                Địa chỉ:
+                            </td>
+                            <td class="input">
+                                @Html.TextBoxFor(t => t.Address)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text">
+                                Nội dung<span style="color: Red; font-size: 10px; padding: 0px 5px 0px 5px; vertical-align:top;">(*)</span>:
+                            </td>
+                            <td class="input">
+                                @Html.TextAreaFor(t => t.Content, new { @cols = "20", @rows = "6" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="input" style="height: 10px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text">
+                            </td>
+                            <td class="input">
+                                <input type="image" src="/Content/FrontEnd/images/contact_button.jpg" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            
+            }
+            <div class="clear">
+            </div>
+        </div>
+    </div>
+}

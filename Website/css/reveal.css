@@ -1,0 +1,44 @@
+/**********************************************************************************************
+	Reveal Modals
+***********************************************************************************************/	
+.reveal-modal-bg {position:fixed; height:100%; width:100%; background:url(../images/pixel_000.png) repeat 0 0; z-index:100; display:none; top:0; left:0; z-index:9998 !important;}
+.reveal-modal {
+	display:none;
+	top:250px !important; 
+	left:50%;
+	margin-left:-370px;
+	width:660px;
+	background:#FFF;
+	position:absolute;
+	z-index:9999 !important;
+	padding:20px 40px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	-moz-box-shadow:0 0 10px rgba(0,0,0,.4);
+	-webkit-box-shadow:0 0 10px rgba(0,0,0,.4);
+	-box-shadow:0 0 10px rgba(0,0,0,.4);
+	}
+.reveal-modal.xsmall 	{width:120px; margin-left:-100px;}
+.reveal-modal.small 	{width:200px; margin-left:-140px;}
+.reveal-modal.medium	{width:400px; margin-left:-240px;}
+.reveal-modal.large 	{width:600px; margin-left:-340px;}
+.reveal-modal.xlarge 	{width:800px; margin-left:-440px;}
+
+.reveal-modal .close-reveal-modal {font-size:20px; line-height:1; position:absolute; top:8px; right:11px; color:#aaa; text-shadow:0 -1px 1px rbga(0,0,0,.6); font-weight:bold; cursor:pointer; display:block;}
+	
+.reveal-modal input[type="text"], .reveal-modal textarea {border:1px solid #B9B9B9; color:#555; font-size:11px; padding:5px; margin:0 0 10px 0; width:215px; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px;}
+	.reveal-modal textarea {width:450px;}
+	
+	
+/*
+NOTES
+Close button entity is &#215;
+Example markup
+<div id="myModal" class="reveal-modal">
+	<h2>Awesome. I have it.</h2>
+	<p class="lead">Your couch.  I it's mine.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultrices aliquet placerat. Duis pulvinar orci et nisi euismod vitae tempus lorem consectetur.</p>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+*/

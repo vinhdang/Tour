@@ -1,0 +1,209 @@
+﻿@model List<Domain.Category>
+@using Service.Helpers;
+@using Domain;
+<div id="menu">
+    @if (Model != null)
+    {
+        <ul style="display: block;" class="nav left sf-js-enabled">
+            @foreach (Category item in Model)
+            {
+                string controller = Protector.String(ViewBag.Controller);
+                switch (controller)
+                {
+                    case "about":
+                    case "About":
+                        if (item.ID == 65)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                <li id="processing"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+
+                        }
+                        break;
+
+                    case "Company":
+                    case "company":
+                        if (item.ID == 80)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                <li id="processing"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+
+                        }
+                        break;
+                    case "Project":
+                    case "project":
+                        if (item.ID == 86)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                <li id="processing"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        break;
+                    case "News":
+                    case "news":
+                        if (item.ID == 91)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                <li id="processing"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+
+                        }
+                        break;
+
+                    case "Shareholders":
+                    case "shareholders":
+                        if (item.ID == 98)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                <li id="processing"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+
+                        }
+                        break;
+
+                    case "Support":
+                    case "support":
+                        if (item.ID == 106)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                <li id="processing"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+
+                        }
+                        break;
+
+                    case "Recruitment":
+                    case "recruitment":
+                        if (item.ID == 110)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                            <li id="processing"><a class="top">@item.Name</a>
+                                @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                            </li>
+
+                        }
+                        break;
+                    case "Contact":
+                    case "contact":
+                        if (item.ID == 137)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                            <li id="processing"><a class="top">@item.Name</a>
+                                @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                            </li>
+
+                        }
+                        break;
+
+                    case "Home":
+                    case "home":
+                        if (item.ID == 61)
+                        {
+                <li id="processing" class="selected"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+                        }
+                        else
+                        { 
+                <li id="processing"><a class="top">@item.Name</a>
+                    @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                </li>
+
+                        }
+                        break;
+
+                    default:
+
+
+                        if (item.ID == 18)
+                        {
+                            <li id="processing" class="selected"><a class="top">@item.Name</a>
+                                @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                            </li>
+                        }
+                        else
+                        { 
+                            <li id="processing"><a class="top">@item.Name</a>
+                                @{Html.RenderAction("MenuSub", "User", new { catID = item.ID });}
+                            </li>
+
+                        }
+                        break;
+
+                }
+
+            }
+        </ul>
+        <ul class="nav right sf-js-enabled" style="display: block; text-align: left;">
+            <li id="chane">@Html.ActionLink("Đổi mật khẩu", "ChangePassword", "User", null, new { @class = "top" })</li>
+            <li id="store">@Html.ActionLink("Thoát", "SignOut", "User", null, new { @class = "top" })</li>
+        </ul>
+        <script type="text/javascript"><!--
+            $(document).ready(function () {
+                $('.nav').superfish({
+                    hoverClass: 'sfHover',
+                    pathClass: 'overideThisToUse',
+                    delay: 0,
+                    animation: { height: 'show' },
+                    speed: 'normal',
+                    autoArrows: false,
+                    dropShadows: false,
+                    disableHI: false, /* set to true to disable hoverIntent detection */
+                    onInit: function () { },
+                    onBeforeShow: function () { },
+                    onShow: function () { },
+                    onHide: function () { }
+                });
+
+                $('.nav').css('display', 'block');
+            });
+//--></script>
+    }
+</div>

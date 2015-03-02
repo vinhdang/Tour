@@ -1,0 +1,40 @@
+﻿@using Domain;
+@using Service.Helpers;
+@model List<Area>
+@if (Model != null && Model.Count > 0)
+{
+    string[] area = Protector.String(ViewBag.Area).Split(',');
+
+    <h1>
+        Khu Vực</h1>
+    using (Html.BeginForm("AreaPost", "Province", new { provinceName = ViewBag.ProvinceName, type = ViewBag.HotelType, fromDate = ViewBag.FromDate, toDate = ViewBag.ToDate, theme = ViewBag.HotelTheme, district = ViewBag.District }, FormMethod.Post, new { id = "AreaPost" }))
+    {
+    <div class="boxContent">
+        <table>
+            @foreach (Area item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (area != null && area.Length > 0 && area.Contains(item.AreaID.ToString()))
+                        {
+                            <input type="checkbox" checked ="checked"  name="AreaID" id="AreaID" value="@item.AreaID" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="AreaID" id="AreaID" value="@item.AreaID" />
+                        }
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    }
+    <script type="text/javascript">
+        $(":checkbox[id='AreaID']").click(function () {
+            $("#AreaPost").submit();
+        });
+    </script>
+}

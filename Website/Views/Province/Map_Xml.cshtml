@@ -1,0 +1,34 @@
+﻿@model List<Domain.Hotel>
+@using Service.Helpers
+@{
+    Response.ContentType = "text/xml";
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+<markers xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   
+    @foreach (Domain.Hotel item in Model)
+    {
+        if (!string.IsNullOrEmpty(item.Lat) && !string.IsNullOrEmpty(item.Lng) && item.HotelPictures != null)
+        {
+            DateTime startdate = DateTime.Today;
+            DateTime enddate = startdate.AddHours(23.99);
+            Domain.RoomPrice price = item.RoomPrices.Where(r => r.Room.IsActive && r.Quantity > 0 && r.IsActive && r.Date >= startdate && r.Date <= enddate).FirstOrDefault();
+
+    <marker>
+<name>@item.Name</name>
+<url>@string.Format("{0}", UrlHelp.getHotelUrl(item.National.Name, item.Province.Name, item.Url, item.HotelID, item.ProvinceID))</url>
+
+<img>@string.Format("{0}", FileHelper.GetHotel_Picture(item.HotelPictures.FirstOrDefault().FileName, item.HotelID))</img>
+
+<address>@item.Address</address>
+@if (price != null)
+{ 
+<price>@String.Format("{0:#,###} VND", price.Price)</price>
+}
+
+<lat>@item.Lat</lat>
+<lng>@item.Lng</lng>
+</marker>
+        }
+    }
+</markers>

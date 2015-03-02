@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="RevealTrans(Duration=0,Transition=1)" http-equiv="PAGE-ENTER" />
+    <!--tiêu chí SEO chính-->
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keyword" content="@ViewBag.KeyWords" />
+    <meta name="robots" content="index,follow,all" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="language" content="VietNamese" />
+    <!--end-->
+    <!--quy định dữ liệu khi chia sẻ trên facebook-->
+    <meta itemprop="name" content="@ViewBag.Title" />
+    <meta itemprop="description" content="@ViewBag.Description" />
+    <meta itemprop="image" content="http://vietrip.vn/images/logo.png" />
+    <!--end-->
+    <!--quy định dữ liệu khi chia sẻ trên google plust-->
+    <meta content="@ViewBag.Title" property="og:title" />
+    <meta content="http://vietrip.vn/images/logo.png" property="og:image" />
+    <meta content="@ViewBag.Description"
+        property="og:description" />
+    <!--end-->
+
+    <!-- Bootstrap -->
+    <link href="@Url.Content("~/Content/FrontEnd/dist/css/bootstrap.css")" rel="stylesheet" media="screen">
+    <link href="@Url.Content("~/Content/FrontEnd/assets/css/custom.css")" rel="stylesheet" media="screen">
+
+	<link href="@Url.Content("~/Content/FrontEnd/examples/carousel/carousel.css")" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="@Url.Content("~/Content/FrontEnd/assets/js/html5shiv.js")"></script>
+      <script src="@Url.Content("~/Content/FrontEnd/assets/js/respond.min.js")"></script>
+    <![endif]-->
+	
+    <!-- Fonts -->	
+	@*<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>*@
+	@*<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>*@	
+	<!-- Font-Awesome -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/FrontEnd/assets/css/font-awesome.css")" media="screen" />
+    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/FrontEnd/assets/css/font-awesome-ie7.css")" media="screen" /><![endif]-->
+	
+    <!-- REVOLUTION BANNER CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/FrontEnd/css/fullscreen.css")" media="screen" />
+	<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/FrontEnd/rs-plugin/css/settings.css")" media="screen" />
+
+    <!-- Picker -->	
+	<link rel="stylesheet" href="@Url.Content("~/Content/FrontEnd/assets/css/jquery-ui.css")" />	
+	
+	<!-- bin/jquery.slider.min.css -->
+	<link rel="stylesheet" href="@Url.Content("~/Content/FrontEnd/plugins/jslider/css/jslider.css")" type="text/css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/FrontEnd/plugins/jslider/css/jslider.round-blue.css")" type="text/css">	
+	
+    <!-- jQuery -->	
+    <script src="@Url.Content("~/Content/FrontEnd/assets/js/jquery.v2.0.3.js")"></script>
+    <script src="@Url.Content("~/Content/FrontEnd/assets/js/jquery-ui.js")"></script>
+
+	<!-- bin/jquery.slider.min.js -->
+	<script type="text/javascript" src="@Url.Content("~/Content/FrontEnd/plugins/jslider/js/jshashtable-2.1_src.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/FrontEnd/plugins/jslider/js/jquery.numberformatter-1.2.3.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/FrontEnd/plugins/jslider/js/tmpl.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/FrontEnd/plugins/jslider/js/jquery.dependClass-0.1.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/FrontEnd/plugins/jslider/js/draggable-0.1.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/FrontEnd/plugins/jslider/js/jquery.slider.js")"></script>
+	<!-- end -->
+    <link href="@Url.Content("~/Content/FrontEnd/custom/list.css")" rel="stylesheet">
+    
+     <!-- Javascript -->	
+    <script src="@Url.Content("~/Content/FrontEnd/assets/js/js-list.js")"></script>	
+
+    <!-- Custom Select -->
+	<script type='text/javascript' src="@Url.Content("~/Content/FrontEnd/assets/js/jquery.customSelect.js")"></script>
+	
+    <!-- JS Ease -->	
+    <script src="@Url.Content("~/Content/FrontEnd/assets/js/jquery.easing.js")"></script>
+	
+    <!-- Custom functions -->
+    <script src="@Url.Content("~/Content/FrontEnd/assets/js/functions.js")"></script>
+	
+    <!-- jQuery KenBurn Slider  -->
+    <script type="text/javascript" src="@Url.Content("~/Content/FrontEnd/rs-plugin/js/jquery.themepunch.revolution.min.js")"></script>
+
+    <!-- Counter -->	
+    <script src="@Url.Content("~/Content/FrontEnd/assets/js/counter.js")"></script>	
+	
+    <!-- Nicescroll  -->	
+	<script src="@Url.Content("~/Content/FrontEnd/assets/js/jquery.nicescroll.min.js")"></script>
+	
+    <!-- Picker -->	
+	<script src="@Url.Content("~/Content/FrontEnd/assets/js/jquery-ui.js")"></script>
+	
+    <!-- Bootstrap -->	
+    <script src="@Url.Content("~/Content/FrontEnd/dist/js/bootstrap.min.js")"></script>
+   
+    <script src="@Url.Content("~/Scripts/sys.tour.search.js")"></script>
+
+</head>
+  <body id="top" class="thebg" >
+	<!-- Top wrapper -->	
+	<div class="navbar-wrapper2 navbar-fixed-top">
+      <div class="container">
+		<div class="navbar mtnav">
+                @RenderBody()
+			<div class="container offset-3">
+			  <!-- Navigation-->
+			  <div class="navbar-header">
+				<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				</button>
+				<a href="index.html" class="navbar-brand"><img src="@Url.Content("~/Content/FrontEnd/images/logo.png")" alt="Travel Agency Logo" class="logo"/></a>
+			  </div>
+			  <div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-left">
+				  <li><a href="@Url.Action("Index","Home")">Trang Chủ</a></li>
+				  <li class="active"><a href="custom-list.html">Free and Easy</a></li>
+				  <li><a href="custom-foreign-list.html">Tour Nước Ngoài</a></li>
+				</ul>
+			  </div>
+			  <!-- /Navigation-->			  
+			</div>
+        </div>
+      </div>
+    </div>
+	<!-- / Top wrapper -->		
+	@Html.Partial("_Breadcrumb")
+	@*<div class="container breadcrub">
+	    <div>
+			<a class="homebtn left" href="#"></a>
+			<div class="left">
+				<ul class="bcrumbs">
+					<li>/</li>
+					<li><a href="#">Hotels</a></li>
+					<li>/</li>
+					<li><a href="#">U.S.A.</a></li>
+					<li>/</li>					
+					<li><a href="#" class="active">New York</a></li>					
+				</ul>				
+			</div>
+			<a class="backbtn right" href="#"></a>
+		</div>
+		<div class="clearfix"></div>
+		<div class="brlines"></div>
+	</div>	*@
+
+	<!-- CONTENT -->
+	<div class="container">
+		<div class="container pagecontainer offset-0">	
+			<!-- FILTERS -->
+			@{Html.RenderAction("Filter", "Province", new { Area = "" });}
+			<!-- END OF FILTERS -->
+			
+			<!-- LIST CONTENT-->
+			<div class="rightcontent col-md-9 offset-0">
+				@{Html.RenderAction("Search", "Province", new { Area = "" });}
+                <!-- End of padding -->
+				<br/><br/>
+                <div class="clearfix"></div>
+                <div id="search_tour_result">
+                    @{Html.RenderAction("Tour", "Province", new { Area = "" });}
+                </div>
+            </div>
+			<!-- END OF LIST CONTENT-->
+		</div>
+		<!-- END OF container-->
+	</div>
+	<!-- END OF CONTENT -->
+	
+	<!-- FOOTER -->
+      @{Html.RenderAction("Footer", "Tour", new { Area = "" });}
+       <script>
+           $(document).ready(function () {
+               $("#datepicker9, #datepicker10").datepicker();
+           });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4593545E-A216-41C3-9F79-F749E0D4F43D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Data</RootNamespace>
+    <AssemblyName>Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\EntityRepository.cs" />
+    <Compile Include="Infrastructure\IDatabaseFactory.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IRepositoryBase.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\PagedResult.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="IRepositories\IProviderPictureRepository.cs" />
+    <Compile Include="IRepositories\ITourActivityRepository.cs" />
+    <Compile Include="IRepositories\ITourAgendaRepository.cs" />
+    <Compile Include="IRepositories\ITourCommentRepository.cs" />
+    <Compile Include="IRepositories\ITourPictureRepository.cs" />
+    <Compile Include="IRepositories\ITourPriceRepository.cs" />
+    <Compile Include="IRepositories\ITourProviderRepository.cs" />
+    <Compile Include="IRepositories\ITourRepository.cs" />
+    <Compile Include="IRepositories\ITourServiceRepository.cs" />
+    <Compile Include="IRepositories\ITourThemeRepository.cs" />
+    <Compile Include="IRepositories\ITourTypeRepository.cs" />
+    <Compile Include="IRepositories\IAreaRepository.cs" />
+    <Compile Include="IRepositories\ICategoryRepository.cs" />
+    <Compile Include="IRepositories\IConfigRepository.cs" />
+    <Compile Include="IRepositories\IContactRepository.cs" />
+    <Compile Include="IRepositories\IDistrictRepository.cs" />
+    <Compile Include="IRepositories\INationalRepository.cs" />
+    <Compile Include="IRepositories\INewRepository.cs" />
+    <Compile Include="IRepositories\IPaymentRepository.cs" />
+    <Compile Include="IRepositories\IProvinceRepository.cs" />
+    <Compile Include="IRepositories\IRolePermissionRepository.cs" />
+    <Compile Include="IRepositories\IRoleRepository.cs" />
+    <Compile Include="IRepositories\ISocialRepository.cs" />
+    <Compile Include="IRepositories\IStatusRepository.cs" />
+    <Compile Include="IRepositories\ISupportRepository.cs" />
+    <Compile Include="IRepositories\IUserRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ProviderPictureRepository.cs" />
+    <Compile Include="Repositories\TourActivityRepository.cs" />
+    <Compile Include="Repositories\TourAgendaRepository.cs" />
+    <Compile Include="Repositories\TourCommentRepository.cs" />
+    <Compile Include="Repositories\TourPictureRepository.cs" />
+    <Compile Include="Repositories\TourPriceRepository.cs" />
+    <Compile Include="Repositories\TourProviderRepository.cs" />
+    <Compile Include="Repositories\TourRepository.cs" />
+    <Compile Include="Repositories\TourServiceRepository.cs" />
+    <Compile Include="Repositories\TourThemeRepository.cs" />
+    <Compile Include="Repositories\TourTypeRepository.cs" />
+    <Compile Include="Repositories\AreaRepository.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\ConfigRepository.cs" />
+    <Compile Include="Repositories\ContactRepository.cs" />
+    <Compile Include="Repositories\DistrictRepository.cs" />
+    <Compile Include="Repositories\NationalRepository.cs" />
+    <Compile Include="Repositories\NewRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
+    <Compile Include="Repositories\ProvinceRepository.cs" />
+    <Compile Include="Repositories\RolePermissionRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\SocialRepository.cs" />
+    <Compile Include="Repositories\StatusRepository.cs" />
+    <Compile Include="Repositories\SupportRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="WebContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{B7D9FEF3-FA07-404C-9F1B-3BBDDCF092A4}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

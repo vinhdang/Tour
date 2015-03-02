@@ -1,0 +1,40 @@
+﻿@using Domain;
+@using Service.Helpers;
+@model List<District>
+@if (Model != null && Model.Count > 0)
+{
+    string[] district = Protector.String(ViewBag.District).Split(',');
+
+    <h1>
+        Quận / Huyện</h1>
+    using (Html.BeginForm("DistrictPost", "Province", new { provinceName = ViewBag.ProvinceName, type = ViewBag.HotelType, fromDate = ViewBag.FromDate, toDate = ViewBag.ToDate, theme = ViewBag.HotelTheme }, FormMethod.Post, new { id = "DistrictPost" }))
+    {
+    <div class="boxContent">
+        <table>
+            @foreach (District item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (district != null && district.Length > 0 && district.Contains(item.DistrictID.ToString()))
+                        {
+                            <input type="checkbox" checked ="checked"  id="DistrictID" value="@item.DistrictID" />
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="DistrictID" id="DistrictID" value="@item.DistrictID" />
+                        }
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    }
+    <script type="text/javascript">
+        $(":checkbox[id='DistrictID']").click(function () {
+            $("#DistrictPost").submit();
+        });
+    </script>
+}

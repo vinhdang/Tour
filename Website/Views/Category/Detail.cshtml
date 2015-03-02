@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_News.cshtml";
+}
+@using Domain;
+@using Service.Helpers;
+@model  Category
+@if (Model != null)
+{
+    <ul class="breadcrum">
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
+            <span itemprop="title">Trang Chủ</span> </a>› </li>
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="@Model.Url"
+            itemprop="url"><span itemprop="title">@Model.Name</span> </a></li>
+    </ul>
+    <div class="tab2_content">
+        <div class="formBox tab2_description">
+            @Html.Raw(Model.Content)
+            <div class="clear">
+            </div>
+        </div>
+    </div>
+}

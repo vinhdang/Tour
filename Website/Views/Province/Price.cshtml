@@ -1,0 +1,42 @@
+﻿@using Domain;
+@using Service.Helpers;
+@model List<SelectListItem>
+@if (Model != null && Model.Count > 0)
+{
+    string[] price = Protector.String(ViewBag.Price).Split(',');
+    <h1>
+        Giá / Đêm</h1>
+    using (Html.BeginForm("PricePost", "Province", new { provinceName = ViewBag.ProvinceName, type = ViewBag.HotelType, fromDate = ViewBag.FromDate, toDate = ViewBag.ToDate, theme = ViewBag.HotelTheme, district = ViewBag.District, area = ViewBag.Area, comfort = ViewBag.Comfort, star = ViewBag.Star }, FormMethod.Post, new { id = "PricePost" }))
+    {
+    <div class="boxContent" style="z-index: 4480;">
+        <table>
+            <tbody>
+                @foreach (SelectListItem item in Model)
+                {
+                           
+                    <tr>
+                        <td>
+                            @if (price != null && price.Length > 0 && price.Contains(item.Value.ToString()))
+                            {
+                                <input type="checkbox" checked ="checked"    id="PriceID" value="@item.Value" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="PriceID" id="PriceID" value="@item.Value" />
+                            }
+                        </td>
+                        <td>
+                            @item.Text
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+    <script type="text/javascript">
+        $(":checkbox[id='PriceID']").click(function () {
+            $("#PricePost").submit();
+        });
+    </script>
+}

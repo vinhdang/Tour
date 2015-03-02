@@ -1,0 +1,30 @@
+﻿@model List<Website.Model.Tour.TourDisplay>
+@{
+    var tours = Model;
+}
+<div class="pagecontainer2 mt20 alsolikebox">
+    <div class="cpadding1">
+        <span class="icon-location"></span>
+        <h3>Lịch Sử Xem</h3>
+        <div class="clearfix"></div>
+    </div>
+    @if(tours != null && tours.Count > 0)
+    {
+        foreach (var tour in tours)
+        { 
+            <div class="cpadding1 ">
+                <a  href="@tour.LinkToDetail"><img  src="@tour.AvatarUrl" class="left mr20" alt="@tour.AvatarPic.Alt" style="max-width: 270px;"/></a>
+                <a href="@tour.LinkToDetail" class="dark"><b >@tour.Name</b></a><br/>
+              @*  <span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br/>*@
+                <img src="@Url.Content("~/Content/FrontEnd/images/filter-rating-5.png")" alt="@tour.KeyWord"/>
+            </div>
+            <div class="line5"></div>
+        }
+    }else
+    {
+        <div class="cpadding1 ">
+            Không có dữ liệu
+        </div>
+    }
+    <br/>
+</div>

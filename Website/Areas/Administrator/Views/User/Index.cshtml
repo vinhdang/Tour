@@ -1,0 +1,6 @@
+﻿@model IQueryable<Domain.User>
+@{
+    ViewBag.Title = "Danh Sách Người Dùng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("UserList", Model)

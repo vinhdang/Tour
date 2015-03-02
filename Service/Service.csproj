@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B0BB07D6-B241-4F17-9B6D-35187E7DD58A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Service</RootNamespace>
+    <AssemblyName>Service</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attribute\AcceptButtonAttribute.cs" />
+    <Compile Include="Base\EntityService.cs" />
+    <Compile Include="Base\IServiceBase.cs" />
+    <Compile Include="Controls\CheckBoxListHelper.cs" />
+    <Compile Include="Helpers\BasePagingResult.cs" />
+    <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\Enums.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\FormsAuthenticationHelper.cs" />
+    <Compile Include="Helpers\GlobalVariables.cs" />
+    <Compile Include="Helpers\Protector.cs" />
+    <Compile Include="Helpers\StorageElement.cs" />
+    <Compile Include="Helpers\TextHelper.cs" />
+    <Compile Include="Helpers\UrlHelp.cs" />
+    <Compile Include="Implementations\ProviderPictureService.cs" />
+    <Compile Include="Implementations\TourActivityService.cs" />
+    <Compile Include="Implementations\TourAgendaService.cs" />
+    <Compile Include="Implementations\TourCommentService.cs" />
+    <Compile Include="Implementations\TourPictureService.cs" />
+    <Compile Include="Implementations\TourPriceService.cs" />
+    <Compile Include="Implementations\TourProviderService.cs" />
+    <Compile Include="Implementations\TourService.cs" />
+    <Compile Include="Implementations\TourThemeService.cs" />
+    <Compile Include="Implementations\TourTypeService.cs" />
+    <Compile Include="Implementations\AreaService.cs" />
+    <Compile Include="Implementations\CategoryService.cs" />
+    <Compile Include="Implementations\ConfigService.cs" />
+    <Compile Include="Implementations\ContactService.cs" />
+    <Compile Include="Implementations\DistrictService.cs" />
+    <Compile Include="Implementations\NationalService.cs" />
+    <Compile Include="Implementations\NewService.cs" />
+    <Compile Include="Implementations\PaymentService.cs" />
+    <Compile Include="Implementations\ProvinceService.cs" />
+    <Compile Include="Implementations\RolePermissionService.cs" />
+    <Compile Include="Implementations\RoleService.cs" />
+    <Compile Include="Implementations\SocialService.cs" />
+    <Compile Include="Implementations\StatusService.cs" />
+    <Compile Include="Implementations\SupportService.cs" />
+    <Compile Include="Implementations\UserService.cs" />
+    <Compile Include="IServices\IProviderPictureService.cs" />
+    <Compile Include="IServices\ITourActivityService.cs" />
+    <Compile Include="IServices\ITourAgendaService.cs" />
+    <Compile Include="IServices\ITourCommentService.cs" />
+    <Compile Include="IServices\ITourPictureService.cs" />
+    <Compile Include="IServices\ITourPriceService.cs" />
+    <Compile Include="IServices\ITourProviderService.cs" />
+    <Compile Include="IServices\ITourService.cs" />
+    <Compile Include="IServices\ITourThemeService.cs" />
+    <Compile Include="IServices\ITourTypeService.cs" />
+    <Compile Include="IServices\IAreaService.cs" />
+    <Compile Include="IServices\ICategoryService.cs" />
+    <Compile Include="IServices\IConfigService.cs" />
+    <Compile Include="IServices\IContactService.cs" />
+    <Compile Include="IServices\IDistrictService.cs" />
+    <Compile Include="IServices\INationalService.cs" />
+    <Compile Include="IServices\INewService.cs" />
+    <Compile Include="IServices\IPaymentService.cs" />
+    <Compile Include="IServices\IProvinceService.cs" />
+    <Compile Include="IServices\IRolePermissionService.cs" />
+    <Compile Include="IServices\IRoleService.cs" />
+    <Compile Include="IServices\ISocialService.cs" />
+    <Compile Include="IServices\IStatusService.cs" />
+    <Compile Include="IServices\ISupportService.cs" />
+    <Compile Include="IServices\ITourUtilitiesService.cs" />
+    <Compile Include="IServices\IUserService.cs" />
+    <Compile Include="IServices\TourUtilitiesService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validations\FileAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{4593545E-A216-41C3-9F79-F749E0D4F43D}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{B7D9FEF3-FA07-404C-9F1B-3BBDDCF092A4}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,151 @@
+﻿@using Domain
+@using Website.Helpers
+@using Website.Model
+@{
+    var themes = ViewData["Themes"] == null ? null : (List<TourTheme>)ViewData["Themes"];
+    var months = ViewData["Month"] == null ? null : (List<MonthFilter>)ViewData["Month"];
+}
+@*@WebHelpers.GetMonths(DateTime.Now.AddYears(1))*@
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        sys.search.index.filter.initPage();
+    });
+</script>
+
+<input type="hidden" name="filter_action" value="@Url.Action("FilterData", "Province")"/>
+<div class="col-md-3 filters offset-0">
+	<!-- Price range -->					
+	<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
+		Hình thức <span class="collapsearrow"></span>
+	</button>
+	<div id="collapse1" class="collapse in">
+        <div class="hpadding20">
+            @if (themes != null)
+            {
+                foreach (var theme in themes)
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input class="filter_theme" type="checkbox" value="@theme.ID">@theme.Name
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="checkbox">
+                    <label>Không có dữ liệu</label>
+                </div> 
+            }
+        </div>
+		<div class="clearfix"></div>
+	</div>
+	<!-- End of Price range -->
+	<!-- Price range -->					
+	<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
+		Mức giá <span class="collapsearrow"></span>
+	</button>
+					
+	<div id="collapse2" class="collapse in">
+		<div class="padding20">
+			<div class="layout-slider wh100percent">
+				<span class="cstyle09"><input id="price-range" type="slider" name="price" value="500000;10000000" /></span>
+			</div>
+			<script type="text/javascript" >
+			    jQuery("#price-range").slider({
+			        from: 500000, to: 10000000, step: 500000, smooth: true, round: 0, dimension: "&nbsp;VNĐ", skin: "round"
+			    }).bind('change', function (event, ui) { console.log('dasdsad');});
+			</script>
+		</div>
+	</div>
+	<!-- End of Price range -->
+	<!-- Daration -->					
+	<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse3">
+		Khoảng thời gian <span class="collapsearrow"></span>
+	</button>
+					
+	<div id="collapse3" class="collapse in">
+		<div class="padding20">
+			<div class="layout-slider wh100percent">
+				<span class="cstyle09"><input id="duration" type="slider" name="price" value="3;15" /></span>
+			</div>
+			<script type="text/javascript" >
+			    jQuery("#duration").slider({ from: 1, to: 15, step: 1, smooth: true, round: 0, dimension: "&nbsp;Ngày", skin: "round" });
+			</script>
+		</div>
+	</div>
+	<!-- End of Daration -->
+				
+	<!-- TOP TIP -->
+				
+	<!-- END OF BOOK FILTERS -->	
+				
+	<div class="line2"></div>
+				
+	<div class="padding20title"><h3 class="dark">Lọc theo</h3></div>
+	<div class="line2"></div>
+				
+	<!-- Hotel Preferences -->
+	<button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse4">
+		Tháng Trong Năm <span class="collapsearrow"></span>
+	</button>	
+	<div id="collapse4" class="collapse in">
+        <div class="hpadding20">
+            @if(months != null)
+            {
+                foreach (var month in months)
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input class="filter_month" type="checkbox" value="@month.Value">@month.Display
+                        </label>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Không có dữ liệu</p>
+            }
+        </div>
+		<div class="clearfix"></div>						
+	</div>	
+	<!-- End of Hotel Preferences -->
+	<!-- Star ratings -->	
+	<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse5">
+		Đánh Giá <span class="collapsearrow"></span>
+	</button>
+
+	<div id="collapse5" class="collapse in">
+		<div class="hpadding20">
+			<div class="checkbox">
+				<label>
+					<input class="filter_comment" type="checkbox" value="5"><img src="@Url.Content("~/Content/FrontEnd/images/user-rating-5.png")" class="imgpos1" alt=""/>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input class="filter_comment" type="checkbox" value="4"><img src="@Url.Content("~/Content/FrontEnd/images/user-rating-4.png")" class="imgpos1" alt=""/>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input class="filter_comment" type="checkbox" value="3"><img src="@Url.Content("~/Content/FrontEnd/images/user-rating-3.png")" class="imgpos1" alt=""/>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input class="filter_comment" type="checkbox" value="2"><img src="@Url.Content("~/Content/FrontEnd/images/user-rating-2.png")" class="imgpos1" alt=""/>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input class="filter_comment" type="checkbox" value="1"><img src="@Url.Content("~/Content/FrontEnd/images/user-rating-1.png")" class="imgpos1" alt=""/>
+				</label>
+			</div>	
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<!-- End of Star ratings -->
+	<div class="clearfix"></div>
+</div>

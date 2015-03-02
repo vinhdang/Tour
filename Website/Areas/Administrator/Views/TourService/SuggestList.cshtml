@@ -1,0 +1,45 @@
+﻿@model List<Domain.TourSuggestion>
+@using (Html.BeginForm())
+{  
+    <div class="box">
+        <div class="heading">
+            <h1>
+                <img alt="" src="/Content/Administrator/Images/category.png">
+                Quản Lý >> <span style="color: Red;">@ViewBag.TourName</span> >> Dịch vụ & Tiện Ích</h1>
+            <div class="buttons">
+                @Html.ActionLink("Danh Sách Tour", "Index", "Tour" , null, new { @class = "t-button" })
+                @Html.ActionLink("+ Thêm Mới", "Create", new {id = ViewBag.TourId} , new { @class = "t-button" })
+                <input type="submit" name="Delete" value="Xóa " class="t-button" />
+            </div>
+        </div>
+        <div class="content">
+            @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+             .DataKeys(keys => keys.Add(c => c.ID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.TourActivity.ImageUrl).Title("Ảnh đại diện").Template(@<text><img src="@item.TourActivity.ImageUrl" width="200px" /></text>).Width("8%");
+            columns.Bound(o => o.TourActivity.Name).Title("Tên dịch vụ").Template(@<text>@Html.ActionLink(@item.TourActivity.Name, "Edit", new { id = @item.ID })</text>).Width("15%").HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.TourActivity.KeyWord).Title("Từ khóa").Width("10%").HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.TourActivity.Description).Title("Mô tả").Width("25%");
+            columns.Bound(o => o.Order).Title("Thứ tự").Width("5%").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).Title("Duyệt").Template(@<text><input type="checkbox" disabled="disabled" @(item.IsActive.HasValue && item.IsActive.Value ? "checked=\"checked\"": string.Empty)/></text>).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("5%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.ID " title="checkedRecords"/></text>)
+                      .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                      .Width("4%")
+                      .HeaderHtmlAttributes(new { style = "text-align:center" })
+                      .HtmlAttributes(new { style = "text-align:center" });
+        })
+                        .Pageable(paging => paging.PageSize(50))
+                        .Sortable(sorting => sorting
+                        .OrderBy(sortOrder => sortOrder.Add(o => o.Order).Descending()))
+                    )
+        </div>
+    </div>
+
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody .checkedRecords").attr("checked", this.checked); });
+    </text>); }

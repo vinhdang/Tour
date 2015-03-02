@@ -1,0 +1,69 @@
+﻿@model IQueryable<Domain.User>
+@using (Html.BeginForm())
+{ 
+    <div class="box">
+        <div class="heading">
+            <h1>
+                <img alt="" src="/Content/Administrator/Images/category.png">
+                Danh Sách Người Dùng</h1>
+            <div class="buttons">
+                @Html.ActionLink("+ Thêm Mới Người Dùng", "Create", null, new { @class = "t-button" })
+                <input type="submit" name="Delete" value="Xóa" class="t-button" />
+            </div>
+        </div>
+        <div class="content">
+            <div style="display: inline-block; width: 100%; margin-bottom: 15px; margin-top: 15px;
+                clear: both;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="box_into">
+                    <tbody>
+                        <tr>
+                            <td class="box_tool">
+                                <div style="float: left">
+                                    <label>
+                                        Tên nhóm người dùng:</label>
+                                    @Html.DropDownList("RoleList", ViewBag.RoleList as SelectList, "[ --- Chọn nhóm người dùng --- ]")
+                                    <input type="submit" name="Search" value="Tìm" class="t-button" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <hr />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+                 .DataKeys(keys => keys.Add(c => c.UserID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Email).Template(@<text>@Html.ActionLink(@item.Email, "Edit", new { id = @item.UserID })</text>);
+            columns.Bound(o => o.FullName).Width("20%");
+            columns.Bound(o => o.CreatedDate).Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.UserID " title="checkedRecords"/></text>)
+                    .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                    .Width("4%")
+                    .HeaderHtmlAttributes(new { style = "text-align:center" })
+                    .HtmlAttributes(new { style = "text-align:center" });
+
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

@@ -1,0 +1,72 @@
+﻿@using Service.Helpers
+@model List<Domain.Province>
+@using (Html.BeginForm())
+{ 
+    <div class="box">
+        <div class="heading">
+            <h1>
+                <img alt="" src="/Content/Administrator/Images/category.png">
+                Quản Lý >> Tỉnh Thành</h1>
+            <div class="buttons">
+                @Html.ActionLink("+ Thêm Mới Tỉnh Thành", "Create", null, new { @class = "t-button" })
+                <input type="submit" name="Delete" value="Xóa Tỉnh Thành" class="t-button" />
+            </div>
+        </div>
+        <div class="content">
+            <div style="display: inline-block; width: 100%; margin-bottom: 15px; margin-top: 15px;
+                clear: both;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="box_into">
+                    <tbody>
+                        <tr>
+                            <td class="box_tool">
+                                <div style="float: left">
+                                    <label>
+                                        Quốc gia:</label>
+                                    @Html.DropDownList("NationalList", ViewBag.NationalList as SelectList, "[ --- Chọn quốc gia --- ]")
+                                    <input type="submit" name="Search" value="Tìm" class="t-button" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <hr />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+                 .DataKeys(keys => keys.Add(c => c.ID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Avartar).Width("4%").Template(@<text><a href="@Url.Action("Edit", "Province", new { id = @item.ID })"> <img width="200px" src="@(FileHelper.GetProvince_Picture(item.Avartar, item.ID))"/> </a></text>).HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.Name).Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.ID })</text>);
+            columns.Bound(o => o.Description).HtmlAttributes(new { style = "text-align:left" });
+            columns.Bound(o => o.Position).Width("4%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            //columns.Bound(o => o.User.Email).Title("Tạo bởi").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.ID " title="checkedRecords"/></text>)
+                  .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                  .Width("4%")
+                  .HeaderHtmlAttributes(new { style = "text-align:center" })
+                  .HtmlAttributes(new { style = "text-align:center" });
+
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.Position).Descending()))
+)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

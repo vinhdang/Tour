@@ -1,0 +1,9 @@
+﻿@model List<Website.Areas.Administrator.Models.TourProvider.TourProviderDisplay>
+@{
+    ViewBag.Title = "Quản Lý >> Nhà Cung Cấp Tour";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}  
+
+<script src="@Url.Content("~/Scripts/sys-tour-type.js")" type="text/javascript"></script>
+
+@Html.Partial("TourProviderList")

@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html >
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <!--tiêu chí SEO chính-->
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keyword" content="@ViewBag.KeyWords" />
+    <meta name="robots" content="index,follow,all" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="language" content="VietNamese" />
+    <!--end-->
+    <!--quy định dữ liệu khi chia sẻ trên facebook-->
+    <meta itemprop="name" content="@ViewBag.Title" />
+    <meta itemprop="description" content="@ViewBag.Description" />
+    <meta itemprop="image" content="http://vietrip.vn/images/logo.png" />
+    <!--end-->
+    <!--quy định dữ liệu khi chia sẻ trên google plust-->
+    <meta content="@ViewBag.Title" property="og:title" />
+    <meta content="http://vietrip.vn/images/logo.png" property="og:image" />
+    <meta content="@ViewBag.Description"
+        property="og:description" />
+    <!--end-->
+    <link rel="shortcut icon" href="@Url.Content("http://www.vietrip.vn/Logo.jpg")" type="image/x-icon" />
+    <link rel="stylesheet" href="@Url.Content("~/css/province.css")" />
+    <meta content="RevealTrans(Duration=0,Transition=1)" http-equiv="PAGE-ENTER" />
+    <link href="@Url.Content("~/Content/FrontEnd/colorbox.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/FrontEnd/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.8.2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.colorbox-min.js")" type="text/javascript"></script>
+    <link rel="stylesheet" href="@Url.Content("~/css/jquery.selectbox.css")" />
+    <link href="@Url.Content("~/Content/FrontEnd/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcValidation.js")" type="text/javascript"></script>
+    @{ Html.RenderAction("Analytics", "Config"); }
+    @{ Html.RenderAction("Analytics", "Config"); }
+    <script type="text/javascript">
+        $.datepicker.regional['vi'] = {
+            closeText: 'Đóng',
+            prevText: '&#x3c;Trước',
+            nextText: 'Tiếp&#x3e;',
+            currentText: 'Hôm nay',
+            monthNames: ['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu',
+		'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'],
+            monthNamesShort: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+		'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
+            dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+            dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+            weekHeader: 'Tu',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['vi']);
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="wrapTop">
+            <div class="top">
+                @{Html.RenderAction("Logo", "Config");}
+                @{Html.RenderAction("Navigation", "Category", new { active = "1" });}
+                <div class="clear">
+                </div>
+            </div>
+            @{Html.RenderAction("Search", "Hotel");}
+        </div>
+        <div class="wrapContentInner" style="background-color: #fff;">
+            <div style="padding: 30px;">
+                @RenderBody()
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="footerWrap">
+                <div class="footerNav">
+                    @{Html.RenderAction("Company", "Config");}
+                    @{Html.RenderAction("SiteMap", "Category");}
+                    @{Html.RenderAction("Introduction", "Category");}
+                    <div class="clear">
+                    </div>
+                </div>
+                @{Html.RenderAction("Home", "Social");}
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // TOP
+    /*
+    $(".wrapTop").height($(window).height());
+    someHeight = $(window).height()/2 - 100;
+    $(".search").css("top", someHeight);
+    $(window).resize(function(){
+    $(".wrapTop").height($(window).height());
+    someHeight = $(window).height()/2 - 100;
+    $(".search").css("top", someHeight);
+    })
+    */
+
+    // TEXTBOX
+    $("#txtLocal").click(function () {
+        $(".boxLocal").show();
+    })
+
+    // EQUAL HEIGHT
+    /*
+    if($(".detailRgh").height() > $(".detailLft").height())
+    $(".detailLft").height($(".detailRgh").height()-30);
+    else if ($(".detailRgh").height() < $(".detailLft").height())
+    $(".detailRgh").height($(".detailLft").height());
+    */
+</script>
+<script type="text/javascript" src="/js/custom_javascript.js"></script>
+</html>

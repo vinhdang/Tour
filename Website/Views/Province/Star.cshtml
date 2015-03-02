@@ -1,0 +1,45 @@
+﻿@using Domain;
+@using Service.Helpers;
+@model List<SelectListItem>
+@if (Model != null && Model.Count > 0)
+{
+    string[] star = Protector.String(ViewBag.Star).Split(',');
+    <h2>
+        Tiêu chuẩn</h2>
+    using (Html.BeginForm("StarPost", "Province", new { provinceName = ViewBag.ProvinceName, type = ViewBag.HotelType, fromDate = ViewBag.FromDate, toDate = ViewBag.ToDate, theme = ViewBag.HotelTheme, district = ViewBag.District, area = ViewBag.Area, comfort = ViewBag.Comfort }, FormMethod.Post, new { id = "StarPost" }))
+    {
+    <div class="boxContent" style="z-index: 4480;">
+        <table>
+            <tbody>
+                @foreach (SelectListItem item in Model)
+                {
+                           
+                    <tr>
+                        <td>
+                            @if (star != null && star.Length > 0 && star.Contains(item.Value.ToString()))
+                            {
+                                <input type="checkbox" checked ="checked"   id="StarID" value="@item.Value" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="StarID" id="StarID" value="@item.Value" />
+                            }
+                        </td>
+                        <td>
+                            @for (int i = 0; i < Protector.Int(item.Value); i++)
+                            {
+                                <img src="/images/star-on.png" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+    <script type="text/javascript">
+        $(":checkbox[id='StarID']").click(function () {
+            $("#StarPost").submit();
+        });
+    </script>
+}

@@ -1,0 +1,139 @@
+﻿@using Domain
+@{
+    var tourid = ViewData["TourId"];
+}
+
+<script type="text/javascript">
+    //var markers = [
+    //    {
+    //        "title": 'Vietrip',
+    //        "lat": '10.797460',
+    //        "lng": '106.688853',
+    //        "description": 'Alibaug is a coastal town and a municipal council in Raigad District in the Konkan region of Maharashtra, India.'
+    //    }
+    //    ,
+    //    {
+    //        "title": 'Bà Rịa - Vũng Tàu',
+    //        "lat": '10.489222',
+    //        "lng": '107.174150',
+    //        "description": 'Mumbai formerly Bombay, is the capital city of the Indian state of Maharashtra.'
+    //    }
+    //    ,
+    //    {
+    //        "title": 'Khách sạn Imperial',
+    //        "lat": '10.344846',
+    //        "lng": '107.095953',
+    //        "description": 'Pune is the seventh largest metropolis in India, the second largest in the state of Maharashtra after Mumbai.'
+    //    }
+    //];
+    
+    function loadMap(markers) {
+        var mapOptions = {
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+            zoom: 6,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        var infoWindow = new google.maps.InfoWindow({
+            maxWidth: 300
+        });
+        var lat_lng = new Array();
+        var latlngbounds = new google.maps.LatLngBounds();
+        for (i = 0; i < markers.length; i++) {
+            var data = markers[i];
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            lat_lng.push(myLatlng);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: data.title
+            });
+            latlngbounds.extend(marker.position);
+            (function (marker, data) {
+                google.maps.event.addListener(marker, "click", function (e) {
+                    infoWindow.setContent(data.description);
+                    infoWindow.open(map, marker);
+                });
+            })(marker, data);
+        }
+        map.setCenter(latlngbounds.getCenter());
+        map.fitBounds(latlngbounds);
+
+        //***********ROUTING****************//
+
+        //Intialize the Path Array
+        var path = new google.maps.MVCArray();
+
+        //Intialize the Direction Service
+        //var service = new google.maps.DirectionsService();
+
+        //Set the Path Stroke Color
+        var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+
+        //Loop and Draw Path Route between the Points on MAP
+        for (var i = 0; i < lat_lng.length; i++) {
+            if ((i + 1) < lat_lng.length) {
+                var src = lat_lng[i];
+                var des = lat_lng[i + 1];
+
+                path.push(src);
+                poly.setPath(path);
+
+                path.push(des);
+                poly.setPath(path);
+
+                //service.route({
+                //        origin: src,
+                //        destination: des,
+                //        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                //    }, function(result, status) {
+                //        if (status == google.maps.DirectionsStatus.OK) {
+                //            for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                //                path.push(result.routes[0].overview_path[i]);
+                //            }
+                //        }
+                //    });
+            }
+        }
+    };
+
+    $(document).ready(function () {
+        var markers = [];
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetListAgenda", "Tour", new{@tourid = tourid})',
+            success : function (data) {
+                if (data.agenda.length > 0) {
+                    $.each(data.agenda, function (i, item) {
+                        markers.push({
+                            "title": item.Name,
+                            "lat": item.Lat,
+                            "lng": item.Lng,
+                            "description": item.Description
+                        });
+                    });
+                } else {
+                    markers.push({
+                        "title": 'Vietrip',
+                        "lat": 10.797460,
+                        "lng": 106.688853,
+                        "description": 'Công ty du lịch Vietrip'
+                    });
+                }
+                
+                loadMap(markers);
+            }
+        });
+        
+        
+    });
+    
+    
+    
+</script>
+<h1>Bản Đồ</h1>
+<div class="line2"></div>
+<div class="hpadding20">
+	<div id="map-canvas"></div>
+</div>		
+<div class="line4"></div>	

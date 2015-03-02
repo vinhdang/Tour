@@ -1,0 +1,134 @@
+﻿@using Domain
+@model List<Website.Model.Tour.TourPictureDisplay>
+@{
+    var pictures = Model;
+    var tour = ViewData["Tour"] == null ? null : (Tour)ViewData["Tour"];
+    var tourName = tour != null ? tour.Name : string.Empty;
+    var duration = tour != null ? string.Format("{0}N{1}Đ",tour.Duration, (tour.Duration-1)) : string.Empty;
+    var totalPoint = tour.Comments.Where(c => (bool)c.IsEnable).Select(c => c.Level).ToList();
+    var rating_url = string.Format("~/Content/FrontEnd/images/user-rating-{0}.png", totalPoint.Count > 0 ?(totalPoint.Sum(l => l.Value) / totalPoint.Count) : 0);
+    var phones = ViewBag.Phone == null ? null : (List<Support>)ViewBag.Phone;
+}
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet">
+<script>
+    $(document).ready(function () {
+        sys.detail.index.gallery.initPage();
+    });
+</script>
+
+<div class="container pagecontainer offset-0">	
+    <!-- SLIDER -->
+    <div class="col-md-8 details-slider">
+        <div id="c-carousel">
+            <div id="wrapper">
+                <div id="inner">
+                    <div id="caroufredsel_wrapper2">
+                        <div id="carousel">
+                            @if(pictures != null)
+                            {
+                                foreach (var picture in pictures)
+                                {
+                                    <img src="@picture.PictureUrl" alt="@picture.Alt"/>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                    <div id="pager-wrapper">
+                        <div id="pager">
+                            @if(pictures != null)
+                            {
+                                foreach (var picture in pictures)
+                                {
+                                    <img src="@picture.PictureUrl" width="120" height="68" alt="@picture.Alt"/>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <button id="prev_btn2" class="prev2"><img src="@Url.Content("~/Content/FrontEnd/images/spacer.png")" alt=""/></button>
+                <button id="next_btn2" class="next2"><img src="@Url.Content("~/Content/FrontEnd/images/spacer.png")" alt=""/></button>		
+					
+            </div>
+        </div> <!-- /c-carousel -->
+    </div>
+    <!-- END OF SLIDER -->			
+			
+    <!-- RIGHT INFO -->
+    <div class="col-md-4 detailsright offset-0">
+        <div class="padding20">
+            <h3 class="lh1" style="line-height: 35px !important;">@tourName</h3>
+            <p title="@duration">@duration</p>
+        </div>
+        <div class="line3"></div>
+        <div class="hpadding20">
+            <a href="#price" class="booknow margtop20 btnmarg">XEM GIÁ<!--3Tr5 VNĐ--></a>
+        </div>
+        <div class="col-md-12 padding20">
+            <a href="javascript:;" class="booknow margtop20 btnmarg" data-toggle="modal" data-target="#order-request-modal">Đặt Tour</a>
+        </div>
+        <div class="line3"></div>
+        <div class="col-md-6 bordertype3">
+            <img src="@Url.Content(rating_url)" alt=""/><br/>
+            @tour.Comments.Where(c => (bool)c.IsEnable).Count() nhận xét
+        </div>
+        <div class="col-md-6 bordertype3">
+            <a href="#comment" class="btn btn-link grey">+Đánh giá</a>
+        </div>
+        <div class="clearfix"></div><br/>
+				
+        <div class="hpadding20">
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                <a class="addthis_button_preferred_1"></a>
+                <a class="addthis_button_preferred_2"></a>
+                <a class="addthis_button_preferred_3"></a>
+                <a class="addthis_button_preferred_4"></a>
+                <a class="addthis_button_compact"></a>
+                <a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = { "data_track_addressbar": true };</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-537e0f0423d3fadf"></script>
+            <!-- AddThis Button END -->
+        </div>
+    </div>
+    <!-- END OF RIGHT INFO -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="order-request-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<form role="form" id="form_order_tour" action="@Url.Action("OrderTour", "Tour", new {tourid = tour.ID})">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Gửi Yêu Cầu</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="exampleInputEmail1">Email</label>
+						<input name="order_email" type="email" class="form-control required" placeholder="Địa chỉ email">
+					</div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Điện thoại</label>
+                        <input name="order_phone" type="text" class="form-control required" placeholder="Số điện thoại">
+                    </div>
+                    <div class="form-group">
+						<label for="exampleInputPassword1">Ghi chú</label>
+                        <textarea name="order_note" class="form-control required" placeholder="Ghi chú"></textarea>
+					</div>
+				</div>
+                <div class="modal-footer">
+                    <div style="float: left;">
+                        <span>Hỗ trợ: @(phones != null ? string.Join(" - ", phones.Select(p => p.Value).ToList()) : string.Empty)</span>
+                    </div>
+                    <button name="send_request_tour" type="button" class="btn btn-primary">Gửi</button>
+                    <button name="close_modal_tour" type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+			</div>
+		</form>
+	</div>
+</div>

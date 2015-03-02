@@ -1,0 +1,203 @@
+﻿@model Website.Areas.Administrator.Models.TourSuggestion.SuggestionModel
+@{
+    ViewBag.Title = "Quản Lý Tour >> Thêm Mới Dịch vụ";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#NationalID').change(function () {
+            var nationalID = $(this).val();
+            var province = $('#ProvinceID');
+            var AreaID = $('#AreaID');
+            var DistrictID = $('#DistrictID');
+            if (nationalID != null && nationalID != '') {
+                $.getJSON('@Url.Action("SelectProvince")', { nationalID: nationalID }, function (list) {
+                    province.empty();
+                    province.append($('<option/>', {
+                        value: "",
+                        text: "[ - - Chọn Tỉnh Thành - - ]"
+                    }));
+                    AreaID.empty();
+                    AreaID.append($('<option/>', {
+                        value: "",
+                        text: "[ - - Chọn Khu Vực - - ]"
+                    }));
+                    DistrictID.empty();
+                    DistrictID.append($('<option/>', {
+                        value: "",
+                        text: "[ - - Chọn Quận Huyện - - ]"
+                    }));
+
+                    $.each(list, function (index, info) {
+                        province.append($('<option/>', {
+                            value: info.Value,
+                            text: info.Text,
+                            selected: info.Selected
+                        }));
+                    });
+                });
+            }
+            else { }
+        });
+
+        $('#ProvinceID').change(function () {
+            var ProvinceID = $(this).val();
+            var DistrictID = $('#DistrictID');
+            var AreaID = $('#AreaID');
+            if (ProvinceID != null && ProvinceID != '') {
+                $.getJSON('@Url.Action("SelectDistrict")', { provinceID: ProvinceID }, function (list) {
+                    DistrictID.empty();
+                    DistrictID.append($('<option/>', {
+                        value: "",
+                        text: "[ - - Chọn Quận Huyện - - ]"
+                    }));
+                    AreaID.empty();
+                    AreaID.append($('<option/>', {
+                        value: "",
+                        text: "[ - - Chọn Khu Vực - - ]"
+                    }));
+                    $.each(list, function (index, info) {
+                        DistrictID.append($('<option/>', {
+                            value: info.Value,
+                            text: info.Text,
+                            selected: info.Selected
+                        }));
+                    });
+                });
+            }
+            else { }
+        });
+        $('#DistrictID').change(function () {
+            var DistrictID = $(this).val();
+            var AreaID = $('#AreaID');
+
+            if (DistrictID != null && DistrictID != '') {
+                $.getJSON('@Url.Action("SelectArea")', { districtID: DistrictID }, function (list) {
+                    AreaID.empty();
+                    AreaID.append($('<option/>', {
+                        value: "",
+                        text: "[ - - Chọn Khu Vực - - ]"
+                    }));
+
+                    $.each(list, function (index, info) {
+                        AreaID.append($('<option/>', {
+                            value: info.Value,
+                            text: info.Text,
+                            selected: info.Selected
+                        }));
+                    });
+                });
+            }
+            else { }
+        });
+    });
+
+</script>
+
+
+@using (Html.BeginForm("Edit", "TourSuggestion", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    <div class="box">
+        <div class="heading">
+            <h1>
+                <img alt="" src="/Content/Administrator/Images/category.png">
+                Quản Lý Tour >> Sửa Dịch Vụ</h1>
+            <div class="buttons">
+                <input type="submit" value="Sửa Dịch Vụ" class="t-button" />
+                @Html.ActionLink("Danh Sách Dịch Vụ", "Index", null, new { @class = "t-button" })
+            </div>
+        </div>
+        <div class="content">
+            <div style="display: inline-block; width: 100%; margin-bottom: 15px; margin-top: 15px;
+                clear: both;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="box_into">
+                    <tr>
+                        <td colspan="2" class="input_label"style="font-size: 16px; text-align: center; color: #00A7B3;">
+                            <span>Thông tin địa điểm</span>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.NationalID)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.DropDownListFor(r => r.NationalID, Model.Nationals, "[ - - - Chọn Quốc Gia - - - ]")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.ProvinceID)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.DropDownListFor(r => r.ProvinceID, Model.Provinces, "[ - - - Chọn Tỉnh Thành - - - ]")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.DistrictID)
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.DropDownListFor(r => r.DistrictID, Model.Districts, "[ - - - Chọn Quận Huyện - - - ]")
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.AreaID)
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.DropDownListFor(r => r.AreaID, Model.Areas, "[ - - - Chọn Khu Vực - - - ]")
+                        </td>
+                    </tr>  
+                    <tr>
+                        <td colspan="2" class="input_label"style="font-size: 16px; text-align: center; color: #00A7B3;">
+                            <span>Thông tin chi tiết</span>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextBoxFor(r => r.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.KeyWord)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextBoxFor(r => r.KeyWord)
+                        </td>
+                    </tr>     
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.Description)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextAreaFor(r => r.Description)
+                        </td>
+                    </tr>
+                   <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                           <img src="@Model.ImageUrl" width="200px"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.FAvartar)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextBoxFor(u => u.FAvartar, new { @type = "file" })<span style="color: Red;">(max 327px )</span>
+                        </td>
+                    </tr>
+                </table>
+                @Html.ValidationSummary(false)
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,96 @@
+﻿@using Domain
+@model Domain.Config
+@{
+    var content = Model == null ? null : (Domain.Config)Model;
+    var phones = ViewBag.Phone == null ? null : (List<Support>)ViewBag.Phone;
+    var skypes = ViewBag.Skype == null ? null : (List<Support>)ViewBag.Skype;
+    var yhs = ViewBag.Yahoo == null ? null : (List<Support>)ViewBag.Yahoo;
+}
+
+<div class="container pagecontainer offset-0">	
+    <!-- SLIDER -->
+    <div class="col-md-8 details-slider" style="overflow: auto !important;">
+        @if(content != null && !string.IsNullOrEmpty(content.Value))
+        {
+            <div style="padding: 10px 0px;">
+                @Html.Raw(content.Value)
+            </div>
+        }else
+        {
+            <span>Hiện chưa có thông tin tuyển dụng. Cảm ơn!</span>
+        }
+        
+    </div>
+    <!-- END OF SLIDER -->			
+			
+    <!-- RIGHT INFO -->
+    <div class="col-md-4 detailsright offset-0">
+        <div class="cpadding1">
+            <span class="icon-help"></span>
+            <h3>Hỗ trợ 24/7</h3>
+             <table>
+                @if(phones != null)
+                {
+                    foreach (var support in phones)
+                    {
+                        <tr>
+                            <td><p class="opensans size30 green xslim">@support.Value</p></td>
+                        </tr>
+                    }
+                }
+            </table>
+            <hr/>
+        <table>
+            <tr>
+                @if(skypes != null)
+                {
+                    foreach (var skype in skypes)
+                    {
+                        var link = string.Format("skype:{0}?call", skype.Value);
+                        <td>
+                            <a href="@link">
+                                <img width="50" src="@Url.Content("~/Content/FrontEnd/custom/icon-skype.png")" />
+                                @skype.Name
+                            </a>
+                        </td>
+                    }
+                }
+            </tr>
+            <tr>
+                @if(yhs != null)
+                {
+                    foreach (var yh in yhs)
+                    {
+                        var link = string.Format("ymsgr:sendim?{0}", yh.Value);
+                        <td>
+                            <a href="@link">
+                                <img width="50" src="@Url.Content("~/Content/FrontEnd/custom/icon-yahoo.png")" />
+                            </a>
+                            @yh.Name
+                        </td>
+                    }
+                     
+                }  
+            </tr>
+        </table>
+        </div>
+       
+        <div class="clearfix"></div><br/>
+				
+        <div class="hpadding20">
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                <a class="addthis_button_preferred_1"></a>
+                <a class="addthis_button_preferred_2"></a>
+                <a class="addthis_button_preferred_3"></a>
+                <a class="addthis_button_preferred_4"></a>
+                <a class="addthis_button_compact"></a>
+                <a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = { "data_track_addressbar": true };</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-537e0f0423d3fadf"></script>
+            <!-- AddThis Button END -->
+        </div>
+    </div>
+    <!-- END OF RIGHT INFO -->
+</div>

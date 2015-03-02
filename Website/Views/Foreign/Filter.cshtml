@@ -1,0 +1,67 @@
+﻿@using Domain
+@using Website.Helpers
+@using Website.Model
+@{
+    var nationals = ViewData["Nationals"] == null ? null : (List<National>)ViewData["Nationals"];
+    var nationalSelected = ViewData["NationalSelected"] == null ? 0 : (int)ViewData["NationalSelected"];
+}
+@*@WebHelpers.GetMonths(DateTime.Now.AddYears(1))*@
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        sys.search.index.filter.initPage();
+    });
+</script>
+
+<input type="hidden" name="filter_action" value="@Url.Action("FilterData", "Foreign")"/>
+<div class="col-md-3 filters offset-0">
+	<!-- Price range -->					
+	
+	<!-- End of Price range -->
+	<!-- Price range -->					
+	<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
+		Mức giá <span class="collapsearrow"></span>
+	</button>
+					
+	<div id="collapse2" class="collapse in">
+		<div class="padding20">
+			<div class="layout-slider wh100percent">
+				<span class="cstyle09"><input id="price-range" type="slider" name="price" value="500000;10000000" /></span>
+			</div>
+			<script type="text/javascript" >
+			    jQuery("#price-range").slider({
+			        from: 500000, to: 10000000, step: 500000, smooth: true, round: 0, dimension: "&nbsp;VNĐ", skin: "round"
+			    }).bind('change', function (event, ui) { console.log('dasdsad');});
+			</script>
+		</div>
+	</div>
+	<!-- End of Price range -->
+	<!-- TOP TIP -->
+	<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
+		Quốc gia <span class="collapsearrow"></span>
+	</button>
+	<div id="collapse1" class="collapse in">
+        <div class="hpadding20">
+            @if (nationals != null)
+            {
+                foreach (var national in nationals)
+                {
+                    <div class="checkbox">
+                            <input class="filter_national" type="checkbox" @(national.ID == nationalSelected ? "checked=\"checked\"" : string.Empty) id="@string.Format("national_{0}", national.ID)" value="@national.ID">@national.Name
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="checkbox">
+                    <label>Không có dữ liệu</label>
+                </div> 
+            }
+        </div>
+		<div class="clearfix"></div>
+	</div>			
+	<!-- END OF BOOK FILTERS -->	
+				
+	<div class="line2"></div>
+	<div class="clearfix"></div>
+</div>

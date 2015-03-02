@@ -1,0 +1,219 @@
+﻿@model Website.Areas.Administrator.Models.Order.EditOrderModel 
+@{
+    ViewBag.Title = "Sửa Booking";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+@using Service.Helpers
+<div class="box">
+    <div class="heading">
+        <h1>
+            <img alt="" src="/Content/Administrator/Images/category.png">
+            Quản Lý >> Sữa Booking</h1>
+        <div class="buttons">
+            <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+            @Html.ActionLink("Danh Sách Booking", "Index", null, new { @class = "t-button" })
+        </div>
+    </div>
+    <div class="content">
+        <div style="display: inline-block; width: 100%; margin-bottom: 15px; margin-top: 15px;
+            clear: both;">
+            @Html.Partial("OrderInfoList", Model.OrderInfoList)
+        </div>
+        <br />
+        <br />
+        @using (Html.BeginForm())
+        { 
+             <table border="0" cellpadding="0" cellspacing="0" width="100%" class="box_into">
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.StatusID)<span class="star">(*)</span>
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @Html.DropDownListFor(r => r.StatusID, Model.StatusList, "[ - - - Trạng thái booking - - - ]")
+                    </td>
+                </tr>
+              <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.OrderCode)
+                    </td>
+                      <td width="80%" align="left" class="input_textbox">
+                        @Html.Raw(Model.OrderCode)
+                    </td>
+                </tr>
+                <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.HotelID)
+                    </td>
+                      <td width="80%" align="left" class="input_textbox">
+                        @Html.Raw(Model.Hotel.Name)
+                    </td>
+                </tr>
+               <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        Quốc gia
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @Html.Raw(Model.Hotel.National.Name)
+                    </td>
+                </tr>
+                <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.ProvinceID)
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @Html.Raw(Model.Hotel.Province.Name)
+                    </td>
+                </tr>
+                @if (Model.DistrictID != null)
+                {
+                   <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.DistrictID)
+                        </td>
+                         <td width="80%" align="left" class="input_textbox">
+                            @Html.Raw(Model.Hotel.District.Name)
+                        </td>
+                    </tr>
+                }
+                @if (Model.AreaID != null)
+                {
+                   <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.AreaID)
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.Raw(Model.Hotel.Area.Name)
+                        </td>
+                    </tr>
+                }
+               <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.FullName)
+                    </td>
+                      <td width="80%" align="left" class="input_textbox">
+                        @Html.TextBoxFor(r => r.FullName)
+                    </td>
+                </tr>
+               <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.Phone)
+                    </td>
+                      <td width="80%" align="left" class="input_textbox">
+                        @Html.TextBoxFor(r => r.Phone)
+                    </td>
+                </tr>
+             <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.Email)
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @Html.TextBoxFor(r => r.Email)
+                    </td>
+                </tr>
+               <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.Address)
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @Html.TextBoxFor(r => r.Address)
+                    </td>
+                </tr>
+                <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.RoomType)
+                    </td>
+                   <td width="80%" align="left" class="input_textbox">
+                        @switch (Model.RoomType)
+                        {
+                            case 1:
+                            <input type="radio" value="1" checked="checked" name="RoomType" id="RoomType" />
+                            <label>
+                                Phòng không hút thuốc</label>
+                            <input type="radio" value="2" name="RoomType" id="RoomType" />
+                            <label>
+                                Phòng hút thuốc</label>
+                                break;
+                            case 2:
+                            <input type="radio" value="1" name="RoomType" id="RoomType" />
+                            <label>
+                                Phòng không hút thuốc</label>
+                            <input type="radio" value="2" checked="checked" name="RoomType" id="RoomType" />
+                            <label>
+                                Phòng hút thuốc</label>
+                                break;
+                        }
+                    </td>
+                </tr>
+               <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.Note)
+                    </td>
+                      <td width="80%" align="left" class="input_textbox">
+                        @Html.TextAreaFor(r => r.Note)
+                    </td>
+                </tr>
+               <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.PaymentType)
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @foreach (Domain.Payment item in Model.Payments)
+                        {
+                            if (item.PaymentID.ToString() == Model.PaymentType)
+                            { 
+                            <input type="radio" value="@item.PaymentID" checked="checked"  name="PaymentID" id="PaymentID" />  <label>
+                                @item.Name</label>
+                            }
+                            else
+                            {
+                            <input type="radio" value="@item.PaymentID" name="PaymentID" id="PaymentID" />  <label>
+                                @item.Name</label>
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.CompanyName)
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @Html.TextBoxFor(r => r.CompanyName)
+                    </td>
+                </tr>
+             <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.CompanyAddress)
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @Html.TextBoxFor(r => r.CompanyAddress)
+                    </td>
+                </tr>
+              <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.MST)
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @Html.TextBoxFor(r => r.MST)
+                    </td>
+                </tr>
+              <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.CreatedDate)
+                    </td>
+                     <td width="80%" align="left" class="input_textbox">
+                        @string.Format("{0}", Model.CreatedDate)
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" style="width: 20%" class="input_label">
+                        @Html.LabelFor(r => r.IP)
+                    </td>
+                    <td width="80%" align="left" class="input_textbox">
+                        @Html.TextAreaFor(r => r.IP)
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+</div> 

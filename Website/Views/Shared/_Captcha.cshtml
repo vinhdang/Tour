@@ -1,0 +1,17 @@
+﻿@model  Website.Models.Captcha.Captcha
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td>
+        </td>
+        <td>
+            <img src='@Url.Content("~/Captcha/Show")' alt="" class="captcha_img" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td style="padding-top: 4px;">
+            @Html.TextBoxFor(m => m.CaptchaValue, new { @class = "captcha_input" })
+        </td>
+    </tr>
+</table>

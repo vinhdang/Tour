@@ -1,0 +1,70 @@
+﻿@using Domain
+@model Website.Areas.Administrator.Models.Comment.CommentModel
+@{
+    ViewBag.Title = "Quản Lý >> Thêm Mới Nhận Xét";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+} 
+   
+
+@using (Html.BeginForm("Create", "TourComment", FormMethod.Post))
+{ 
+    <div class="box">
+        <div class="heading">
+            <h1>
+                <img alt="" src="/Content/Administrator/Images/category.png">
+                Quản Lý >> Thêm Mới Nhận Xét</h1>
+            <div class="buttons">
+                <input type="submit" value="Thêm Mới" class="t-button" />
+                @Html.ActionLink("Danh Sách Nhận Xét", "Index", new {id = (ViewBag.TourID ?? Model.TourID)}, new { @class = "t-button" })  
+                @Html.HiddenFor(r => r.TourID)
+            </div>
+        </div>
+        <div class="content">
+            <div style="display: inline-block; width: 100%; margin-bottom: 15px; margin-top: 15px;
+                clear: both;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="box_into">
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.Email)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextBoxFor(r => r.Email)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.Content)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextAreaFor(r => r.Content)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.Level)
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            <select name="Level">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.IsEnable)
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.CheckBoxFor(r => r.IsEnable)
+                        </td>
+                    </tr>
+                </table>
+                @Html.ValidationSummary(false)
+            </div>
+        </div>
+    </div>
+
+}
