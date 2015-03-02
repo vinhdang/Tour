@@ -1,0 +1,115 @@
+﻿@model Website.Areas.Administrator.Models.CompareType.CreatCompareTypeModel
+@{
+    ViewBag.Title = "Sữa So Sánh";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Sữa So Sánh
+    </h2>
+</div>
+@using (Html.BeginForm("Edit", "CompareType", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Description)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Description)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Order)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Order, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+              @if (!string.IsNullOrEmpty(Model.Logo))
+            { 
+                
+                <tr class="dataRow">
+                    <td class="label">
+                        @Html.LabelFor(r => r.Logo)
+                    </td>
+                    <td class="dot">
+                        :
+                    </td>
+                    <td class="data">
+                        <img src="@Service.Helpers.FileHelper.GetCompareType_Picture(Model.Logo, Model.CompareTypeID)" width="200px" />
+                    </td>
+                </tr>
+           
+            
+            
+            }
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.FAvartar)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(u => u.FAvartar, new { @type = "file" })<span style="color: Red;">(
+                        max 200px )</span>
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+                    @Html.ActionLink("Danh Sách So Sánh", "Index", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+        @Html.ValidationSummary(false)
+    </div>
+}

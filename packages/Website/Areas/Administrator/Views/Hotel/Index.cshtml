@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Domain.Entities.Hotel>
+@{
+    ViewBag.Title = "Danh Sách Khách Sạn";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Khách Sạn
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Khách Sạn", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="HotelList">
+    @Html.Partial("HotelList", Model)
+</div>

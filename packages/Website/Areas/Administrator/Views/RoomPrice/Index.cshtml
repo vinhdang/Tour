@@ -1,0 +1,13 @@
+﻿@model List<Domain.Entities.RoomPrice>
+@{
+    ViewBag.Title = "Danh Sách Giá Phòng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Giá Phòng
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="RoomPriceList">
+    @Html.Partial("RoomPriceList", Model)
+</div>

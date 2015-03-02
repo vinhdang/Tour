@@ -1,0 +1,346 @@
+﻿@model Domain.Entities.Comment
+@{
+    ViewBag.Title = "Sửa Comment"; Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Sửa Comment
+    </h2>
+</div>
+@using (Html.BeginForm())
+{ 
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.HotelID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.Raw(Model.Hotel.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Email)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Email)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Title)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Title)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Content)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Content)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.CreatedDate)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @string.Format("{0:dd/MM/yyyy}", Model.CreatedDate)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IP)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.Raw(Model.IP)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Rate1)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @switch (Model.Rate1)
+                    {
+                        case 1:
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 2:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 3:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 4:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 5:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                    }
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Rate2)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @switch (Model.Rate2)
+                    {
+                        case 1:
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 2:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 3:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 4:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 5:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                    }
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Rate3)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @switch (Model.Rate3)
+                    {
+                        case 1:
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 2:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 3:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 4:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 5:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                    }
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Rate4)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @switch (Model.Rate4)
+                    {
+                        case 1:
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 2:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 3:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 4:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 5:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                    }
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Rate5)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @switch (Model.Rate5)
+                    {
+                        case 1:
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 2:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 3:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 4:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 5:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                    }
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Rate6)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @switch (Model.Rate6)
+                    {
+                        case 1:
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 2:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 3:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 4:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                        case 5:
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                        <img src="/images/star-on.png" />
+                            break;
+                    }
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+                    @Html.ActionLink("Danh Sách Comment Chờ Duyệt", "Waiting", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+    </div>
+    @Html.ValidationSummary(false)
+}

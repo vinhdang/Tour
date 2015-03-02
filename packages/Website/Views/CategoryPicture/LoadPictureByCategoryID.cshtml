@@ -1,0 +1,33 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model CategoryPicture
+@if (Model != null)
+{
+    switch (Model.Extension)
+    {
+        case ".jpg":
+        case ".gif":
+        case ".png":
+            if (!string.IsNullOrEmpty(Model.Url))
+            {
+    @MvcHtmlString.Create(
+                  string.Format("<a href=\"{0}\"><img alt=\"{1}\" src=\"{2}\"  /></a>", Model.Url, Model.Alt, FileHelper.GetCategory_Picture(Model.FileName, Model.CategoryID)));
+            }
+            else
+            {
+    @MvcHtmlString.Create(
+                  string.Format("<img alt=\"{0}\" src=\"{1}\"    />", Model.Alt, FileHelper.GetCategory_Picture(Model.FileName, Model.CategoryID)));
+
+            }
+            break;
+        case ".swf":
+    @MvcHtmlString.Create(string.Format("<embed  src=\"{0}\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" wmode=\"transparent\" />", FileHelper.GetCategory_Picture(Model.FileName, Model.CategoryID)));
+                                                                                                                                                                                                                                                             break;
+
+    }
+}
+else
+{
+    @MvcHtmlString.Create(
+                               string.Format("<img alt=\"{0}\" src=\"{1}\" />", "Thien Y", "/Images/anh2.jpg"));
+}

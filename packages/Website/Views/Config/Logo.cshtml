@@ -1,0 +1,22 @@
+﻿@model Domain.Entities.Config
+@using Service.Helpers;
+<div class="logo">
+    @if (Model != null)
+    {
+        string extension = Path.GetExtension(Model.Value).ToLower();
+        switch (extension)
+        {
+            case ".jpg":
+            case ".gif":
+            case ".png":
+        @MvcHtmlString.Create(
+                            string.Format("<a href=\"/\" ><img alt=\"Logo VieTrip\" src=\"{0}\" /></a>", FileHelper.GetConfig_Picture(Model.Value, Model.ConfigID)));
+
+                                                                                                                                                                   break;
+            case ".swf":
+        @MvcHtmlString.Create(string.Format("<embed width=\"206px\" height=\"90px\" src=\"{0}\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" wmode=\"transparent\" />", FileHelper.GetConfig_Picture(Model.Value, Model.ConfigID)));
+                                                                                                                                                                                                                                                                                         break;
+
+        }
+    }
+</div>

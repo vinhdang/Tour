@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.Category>
+@{
+    ViewBag.Title = "Danh Sách Chuyên Mục";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Chuyên Mục
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Chuyên Mục", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="CategoryList">
+    @Html.Partial("CategoryList", Model)
+</div>

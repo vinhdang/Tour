@@ -1,0 +1,96 @@
+﻿@model Website.Areas.Administrator.Models.CategoryPicture.CreateCategoryPictureModel
+@{
+    ViewBag.Title = "Thêm Ảnh";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml"; }
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Thêm Ảnh
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder">
+    @if (Model != null && Model.ListPictures != null)
+    {
+        <div id="listCategoryPicture">
+            @Html.Partial("CategoryPictureList", Model.ListPictures)
+        </div>
+    }
+    @using (Html.BeginForm("Create", "CategoryPicture", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    { 
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.ProductID)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.Category.Name
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Alt)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Alt)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.File)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(u => u.File, new { @type = "file" })
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Order)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Order, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="+ Thêm Ảnh" class="t-button" />
+                    @Html.ActionLink("Danh Sách Chuyên Mục", "Index", "Category", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+        @Html.ValidationSummary(false)
+    }
+</div>

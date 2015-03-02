@@ -1,0 +1,21 @@
+﻿@model  Domain.Entities.Hotel  
+@if (Model != null && !string.IsNullOrEmpty(Model.Lat) && !string.IsNullOrEmpty(Model.Lng))
+{
+    <div class="hotel_support">
+        <div class="hotel_support_title">
+            <span class="title">Bản đồ</span>
+        </div>
+        <div class="hotel_support_list" style="text-align: center;">
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $(".btn_search").colorbox({ iframe: true, innerWidth: 700, innerHeight: 450 });
+
+                });
+            </script>
+            <a href="/Hotel/MapList/@Model.HotelID" class="btn_search">
+                <img alt="@Model.Name" style="border:0px;" src="http://maps.googleapis.com/maps/api/staticmap?center=@Model.Lat,@Model.Lng&zoom=12&size=250x220&sensor=false&markers=icon:http://vietrip.vn/images/icon_red_H.png|@Model.Lat,@Model.Lng" />
+            </a>
+        </div>
+    </div>  
+}

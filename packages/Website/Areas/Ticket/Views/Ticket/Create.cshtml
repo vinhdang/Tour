@@ -1,0 +1,521 @@
+﻿@model Website.Areas.Ticket.Models.Ticket.CreateTicketModel
+@{
+    ViewBag.Title = "Thêm Mới Vé";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Thêm Mới Mới Vé
+    </h2>
+</div>
+@using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.pr)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.NationalID, Model.Nationals, "[ - - - Chọn Quốc Gia - - - ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.ProvinceID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.ProvinceID, Model.Provinces, "[ - - - Chọn Tỉnh Thành - - - ]")
+                    <script type="text/javascript">
+                        $('#NationalID').change(function () {
+                            var nationalID = $(this).val();
+                            var province = $('#ProvinceID');
+                            var AreaID = $('#AreaID');
+                            var DistrictID = $('#DistrictID');
+                            var HotelThemeID = $('#HotelThemeID');
+                            if (nationalID != null && nationalID != '') {
+                                $.getJSON('@Url.Action("SelectProvince")', { nationalID: nationalID }, function (list) {
+                                    province.empty();
+                                    province.append($('<option/>', {
+                                        value: "",
+                                        text: "[ - - Chọn Tỉnh Thành - - ]"
+                                    }));
+                                    AreaID.empty();
+                                    AreaID.append($('<option/>', {
+                                        value: "",
+                                        text: "[ - - Chọn Khu Vực - - ]"
+                                    }));
+                                    DistrictID.empty();
+                                    DistrictID.append($('<option/>', {
+                                        value: "",
+                                        text: "[ - - Chọn Quận Huyện - - ]"
+                                    }));
+                                    HotelThemeID.empty();
+                                    HotelThemeID.append($('<option/>', {
+                                        value: "",
+                                        text: "[ - - Chọn Chuỗi Khách Sạn - - ]"
+                                    }));
+                                    $.each(list, function (index, info) {
+                                        province.append($('<option/>', {
+                                            value: info.Value,
+                                            text: info.Text,
+                                            selected: info.Selected
+                                        }));
+                                    });
+                                });
+                            }
+                            else { }
+                        });
+
+                        $().ready(function () {
+                            $('#ProvinceID').change(function () {
+                                var ProvinceID = $(this).val();
+                                var DistrictID = $('#DistrictID');
+                                var AreaID = $('#AreaID');
+                                var HotelThemeID = $('#HotelThemeID');
+                                if (ProvinceID != null && ProvinceID != '') {
+                                    $.getJSON('@Url.Action("SelectDistrict")', { provinceID: ProvinceID }, function (list) {
+                                        DistrictID.empty();
+                                        DistrictID.append($('<option/>', {
+                                            value: "",
+                                            text: "[ - - Chọn Quận Huyện - - ]"
+                                        }));
+                                        AreaID.empty();
+                                        AreaID.append($('<option/>', {
+                                            value: "",
+                                            text: "[ - - Chọn Khu Vực - - ]"
+                                        }));
+                                        $.each(list, function (index, info) {
+                                            DistrictID.append($('<option/>', {
+                                                value: info.Value,
+                                                text: info.Text,
+                                                selected: info.Selected
+                                            }));
+                                        });
+                                    });
+                                    $.getJSON('@Url.Action("HotelTheme")', { provinceID: ProvinceID }, function (list) {
+                                        HotelThemeID.empty();
+                                        HotelThemeID.append($('<option/>', {
+                                            value: "",
+                                            text: "[ - - Chọn Chuỗi Khách Sạn - - ]"
+                                        }));
+
+                                        $.each(list, function (index, info) {
+                                            HotelThemeID.append($('<option/>', {
+                                                value: info.Value,
+                                                text: info.Text,
+                                                selected: info.Selected
+                                            }));
+                                        });
+                                    });
+
+                                }
+                                else { }
+                            });
+                            $('#DistrictID').change(function () {
+                                var DistrictID = $(this).val();
+                                var AreaID = $('#AreaID');
+
+                                if (DistrictID != null && DistrictID != '') {
+                                    $.getJSON('@Url.Action("SelectArea")', { districtID: DistrictID }, function (list) {
+                                        AreaID.empty();
+                                        AreaID.append($('<option/>', {
+                                            value: "",
+                                            text: "[ - - Chọn Khu Vực - - ]"
+                                        }));
+
+                                        $.each(list, function (index, info) {
+                                            AreaID.append($('<option/>', {
+                                                value: info.Value,
+                                                text: info.Text,
+                                                selected: info.Selected
+                                            }));
+                                        });
+                                    });
+                                }
+                                else { }
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.DistrictID)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.DistrictID, Model.Districts, "[ - - - Chọn Quận Huyện - - - ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.AreaID)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.AreaID, Model.Areas, "[ - - - Chọn Khu Vực - - - ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.HotelThemeID)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.HotelThemeID, Model.HotelThemes, "[ - - - Chọn Chuỗi Khách Sạn - - - ]")
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.HotelTypeID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.HotelTypeID, Model.HotelTypes, "[ - - - Chọn Loại Khách Sạn - - - ]")
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.PageTitle)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.PageTitle)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Description)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Description)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.KeyWord)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.KeyWord)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Address)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Address)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Content)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    <script src="@Url.Content("~/ckeditor/ckeditor.js")" type="text/javascript"></script>
+                    <script src="@Url.Content("~/ckfinder/ckfinder.js")" type="text/javascript"></script>
+                    @Html.TextAreaFor(r => r.Content)
+                    <script type="text/javascript">
+                        var Content = CKEDITOR.replace("Content");
+                        CKFinder.setupCKEditor(Content, "/ckfinder/");
+                    </script>
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Policy)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Policy)
+                    <script type="text/javascript">
+                        var Policy = CKEDITOR.replace("Policy");
+                        CKFinder.setupCKEditor(Policy, "/ckfinder/");
+                    </script>
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Promotion)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Promotion)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsPromotion)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsPromotion)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Lat)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Lat)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Lng)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Lng)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Loại thanh toán
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @foreach (SelectListItem item in (List<SelectListItem>)ViewBag.ListPayment)
+                    {
+                        if (item.Selected)
+                        {
+                        <input type="checkbox" checked="checked" value="@item.Value" id="listPaymentID" name="listPaymentID" /><label>@item.Text</label>
+                        <br />
+                        }
+                        else
+                        { 
+                        <input type="checkbox"  value="@item.Value" id="listPaymentID" name="listPaymentID" /><label>@item.Text</label>
+                        <br />
+                        }
+
+                    }
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Tiện nghi
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @foreach (SelectListItem item in (List<SelectListItem>)ViewBag.ListComfort)
+                    {
+                        if (item.Selected)
+                        {
+                        <input type="checkbox" checked="checked" value="@item.Value" id="listComfortID" name="listComfortID" /><label>@item.Text</label>
+                        <br />
+                        }
+                        else
+                        { 
+                        <input type="checkbox"  value="@item.Value" id="listComfortID" name="listComfortID" /><label>@item.Text</label>
+                        <br />
+                        }
+
+                    }
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Tiêu chuẩn sao<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.Star, Model.ListStars, "[ - - - Chọn Tiêu Chuẩn Sao - - - ]")
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Tùy chọn
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxList("type", Model.ListType, null)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.FAvartar)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(u => u.FAvartar, new { @type = "file" })<span style="color: Red;">(
+                        max 327px )</span>
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Order)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Order, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Commission)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Commission, new { @class = "numerictextBox" }) %
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsContact)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsContact)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="+ Thêm Mới Khách Sạn" class="t-button" />
+                    @Html.ActionLink("Danh Sách Khách Sạn", "Index", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+        @Html.ValidationSummary(false)
+    </div>
+}

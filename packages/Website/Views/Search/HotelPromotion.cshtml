@@ -1,0 +1,41 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Website.Models.Search.HotelPromotionModel
+@if (Model != null && Model.HotelPromotionList != null && Model.HotelPromotionList.Count > 0)
+{
+    using (Html.BeginForm("HotelPromotion", "Search", new { p = Model.ProvinceID, d = Model.DistrictID, a = Model.AreaID, c = Model.ComfortID, ht = Model.HotelThemeID, type = Model.HotelTypeID, fd = Model.FromDate, td = Model.ToDate, nr = Model.NumberRoom, ng = Model.NumberGuest }, FormMethod.Post, new { id = "HotelPromotionID" }))
+    {
+    <div class="district_list">
+        <div class="district_list_title">
+            <span>Khuyến Mãi</span>
+        </div>
+        <div class="district_list_content">
+            <table border="0" cellpadding="0" cellspacing="0">
+                @foreach (System.Web.Mvc.SelectListItem item in Model.HotelPromotionList)
+                {  
+                    <tr>
+                        <td style="padding-right: 10px; padding-top: 6px;">
+                            @if (Model.ListHotelPromotionID != null && Model.ListHotelPromotionID.Length > 0 && Model.ListHotelPromotionID.Contains(item.Value.ToString()))
+                            {
+                                <input type="checkbox" id="HotelPromotionID" name="HotelPromotionID" value="@item.Value" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" value="@item.Value" id="HotelPromotionID" name="HotelPromotionID" />
+                            }
+                        </td>
+                        <td>
+                            <label style="color: #0A84C1;">@item.Text</label>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <script type="text/javascript">
+                $(":checkbox[name='HotelPromotionID']").click(function () {
+                    $("#HotelPromotionID").submit();
+                });
+            </script>
+        </div>
+    </div>
+    }
+}

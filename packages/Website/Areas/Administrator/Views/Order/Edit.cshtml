@@ -1,0 +1,277 @@
+﻿@model Website.Areas.Administrator.Models.Order.EditOrderModel 
+@{
+    ViewBag.Title = "Sửa Booking";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+@using Service.Helpers
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Sửa Booking
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder">
+    <div id="OrderInfoList">
+        @Html.Partial("OrderInfoList", Model.OrderInfoList)
+    </div>
+    <br />
+    <br />
+    @using (Html.BeginForm())
+    { 
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.StatusID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.StatusID, Model.StatusList, "[ - - - Trạng thái booking - - - ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.OrderCode)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.Raw(Model.OrderCode)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.HotelID)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.Raw(Model.Hotel.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Quốc gia
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.Raw(Model.Hotel.National.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.ProvinceID)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.Raw(Model.Hotel.Province.Name)
+                </td>
+            </tr>
+            @if (Model.DistrictID != null)
+            {
+                <tr class="dataRow">
+                    <td class="label">
+                        @Html.LabelFor(r => r.DistrictID)
+                    </td>
+                    <td class="dot">
+                        :
+                    </td>
+                    <td class="data">
+                        @Html.Raw(Model.Hotel.District.Name)
+                    </td>
+                </tr>
+            }
+            @if (Model.AreaID != null)
+            {
+                <tr class="dataRow">
+                    <td class="label">
+                        @Html.LabelFor(r => r.AreaID)
+                    </td>
+                    <td class="dot">
+                        :
+                    </td>
+                    <td class="data">
+                        @Html.Raw(Model.Hotel.Area.Name)
+                    </td>
+                </tr>
+            }
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.FullName)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.FullName)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Phone)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Phone)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Email)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Email)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Address)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Address)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.RoomType)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @switch (Model.RoomType)
+                    {
+                        case 1:
+                        <input type="radio" value="1" checked="checked" name="RoomType" id="RoomType" />
+                        <label>
+                            Phòng không hút thuốc</label>
+                        <input type="radio" value="2" name="RoomType" id="RoomType" />
+                        <label>
+                            Phòng hút thuốc</label>
+                            break;
+                        case 2:
+                        <input type="radio" value="1" name="RoomType" id="RoomType" />
+                        <label>
+                            Phòng không hút thuốc</label>
+                        <input type="radio" value="2" checked="checked" name="RoomType" id="RoomType" />
+                        <label>
+                            Phòng hút thuốc</label>
+                            break;
+                    }
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Note)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Note)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.PaymentType)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @foreach (Domain.Entities.Payment item in Model.Payments)
+                    {
+                        if (item.PaymentID.ToString() == Model.PaymentType)
+                        { 
+                        <input type="radio" value="@item.PaymentID" checked="checked"  name="PaymentID" id="PaymentID" />  <label>
+                            @item.Name</label>
+                        }
+                        else
+                        {
+                        <input type="radio" value="@item.PaymentID" name="PaymentID" id="PaymentID" />  <label>
+                            @item.Name</label>
+                        }
+                    }
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.CompanyName)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.CompanyName)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.CompanyAddress)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.CompanyAddress)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.MST)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.MST)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.CreatedDate)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @string.Format("{0}", Model.CreatedDate)
+                </td>
+            </tr>
+
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IP)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.IP)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+                    @Html.ActionLink("Danh Sách Booking", "Index", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+    }
+</div>

@@ -1,0 +1,9 @@
+﻿<div class="footer_body">
+    <div class="footer_item" style="height: 140px; padding-right: 10px; width: 360px;">
+        <h5 style="width: 300px;">
+            Cơ quan chủ quản</h5>
+        @{ Html.RenderAction("CompanyInfo", "Config"); }
+    </div>
+    @{ Html.RenderAction("SiteMap", "Category"); }
+    @{ Html.RenderAction("Introduction", "Category"); }
+</div>

@@ -1,0 +1,15 @@
+﻿@model IQueryable<Domain.Entities.Email>
+@{
+    ViewBag.Title = "Danh Sách Email";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Email
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Email", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="EmailList">
+    @Html.Partial("EmailList")
+</div>

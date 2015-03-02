@@ -1,0 +1,103 @@
+﻿@{
+    Layout = "~/Views/Shared/SearchKey.cshtml";
+
+}
+@using Domain.Entities;
+@using Service.Helpers;
+@model  Website.Models.Search.SearchHelp
+<div class="search_key">
+    @if (Model != null)
+    {
+        <div class="help-search">
+            Kết quả tìm thấy với từ " <b>@Html.Raw(HttpUtility.HtmlDecode(Model.Name))</b>
+            "
+            <div class="help-search-content">
+                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center; font-weight: bold; font-size: 14px; padding: 5px 10px 5px 10px;
+                                text-transform: uppercase;" colspan="2">
+                                Chọn điểm đến mong muốn của quý vị từ danh sách bên dưới
+                            </td>
+                        </tr>
+                        <tr style="background-color: #cbe3ea;">
+                            <td style="padding: 7px 0px 7px 10px; border-top: 1px solid #c3c3c3;">
+                                Điểm đến phù hợp nhất
+                            </td>
+                            <td style="padding: 7px 0px 7px 10px; border-top: 1px solid #c3c3c3;">
+                                Quốc gia
+                            </td>
+                        </tr>
+                        @if (Model != null && Model.Provinces != null && Model.Provinces.Count > 0)
+                        {
+                            foreach (Province item in Model.Provinces)
+                            {
+                            <tr>
+                                <td style="padding: 7px 0px 7px 10px; border-top: 1px dashed #CCCBC5;">
+                                    <a href="@UrlHelp.getProvinceUrl(item.National.Name, item.Name, item.ProvinceID, item.NationalID)">@item.Name</a>
+                                </td>
+                                <td style="padding: 7px 0px 7px 10px; border-top: 1px dashed #CCCBC5;">
+                                    @item.National.Name
+                                </td>
+                            </tr>
+                            }
+                        }
+                        @if (Model != null && Model.Hotels != null && Model.Hotels.Count > 0)
+                        {
+                            foreach (Hotel item in Model.Hotels)
+                            {
+                            <tr>
+                                <td style="padding: 7px 0px 7px 10px; border-top: 1px dashed #CCCBC5;">
+                                    <a href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)">@item.Name
+                                        - @item.Province.Name</a>
+                                </td>
+                                <td style="padding: 7px 0px 7px 10px; border-top: 1px dashed #CCCBC5;">
+                                    @item.National.Name
+                                </td>
+                            </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @if (Model.Banners != null && Model.Banners.Count > 0)
+            {
+                <div class="help-search-banner">
+                    @foreach (Banner item in Model.Banners)
+                    {
+                        <div class="help-search-banner-item">
+                            @if (!string.IsNullOrEmpty(item.Link))
+                            { <a  href="@item.Link" title="@item.Name">
+                                <img src="@FileHelper.GetBanner_Picture(item.FileName, item.BannerID)" width="592px"  alt="@item.Name" /></a>
+                            }
+                            else
+                            {
+                                <img src="@FileHelper.GetBanner_Picture(item.FileName, item.BannerID)" width="592px"  alt="@item.Name" />
+                            }
+                        </div>
+                    }
+                </div>
+            }
+            @using (Html.BeginForm("Find", "Search", FormMethod.Post))
+            { 
+                <div class="help-search-content">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="2" style="padding: 10px 0px 15px 10px;">
+                                Thay đổi tìm kiếm của quý vị
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0px 0px 5px 10px;">
+                                @Html.TextBoxFor(t => t.KeyWord)
+                            </td>
+                            <td style="padding: 0px 0px 5px 10px;">
+                                <input type="image" value="Tìm kiếm" src="/Content/FrontEnd/images/tim-kiem.jpg">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        </div>
+    }
+</div>

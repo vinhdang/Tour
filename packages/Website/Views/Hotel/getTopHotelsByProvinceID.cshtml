@@ -1,0 +1,38 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  List<MyHotel> 
+@if (Model != null && Model.Count > 0)
+{
+    <div class="top_hotel_by_provinceID">
+        @foreach (MyHotel item in Model)
+        {
+            <div class="top_hotel_by_provinceID_item">
+                <div class="top_hotel_by_provinceID_item_image">
+                    <a title="@item.Name" href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)">
+                        <img src="@FileHelper.GetHotel_Picture(item.HotelPicture.FileName, item.HotelPicture.HotelID)" alt="@item.HotelPicture.Alt" />
+                    </a>
+                </div>
+                <div class="top_hotel_by_provinceID_item_content">
+                    <div class="top_hotel_by_provinceID_item_content_title">
+                        <a href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)" title="@item.Name">
+                            @item.Name
+                        </a>
+                    </div>
+                    @if (!string.IsNullOrEmpty(item.Address))
+                    {
+                        <div class="top_hotel_by_provinceID_item_content_address">
+                            @item.Address
+                        </div>
+                    }
+                    <div class="top_hotel_by_provinceID_item_content_star">
+                        @{ Html.RenderAction("Star", "Hotel", new { star = item.Star }); }
+                    </div>
+                    <div class="top_hotel_by_provinceID_item_content_price">
+                        <span>Giá từ: </span><span class="span-price">@String.Format("{0:#,###}", item.Price)
+                            VND</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

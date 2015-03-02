@@ -1,0 +1,13 @@
+﻿@model List<Domain.Entities.EmailGetPrice>
+@{
+    ViewBag.Title = "Danh Sách Nhận Giá Tốt";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Nhận Giá Tốt
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="EmailGetPriceList">
+    @Html.Partial("EmailGetPriceList")
+</div>

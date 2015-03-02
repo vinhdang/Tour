@@ -1,0 +1,36 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model List<Support>
+<div class="support">
+    @{ Html.RenderAction("HotLine", "Config"); }
+    <div class="online-support">
+        @if (Model != null && Model.Count > 0)
+        {
+            int count = 0;
+            int max = Model.Count;
+            foreach (Support item in Model)
+            {
+                switch (item.Type)
+                {
+                    case 1:
+            <a  class="@TextHelper.CheckYahoo(item.Value)" href="ymsgr:sendIM?@item.Value">
+                @item.Name
+            </a>
+           break;
+                    case 2:
+            <a  class="@TextHelper.CheckKype(item.Value)" href="skype:@item.Value?call">
+                @item.Name
+            </a>
+           break;
+                }
+                count++;
+                if (count < max)
+                {
+            <span class="separator">&nbsp;</span>
+                }
+
+            }
+
+        }
+    </div>
+</div>

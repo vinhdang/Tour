@@ -1,0 +1,38 @@
+﻿@using Service.Helpers
+@using Domain.Entities
+@model Website.Areas.Administrator.Models.Email.ImportMailModel
+@{
+    ViewBag.Title = "Import Mail"; Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Import Mail
+    </h2>
+</div>
+@using (Html.BeginForm("Import", "Email", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.File)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(u => u.File, new { @type = "file" })
+                    <a href="/Resources/Deffile/Email.xls" target="_blank">Xem file mẫu</a>
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="Import Email" class="t-button" />
+                    @Html.ActionLink("Danh Sách Email", "Index", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+    </div>
+}

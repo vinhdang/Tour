@@ -1,0 +1,40 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+<div class="footer_province_body">
+    @foreach (SelectListItem item in GlobalVariables.ProvinceType)
+    {
+
+        switch (item.Value)
+        {
+            case "1":
+        <div class="footer_item" style="padding-right: 10px; width: 280px;">
+            <h5 style="width: 250px;">
+                @item.Text
+            </h5>
+            @{ Html.RenderAction("ProvinceFooterItem", "Province", new { type = @item.Value });
+            }
+        </div>
+               break;
+            case "2":
+        <div class="footer_item" style="padding-right: 10px; padding-left: 10px; width: 280px;">
+            <h5 style="width: 250px;">
+                @item.Text
+            </h5>
+            @{ Html.RenderAction("ProvinceFooterItem", "Province", new { type = @item.Value });
+            }
+        </div>
+          
+               break;
+            case "3":
+        <div style="padding-left: 10px; width: 280px; float: left;">
+            <h5 style="width: 250px; font-weight: bold; margin: 0px; border-bottom: 1px solid #E2EFF8;
+                color: #0a84c1; font-size: 17px; padding-bottom: 2px;">
+                @item.Text
+            </h5>
+            @{ Html.RenderAction("ProvinceFooterItem", "Province", new { type = @item.Value });
+            }
+        </div>
+               break;
+        }
+    }
+</div>

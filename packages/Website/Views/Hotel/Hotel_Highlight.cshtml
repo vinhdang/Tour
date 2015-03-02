@@ -1,0 +1,72 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  List<MyHotel> 
+@if (Model != null && Model.Count > 0)
+{
+    <div class="hotel_highlight">
+        <div class="hotel_highlight_title">
+            <span class="title">Khách sạn nổi bật</span>
+        </div>
+        <div class="hotel_highlight_list">
+            <div class="hotel_highlight_list_item">
+                <div class="hotel_highlight_list_item_col1">
+                    Khách sạn
+                </div>
+                <div class="hotel_highlight_list_item_col2">
+                    Điểm đến
+                </div>
+                <div class="hotel_highlight_list_item_col3">
+                    Tiêu chuẩn
+                </div>
+                <div class="hotel_highlight_list_item_col4">
+                    Giá từ / đêm
+                </div>
+            </div>
+            @{int mod = 0;}
+            @foreach (MyHotel item in Model)
+            {
+                if (mod % 2 == 0)
+                {
+                <div class="hotel_highlight_list_item">
+                    <div class="hotel_highlight_list_item_col1">
+                        <a title="@item.Name" href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)">
+                            @item.Name
+                        </a>
+                    </div>
+                    <div class="hotel_highlight_list_item_col2">
+                        @item.Province.Name
+                    </div>
+                    <div class="hotel_highlight_list_item_col3">
+                        @{ Html.RenderAction("Star", "Hotel", new { star = item.Star }); }
+                    </div>
+                    <div class="hotel_highlight_list_item_col4">
+                        @String.Format("{0:#,###}", item.Price)
+                    </div>
+                </div>
+                   
+            
+                }
+                else
+                {
+                <div class="hotel_highlight_list_item" style="background-color: #e2eff8;">
+                    <div class="hotel_highlight_list_item_col1">
+                        <a title="@item.Name" href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)">
+                            @item.Name
+                        </a>
+                    </div>
+                    <div class="hotel_highlight_list_item_col2">
+                        @item.Province.Name
+                    </div>
+                    <div class="hotel_highlight_list_item_col3">
+                        @{ Html.RenderAction("Star", "Hotel", new { star = item.Star }); }
+                    </div>
+                    <div class="hotel_highlight_list_item_col4">
+                        @String.Format("{0:#,###}", item.Price)
+                    </div>
+                </div>
+                }
+                mod++;
+            }
+        </div>
+    </div>
+}

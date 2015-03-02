@@ -1,0 +1,14 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model List<Province> 
+@if (Model != null && Model.Count > 0)
+{
+
+    <ul class="menu_footer">
+        @foreach (Province item in Model)
+        {
+            <li><a title="@item.Name" href="@UrlHelp.getProvinceUrl(item.National.Name, item.Name, item.ProvinceID, item.NationalID)" >
+                - @item.Name </a></li>
+        }
+    </ul>
+}

@@ -1,0 +1,68 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  List<MyHotel> 
+@if (Model != null && Model.Count > 0)
+{
+    <div class="hotel_good_price">
+        <div class="hotel_good_price_title">
+            <span class="title">Khách sạn giá tốt hôm nay</span>
+        </div>
+        <div class="hotel_good_price_list">
+            @{
+    int i = 0;
+            }
+            @foreach (MyHotel item in Model)
+            {
+                switch (i)
+                {
+                    case 0:
+                    case 1:
+                <div class="hotel_good_price_list_item">
+                    @if (item.HotelPicture != null)
+                    {
+                        <a title="@item.Name" href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)">
+                            <img src="@FileHelper.GetHotel_Picture(item.HotelPicture.FileName, item.HotelPicture.HotelID)" alt="@item.HotelPicture.Alt" />
+                        </a>
+                        <div class="hotel_good_price_list_item_link">
+                            <a href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)" title="@item.Name">
+                                @item.Name
+                            </a>-<span class="province"> @item.Province.Name</span>
+                            @{ Html.RenderAction("Star", "Hotel", new { star = item.Star }); }
+                        </div>
+                        
+                        <div class="hotel_good_price_list_item_price">
+                            <span>Giá từ: </span><span class="span-price">@String.Format("{0:#,###}", item.Price)
+                                VND</span>
+                        </div>
+                    }
+                </div>
+                    i++;
+                    break;
+                    case 2:
+                <div class="hotel_good_price_list_item" style="padding-right: 0px !important;">
+                    @if (item.HotelPicture != null)
+                    {
+                        <a title="@item.Name" href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)">
+                            <img src="@FileHelper.GetHotel_Picture(item.HotelPicture.FileName, item.HotelPicture.HotelID)" alt="@item.HotelPicture.Alt" />
+                        </a>
+                        <div class="hotel_good_price_list_item_link">
+                            <a href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)" title="@item.Name">
+                                @item.Name
+                            </a>-<span class="province"> @item.Province.Name</span>
+                            @{ Html.RenderAction("Star", "Hotel", new { star = item.Star }); }
+                        </div>
+                        
+                        <div class="hotel_good_price_list_item_price">
+                            <span>Giá từ: </span><span class="span-price">@String.Format("{0:#,###}", item.Price)
+                                VND</span>
+                        </div>
+                    }
+                </div>
+
+                    i = 0;
+                    break;
+                }
+            }
+        </div>
+    </div>
+}

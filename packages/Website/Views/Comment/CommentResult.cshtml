@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/BookingDetail.cshtml";
+
+}
+@using Domain.Entities;
+@model Config
+<div class="search_key">
+    <div class="order-hotel-detail-result">
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Value);
+        }
+    </div>
+</div>

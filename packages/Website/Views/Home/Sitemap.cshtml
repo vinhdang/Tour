@@ -1,0 +1,51 @@
+﻿@model Website.Models.Home.SitemapModel
+@using Service.Helpers
+@{
+    Response.ContentType = "text/xml";
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>http://www.vietrip.vn/</loc>
+        <priority>1.00</priority>
+        <image:image>
+            <image:loc>http://vietrip.vn/Resources/Config/1/logo.png</image:loc>
+        </image:image>
+    </url>
+    
+    @foreach (Domain.Entities.Category item in Model.Categories)
+    {
+    <url>
+        <loc>@string.Format("http://vietrip.vn{0}", UrlHelp.getCategoryUrl(item.Url, item.Name, item.CategoryID))</loc>
+        <priority>0.5000</priority>
+        
+    </url>
+    }
+    @foreach (Domain.Entities.Province item in Model.Provinces)
+    {
+    <url>
+        <loc>@string.Format("http://vietrip.vn{0}", UrlHelp.getProvinceUrl(item.National.Name, item.Name, item.ProvinceID, item.NationalID))</loc>
+        <priority>0.5000</priority> 
+        @if (!string.IsNullOrEmpty(item.Avartar))
+        {
+        <image:image>
+            <image:loc>@string.Format("http://vietrip.vn{0}", FileHelper.GetProvince_Picture(item.Avartar, item.ProvinceID))</image:loc>
+        </image:image>
+        }
+    </url>
+    }
+    @foreach (Domain.Entities.Hotel item in Model.Hotels)
+    {
+    <url>
+        <loc>@string.Format("http://vietrip.vn{0}", UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID))</loc>
+        <priority>0.5000</priority>
+        @if (item.HotelPictures.Where(p => p.IsAvartar).FirstOrDefault() != null)
+        {
+        <image:image>
+            <image:loc>@string.Format("http://vietrip.vn{0}", FileHelper.GetHotel_Picture(item.HotelPictures.Where(p => p.IsAvartar).FirstOrDefault().FileName, item.HotelID))</image:loc>
+        </image:image>
+        }
+        
+    </url>
+    }
+</urlset>

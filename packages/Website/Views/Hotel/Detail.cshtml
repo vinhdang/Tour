@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/HotelDetail.cshtml";
+}
+@model  Domain.Entities.Hotel  
+@if (Model != null)
+{
+    
+    <div class="hotel_detail_left">
+        <div class="hotel_detail">
+            <span class="hotel_detail_name">@Model.Name</span>
+            @{ Html.RenderAction("Star", "Hotel", new { star = Model.Star }); }
+            <div class="hotel_detail_address">
+                @Model.Address
+                <div class="share">
+                    <div class="share_google">
+                        <g:plusone size="medium" href="@Request.Url.AbsoluteUri"></g:plusone>
+                        <script type="text/javascript">
+                            window.___gcfg = { lang: 'vi' };
+                            (function () {
+                                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                po.src = 'https://apis.google.com/js/plusone.js';
+                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                            })();
+                        </script>
+                    </div>
+                    @{ Html.RenderAction("LikeFaceBook", "Config"); }
+                </div>
+            </div>
+            @{ Html.RenderAction("PictureGallery", "HotelPicture", new { list = Model.HotelPictures.Where(p => p.IsActive).OrderByDescending(p => p.Order) });}
+            @{ Html.RenderAction("RoomList", "Room", new { hotel = Model });}
+            @{ Html.RenderAction("CompareList", "Compare", new { list = Model.Compares.Where(p => p.IsActive).OrderBy(p => p.CompareTypeID) });}
+            @{ Html.RenderAction("PictureList", "HotelPicture", new { list = Model.HotelPictures.Where(p => p.IsActive).OrderByDescending(p => p.Order) });}
+            @{ Html.RenderAction("ComfortList", "Comfort", new { listComfort = Model.ListComfort });}
+            @{ Html.RenderAction("Content", "Hotel", new { content = Model.Content });}
+            @{ Html.RenderAction("Policy", "Hotel", new { policy = Model.Policy });}
+            @{ Html.RenderAction("CommentList", "Comment");}
+            @{ Html.RenderAction("Comment", "Comment");}
+        </div>
+    </div>
+    <div class="hotel_detail_right">
+        @{ Html.RenderAction("HotelSupport", "Support"); }
+        @{ Html.RenderAction("StaticImage", "Hotel", new { hotel = Model }); }
+    </div>
+}

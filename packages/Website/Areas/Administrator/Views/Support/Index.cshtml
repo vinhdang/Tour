@@ -1,0 +1,15 @@
+﻿@model IQueryable<Domain.Entities.Support>
+@{
+    ViewBag.Title = "Danh Sách Hỗ Trợ";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Hỗ Trợ
+        <div class="fr">
+            @Html.ActionLink("Thêm Mới hỗ Trợ", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="divSupportList">
+    @Html.Partial("SupportList", Model)
+</div>

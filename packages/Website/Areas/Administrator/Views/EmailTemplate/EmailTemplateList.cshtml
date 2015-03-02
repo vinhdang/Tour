@@ -1,0 +1,55 @@
+﻿@model List<Domain.Entities.EmailTemplate>
+@using (Html.BeginForm())
+{ <hr />
+    <div class="right">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td class="paddingright" style="text-align: right;">
+                        <label>
+                            Group:</label>
+                        @Html.DropDownList("GroupTemplate", ViewBag.GroupTemplate as SelectList, "[ --- Chọn Group --- ]")
+                    </td>
+                    <td class="paddingright">
+                        <input type="submit" name="Delete" value="Xóa" class="t-button" />
+                        <input type="submit" name="Search" value="Tìm" class="t-button" />
+                        <input type="submit" name="Export" value="Export Template" class="t-button" />
+                    </td>
+                    <td class="paddingright">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+                 .DataKeys(keys => keys.Add(c => c.EmailTemplateID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Hotel.Name).Title("Tên khách sạn").Template(@<text>@Html.ActionLink(item.Hotel.Name, "Edit", new { id = @item.EmailTemplateID })</text>);
+            columns.Bound(o => o.GroupTemplate.Name).Title("Group").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.Price).Title("Giá").Format("{0:c}").Width("15%").HtmlAttributes(new { style = "text-align:center" });
+
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.Order).Title("Thứ tự").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.EmailTemplateID " title="checkedRecords"/></text>)
+                  .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                  .Width("4%")
+                  .HeaderHtmlAttributes(new { style = "text-align:center" })
+                  .HtmlAttributes(new { style = "text-align:center" });
+
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

@@ -1,0 +1,11 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Support
+@if (Model != null)
+{ 
+    <div class="top-support">
+        <div class="top-support-item">
+            Hotline: @Html.Raw(Model.Value)
+        </div>
+    </div>
+}

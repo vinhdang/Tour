@@ -1,0 +1,101 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Website.Models.Room.PriceModel
+@if (Model != null && Model.Room != null)
+{
+
+    <td style="border-bottom: 1px solid #BDC8CD; border-right: 1px solid #BDC8CD; color: #000000;
+        font-weight: bold; padding: 8px 0; text-align: center; width: 70px;">
+        @if (Model != null && Model.Price > 0 && !Model.Room.IsContact)
+        {
+            <select class="select1" id="Quantity" name="Quantity">
+                @for (int i = 0; i <= 10; i++)
+                {
+                    <option value="@string.Format("{0}_{1}_{2}_{3}_{4}", Model.Room.RoomID, Model.Room.HotelID, Model.Price, Model.Room.NumberGuest, i)">@i</option>                }
+            </select>
+        }
+        else
+        {
+            
+            <select class="select1" id="Quantity" name="Quantity" disabled="disabled">
+                @for (int i = 0; i <= 10; i++)
+                {
+                    <option value="@string.Format("{0}_{1}_{2}_{3}_{4}", Model.Room.RoomID, Model.Room.HotelID, Model.Price, Model.Room.NumberGuest, i)">@i</option>
+                }
+            </select>
+        }
+    </td>
+    <td style="border-bottom: 1px solid #BDC8CD; color: #000000; font-weight: bold; padding: 8px 0;
+        text-align: center; width: 245px;">
+        @if (Model.Price > 0 && !Model.Room.IsContact)
+        {
+            <div class="myRoom_price_detail">
+                @String.Format("{0:#,###}", Model.Price)
+                <div class="myRoom_price_link_list">
+                    @Html.ActionLink("Xem chi tiết", "PriceList", "Room", new { h = Model.Room.HotelID, r = Model.Room.RoomID, fd = Model.FromDate, td = Model.ToDate }, new { @class = "pricelist", id = "pricelist-" + Model.Room.RoomID, title = " Giá phòng " + Model.Room.Name + " " + Model.Room.Hotel.Name })
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#pricelist-@Model.Room.RoomID').live('click', function (e) {
+                        e.preventDefault();
+                        var page = $(this).attr("href")
+                        var pagetitle = $(this).attr("title")
+                        var $dialog = $('<div></div>')
+                .html('<iframe style="border: 0px; " src="' + page + '" width="100%" height="100%"></iframe>')
+                .dialog({
+                    autoOpen: false,
+                    modal: false,
+                    height: 450,
+                    width: 450,
+                    title: pagetitle
+                });
+                        $dialog.dialog('open');
+                    });
+
+                });
+            </script>
+        }
+        else
+        {
+            <div class="myRoom_price_detail_contact">
+                Vui lòng gọi Vietrip để biết giá
+                <br />
+                <span style="font-size: 15px;">
+                    @{ Html.RenderAction("PhoneListHotel", "Support");}
+                </span>
+                <table border="0">
+                    <tr>
+                        <td style="padding: 0px 10px 0px 10px;">
+                            Hoặc
+                        </td>
+                        <td>
+                            @Html.ActionLink("Nhận giá", "GetPrice", "Room", new { h = Model.Room.HotelID, r = Model.Room.RoomID, fd = Model.FromDate, td = Model.ToDate }, new { @class = "myRoom_price_detail_contact_link", target = "_blank", id = "pricelist1-" + Model.Room.RoomID, title = "Nhận giá phòng " + Model.Room.Name + " " + Model.Room.Hotel.Name })
+                        </td>
+                    </tr>
+                </table>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#pricelist1-@Model.Room.RoomID').live('click', function (e) {
+                            e.preventDefault();
+                            var page = $(this).attr("href")
+                            var pagetitle = $(this).attr("title")
+                            var $dialog = $('<div></div>')
+                .html('<iframe style="border: 0px; " src="' + page + '" width="100%" height="100%"></iframe>')
+                .dialog({
+                    autoOpen: false,
+                    modal: false,
+                    height: 400,
+                    width: 550,
+                    title: pagetitle
+                });
+                            $dialog.dialog('open');
+                        });
+
+                    });
+                </script>
+            </div>
+        }
+    </td>
+    
+}

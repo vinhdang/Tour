@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.Province>
+@{
+    ViewBag.Title = "Danh Sách Tỉnh Thành";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Tỉnh Thành
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Tỉnh Thành", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="RoleList">
+    @Html.Partial("ProvinceList")
+</div>

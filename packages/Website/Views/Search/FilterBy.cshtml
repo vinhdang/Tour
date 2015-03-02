@@ -1,0 +1,170 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Website.Models.Search.FilterByModel
+@if (Model != null)
+{
+    using (Html.BeginForm("FilterByPost", "Search", new { p = Model.ProvinceID, d = Model.DistrictID, a = Model.AreaID, c = Model.ComfortID, ht = Model.HotelThemeID, type = Model.HotelTypeID, hp = Model.HotelPromotion, fd = Model.FromDate, td = Model.ToDate, nr = Model.NumberRoom, ng = Model.NumberGuest, price = Model.Price, star = Model.Star }, FormMethod.Post, new { id = "FilterByPost" }))
+    {
+    
+    <ul class="filter_by">
+        <li style="width: 220px; text-align: left; font-size: 17px;">Sắp xếp theo</li>
+        @switch (Model.Filter)
+        {
+            case "p":
+                switch (Model.FType)
+                {
+                    case "desc":
+            <li><span class="filter_icon_DESC">&nbsp;&nbsp;&nbsp;</span><a id="filter_price">Giá</a></li>
+            <li>|</li>
+            <li><a id="filter_star">Tiêu chuẩn sao</a></li>
+            <li>|</li>
+            <li><a id="filter_name">Tên</a> </li>
+                        break;
+                    case "asc":
+            <li><span class="filter_icon_ASC">&nbsp;&nbsp;&nbsp;</span><a id="filter_price">Giá</a></li>
+            <li>|</li>
+            <li><a id="filter_star">Tiêu chuẩn sao</a></li>
+            <li>|</li>
+            <li><a id="filter_name">Tên</a> </li>
+                        break;
+                }
+
+                break;
+            case "s":
+                switch (Model.FType)
+                {
+                    case "desc":
+            <li><a id="filter_price">Giá</a></li>
+            <li>|</li>
+            <li><span class="filter_icon_DESC">&nbsp;&nbsp;&nbsp;</span><a id="filter_star">Tiêu
+                chuẩn sao</a></li>
+            <li>|</li>
+            <li><a id="filter_name">Tên</a> </li>
+                        break;
+                    case "asc":
+            <li><a id="filter_price">Giá</a></li>
+            <li>|</li>
+            <li><span class="filter_icon_ASC">&nbsp;&nbsp;&nbsp;</span><a id="filter_star">Tiêu
+                chuẩn sao</a></li>
+            <li>|</li>
+            <li><a id="filter_name">Tên</a> </li>
+                        break;
+                }
+
+
+                break;
+            case "n":
+                switch (Model.FType)
+                {
+                    case "desc":
+            <li><a id="filter_price">Giá</a></li>
+            <li>|</li>
+            <li><a id="filter_star">Tiêu chuẩn sao</a></li>
+            <li>|</li>
+            <li><span class="filter_icon_DESC">&nbsp;&nbsp;&nbsp;</span><a id="filter_name">Tên</a>
+            </li>
+                        break;
+                    case "asc":
+            <li><a id="filter_price">Giá</a></li>
+            <li>|</li>
+            <li><a id="filter_star">Tiêu chuẩn sao</a></li>
+            <li>|</li>
+            <li><span class="filter_icon_ASC">&nbsp;&nbsp;&nbsp;</span><a id="filter_name">Tên</a>
+            </li>
+                        break;
+                }
+                break;
+            default:
+            <li><a id="filter_price">Giá</a></li>
+            <li>|</li>
+            <li><a id="filter_star">Tiêu chuẩn sao</a></li>
+            <li>|</li>
+            <li><a id="filter_name">Tên</a> </li>
+                break;
+        }
+    </ul>
+    <input type="hidden" value="@Model.Filter" id="filtername"  name="filtername" />
+    <input type="hidden" value="@Model.FType" id="filtervalue" name="filtervalue" />
+    <script type="text/javascript">
+        $("#filter_price").click(function () {
+            var key = $("#filtername").val();
+            var value = $("#filtervalue").val();
+            if (key == "p") {
+                switch (value) {
+                    case "desc":
+                        $("#filtervalue").val("asc");
+                        break;
+                    case "asc":
+                        $("#filtername").val("0");
+                        $("#filtervalue").val("0");
+                        break;
+
+                    case "":
+                        $("#filtername").val("p");
+                        $("#filtervalue").val("desc");
+                        break;
+                }
+            }
+            else {
+                $("#filtername").val("p");
+                $("#filtervalue").val("desc");
+
+            }
+            $("#FilterByPost").submit();
+        });
+        $("#filter_star").click(function () {
+            var key = $("#filtername").val();
+            var value = $("#filtervalue").val();
+            if (key == "s") {
+                switch (value) {
+                    case "desc":
+                        $("#filtername").val("s");
+                        $("#filtervalue").val("asc");
+                        break;
+                    case "asc":
+                        $("#filtername").val("0");
+                        $("#filtervalue").val("0");
+                        break;
+
+                    case "":
+                        $("#filtername").val("s");
+                        $("#filtervalue").val("desc");
+                        break;
+                }
+            }
+            else {
+                $("#filtername").val("s");
+                $("#filtervalue").val("desc");
+            }
+            $("#FilterByPost").submit();
+        });
+
+        $("#filter_name").click(function () {
+            var key = $("#filtername").val();
+            var value = $("#filtervalue").val();
+            if (key == "n") {
+                switch (value) {
+                    case "desc":
+                        $("#filtername").val("n");
+                        $("#filtervalue").val("asc");
+                        break;
+                    case "asc":
+                        $("#filtername").val("0");
+                        $("#filtervalue").val("0");
+                        break;
+
+                    case "":
+                        $("#filtername").val("n");
+                        $("#filtervalue").val("desc");
+                        break;
+                }
+            }
+            else {
+                $("#filtername").val("n");
+                $("#filtervalue").val("desc");
+            }
+            $("#FilterByPost").submit();
+        });
+    </script>
+    }
+}

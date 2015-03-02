@@ -1,0 +1,15 @@
+﻿@model IQueryable<Domain.Entities.Banner>
+@{
+    ViewBag.Title = "Danh Sách Banner";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+       Danh Sách Banner
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Banner", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="BannerList">
+    @Html.Partial("BannerList", Model)
+</div>

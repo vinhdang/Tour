@@ -1,0 +1,41 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Website.Models.HotelType.HotelTypeModel
+@if (Model != null && Model.HotelTypeList != null && Model.HotelTypeList.Count > 0)
+{
+    using (Html.BeginForm("HotelTypes", "HotelType", new { p = Model.ProvinceID, d = Model.DistrictID, a = Model.AreaID, c = Model.ComfortID, ht = Model.HotelThemeID, hp = Model.HotelPromotion, fd = Model.FromDate, td = Model.ToDate, nr = Model.NumberRoom, ng = Model.NumberGuest }, FormMethod.Post, new { id = "HotelTypeID" }))
+    {
+    <div class="district_list">
+        <div class="district_list_title">
+            <span>Loại Khách Sạn</span>
+        </div>
+        <div class="district_list_content">
+            <table border="0" cellpadding="0" cellspacing="0">
+                @foreach (Domain.Entities.HotelType item in Model.HotelTypeList)
+                {  
+                    <tr>
+                        <td style="padding-right: 10px; padding-top: 6px;">
+                            @if (Model.ListHotelTypeID != null && Model.ListHotelTypeID.Length > 0 && Model.ListHotelTypeID.Contains(item.HotelTypeID.ToString()))
+                            {
+                                <input type="checkbox" id="HotelTypeID" name="HotelTypeID" value="@item.HotelTypeID" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" value="@item.HotelTypeID" id="HotelTypeID" name="HotelTypeID" />
+                            }
+                        </td>
+                        <td>
+                            <label style="color: #0A84C1;">@item.Name</label>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <script type="text/javascript">
+                $(":checkbox[name='HotelTypeID']").click(function () {
+                    $("#HotelTypeID").submit();
+                });
+            </script>
+        </div>
+    </div>
+    }
+}

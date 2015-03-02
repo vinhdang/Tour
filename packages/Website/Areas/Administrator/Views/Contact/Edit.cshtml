@@ -1,0 +1,119 @@
+﻿@model Website.Areas.Administrator.Models.Contact.EditContactModel 
+@{
+    ViewBag.Title = "Chỉnh sửa Thông Tin Liên Hệ";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Chỉnh sửa Thông Tin Liên Hệ
+    </h2>
+</div>
+@using (Html.BeginForm("Edit", "Contact", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.ContactID)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.ContactID.ToString()
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.FullName)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.FullName.ToString()
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.Address)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.Address.ToString()
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.Email)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.Email.ToString()
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.Phone)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.Phone.ToString()
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.Content)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.Content.ToString()
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.CreatedDate)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.CreatedDate.ToString()
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.Isprocessing)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(u => u.Isprocessing)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="Save Changes" class="t-button" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+    </div>
+}

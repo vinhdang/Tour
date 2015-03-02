@@ -1,0 +1,13 @@
+﻿@model List<Domain.Entities.Comment>
+@{
+    ViewBag.Title = "Danh Sách Comment Chờ Duyệt";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Comment Chờ Duyệt
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="CommentWaitingList">
+    @Html.Partial("CommentWaitingList", Model)
+</div>

@@ -1,0 +1,16 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model List<Support>
+@if (Model != null && Model.Count > 0)
+{
+    foreach (Support item in Model)
+    {
+    <div class="home_support_list_item">
+        <div class="onlineSupportskype">
+            <a href="skype:@item.Value?call">@item.Value</a>
+        </div>
+    </div>
+   
+    }
+
+}

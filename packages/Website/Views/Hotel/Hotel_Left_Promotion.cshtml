@@ -1,0 +1,81 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  List<MyHotel> 
+@if (Model != null && Model.Count > 0)
+{
+    <link href="/Content/FrontEnd/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jquery.mousewheel.min.js"></script>
+    <!-- custom scrollbars plugin -->
+    <script src="/Scripts/jquery.mCustomScrollbar.js"></script>
+    <div class="hotel_left_promotion">
+        <div class="hotel_left_promotion_title">
+            <span class="title">Khách sạn khuyến mãi</span>
+        </div>
+        <div class="hotel_left_promotion_list">
+            <div class="hotel_left_promotion_list_item">
+                <div class="hotel_left_promotion_list_item_col1">
+                    Khách sạn
+                </div>
+                <div class="hotel_left_promotion_list_item_col2">
+                    Tiêu chuẩn
+                </div>
+                <div class="hotel_left_promotion_list_item_col3">
+                    Giá
+                </div>
+            </div>
+            <div class="scrollbar">
+                @{int mod = 0;}
+                @foreach (MyHotel item in Model)
+                {
+                    if (mod % 2 == 0)
+                    {
+                    <div class="hotel_left_promotion_list_item">
+                        <div class="hotel_left_promotion_list_item_col4">
+                            <a title="@item.Name" href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)">
+                                @item.Name
+                            </a>
+                        </div>
+                        <div class="hotel_left_promotion_list_item_col5">
+                            @{ Html.RenderAction("Star", "Hotel", new { star = item.Star }); }
+                        </div>
+                        <div class="hotel_left_promotion_list_item_col6">
+                            @String.Format("{0:#,###}", item.Price)
+                        </div>
+                    </div>
+                   
+            
+                    }
+                    else
+                    {
+                    <div class="hotel_left_promotion_list_item" style="background-color: #e2eff8;">
+                        <div class="hotel_left_promotion_list_item_col4">
+                            <a title="@item.Name" href="@UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID)">
+                                @item.Name
+                            </a>
+                        </div>
+                        <div class="hotel_left_promotion_list_item_col5">
+                            @{ Html.RenderAction("Star", "Hotel", new { star = item.Star }); }
+                        </div>
+                        <div class="hotel_left_promotion_list_item_col6">
+                            @String.Format("{0:#,###}", item.Price)
+                        </div>
+                    </div>
+                    }
+                    mod++;
+                }
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function ($) {
+            $(window).load(function () {
+                /* custom scrollbar fn call */
+                $(".scrollbar").mCustomScrollbar({
+                    scrollEasing: "easeOutQuint",
+                    scrollInertia: 10,
+                    mouseWheel: false
+                });
+            });
+        })(jQuery);
+    </script>
+}

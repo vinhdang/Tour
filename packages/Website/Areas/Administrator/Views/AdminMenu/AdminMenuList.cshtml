@@ -1,0 +1,32 @@
+﻿@model List<Domain.Entities.AdminMenu>
+@using (Html.BeginForm())
+{ <hr />
+    <div class="right">
+        <input type="submit" name="Delete" value="Xóa" class="t-button" />
+    </div>
+    <hr />
+    @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+                 .DataKeys(keys => keys.Add(c => c.MenuID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Name).Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.MenuID })</text>);
+            columns.Bound(o => o.Order).Width("4%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsShow).Title("Hiển thị menu").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.MenuID " title="checkedRecords"/></text>)
+                  .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                  .Width("4%")
+                  .HeaderHtmlAttributes(new { style = "text-align:center" })
+                  .HtmlAttributes(new { style = "text-align:center" });
+
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+
+)
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

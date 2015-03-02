@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html >
+<html lang="vi">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="text/css" http-equiv="Content-Style-Type" />
+    <meta content="text/javascript" http-equiv="Content-Script-Type" />
+    <meta content="@ViewBag.KeyWords" name="keywords" />
+    <meta content="@ViewBag.Description" name="description" />
+    <meta content="<a href='http://www.vietrip.vn/' class='Normal'>Copyright 2011-2012 by Vietrip Corporation </a> "
+        name="COPYRIGHT" />
+    <meta content="Vietrip" name="GENERATOR" />
+    <meta content="Vietrip" name="AUTHOR" />
+    <meta content="DOCUMENT" name="RESOURCE-TYPE" />
+    <meta content="GLOBAL" name="DISTRIBUTION" />
+    <meta http-equiv="content-language" content="vi" />
+    <meta content="1 DAYS" name="REVISIT-AFTER" />
+    <meta content="GENERAL" name="RATING" />
+    <meta content="RevealTrans(Duration=0,Transition=1)" http-equiv="PAGE-ENTER" />
+    <link href="@Url.Content("~/Content/FrontEnd/colorbox.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/FrontEnd/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/FrontEnd/jquery-ui.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.8.2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.colorbox-min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcValidation.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $.datepicker.regional['vi'] = {
+            closeText: 'Đóng',
+            prevText: '&#x3c;Trước',
+            nextText: 'Tiếp&#x3e;',
+            currentText: 'Hôm nay',
+            monthNames: ['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu',
+		'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'],
+            monthNamesShort: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+		'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
+            dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+            dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+            weekHeader: 'Tu',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['vi']);
+    </script>
+       @{ Html.RenderAction("GoogleAnalytics", "Config"); }
+</head>
+<body class="bg-alt">
+    <h1 style="display: none;">@ViewBag.Title</h1>
+    <div id="wrapper">
+        <div id="header">
+            <div id="header-body">
+                @{ Html.RenderAction("Logo", "Config"); }
+                @{ Html.RenderAction("TopSupport", "Support"); }
+            </div>
+        </div>
+        <div class="main">
+            <div class="body-inner">
+                @{ Html.RenderAction("RenderMainMenu", "Category"); }
+                <div class="body-content">
+                    <div class="body-content-bg">
+                        <div class="home-search" style="padding-bottom: 20px;">
+                            @{ Html.RenderAction("SearchHotel", "Search"); }
+                        </div>
+                         @RenderBody()
+                        <div class="footer_province">
+                            @{ Html.RenderAction("ProvinceFooter", "Province"); }
+                        </div>
+                        <div class="footer">
+                            @Html.Partial("_Footer")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

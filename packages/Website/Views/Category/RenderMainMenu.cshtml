@@ -1,0 +1,23 @@
+﻿@using Service.Helpers
+@using Domain.Entities
+@model List<Category>
+<div class="nav_menu">
+    @if (Model != null && Model.Count() > 0)
+    {
+        int count = 0;
+        int max = Model.Count();
+        <ul class="nav_inner">
+            @foreach (Category info in Model)
+            {
+            
+                <li><a class="@{ Html.RenderAction("GetActiveMainMenu", "Category", new { CurrentCatID = info.CategoryID, id = Protector.String(ViewContext.RouteData.Values["id"]), newID = Protector.String(ViewContext.RouteData.Values["newID"]) }); }" href="@UrlHelp.getCategoryUrl(info.Url, info.Name, info.CategoryID)" title="@info.Name">
+                    @info.Name</a></li>
+                                 count++;
+                                 if (count < max)
+                                 {
+                <li class="separator">&nbsp;</li>
+                                 }
+            }
+        </ul>
+    }
+</div>

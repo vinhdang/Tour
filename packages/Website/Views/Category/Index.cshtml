@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/NewsList.cshtml";
+}
+@using Domain.Entities;
+@using Service.Helpers
+@model Category
+@if (Model != null)
+{ 
+    <div class="body-content-new">
+        <h2>@Model.Name</h2>
+        @Html.Raw(Model.Content)
+    </div>
+    
+    
+}

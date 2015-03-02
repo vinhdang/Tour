@@ -1,0 +1,28 @@
+﻿<div class="home_support">
+    <div class="home_support_title">
+        <span class="title">Hỗ trợ trực tuyến</span>
+    </div>
+    <div class="home_support_list">
+        <div class="home_support_list_item">
+            <div class="home_support_list_item_title">
+                Hỗ trợ đặt phòng:</div>
+            <div class="home_support_list_item_content">
+                @{ Html.RenderAction("Phone", "Support"); }
+            </div>
+        </div>
+        <div class="home_support_list_item">
+            <div class="home_support_list_item_title">
+                Hỗ trợ sự cố và các vấn đề khác:</div>
+            <div class="home_support_list_item_content">
+                @{ Html.RenderAction("Troubleshooting", "Support"); }
+            </div>
+        </div>
+        <div class="home_support_list_item">
+            <div class="home_support_list_item_content_email">
+                @{ Html.RenderAction("Email", "Support"); }
+            </div>
+        </div>
+         @{ Html.RenderAction("Yahoo", "Support"); }
+           @{ Html.RenderAction("Skype", "Support"); }
+    </div>
+</div>

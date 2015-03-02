@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.EmailSetting>
+@{
+    ViewBag.Title = "Danh Sách Cấu Hình Mail";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Cấu Hình Mail
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Cấu Hình Mail", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="EmailSettingList">
+    @Html.Partial("EmailSettingList", Model)
+</div>

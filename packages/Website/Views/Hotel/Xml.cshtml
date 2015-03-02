@@ -1,0 +1,27 @@
+﻿@model List<Domain.Entities.MyHotel>
+@using Service.Helpers
+@{
+    Response.ContentType = "text/xml";
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+<markers xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   
+    @foreach (Domain.Entities.MyHotel item in Model)
+    {
+        if (!string.IsNullOrEmpty(item.Lat) && !string.IsNullOrEmpty(item.Lng) && item.HotelPicture != null)
+        {
+    <marker>
+<name>@item.Name</name>
+<url>@string.Format("{0}", UrlHelp.getHotelUrl(item.Province.Name, item.Name, item.HotelID, item.ProvinceID))</url>
+
+<img>@string.Format("{0}", FileHelper.GetHotel_Picture(item.HotelPicture.FileName, item.HotelPicture.HotelID))</img>
+
+<address>@item.Address</address>
+<price>@String.Format("{0:#,###} VND", item.Price)</price>
+
+<lat>@item.Lat</lat>
+<lng>@item.Lng</lng>
+</marker>
+        }
+    }
+</markers>

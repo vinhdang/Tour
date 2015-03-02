@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Domain.Entities.RoomPrice>
+@using (Html.BeginForm())
+{ <hr />
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.21.custom.min.js")" type="text/javascript"></script>
+
+    <div class="right">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td class="paddingright" style="text-align: right;">
+                        <label>
+                            Từ ngày:</label>
+                        <input type="text" id="From" name="From" value="@Service.Helpers.Protector.String(ViewBag.From)" style="width: 120px;" />
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#From").datepicker({
+                                    altFormat: "DD, dd/mm/yy",
+                                    dateFormat: 'dd/mm/yy',
+                                    numberOfMonths: 2,
+                                    showButtonPanel: true,
+
+                                    showOn: "button",
+                                    buttonImage: "/Content/Administrator/images/calendar.gif",
+                                    buttonImageOnly: true,
+                                    minDate: new Date(),
+                                    onSelect: function (selectedDate) {
+                                        var newDate = $(this).datepicker('getDate');
+                                        if (newDate) { // Not null
+                                            newDate.setDate(newDate.getDate() + 1);
+                                        }
+                                        $("#To").datepicker("option", "minDate", newDate);
+                                    }
+                                });
+                                $("#To").datepicker({
+                                    altFormat: "DD, dd/mm/yy",
+                                    numberOfMonths: 2,
+                                    showOn: "button",
+                                    dateFormat: 'dd/mm/yy',
+                                    buttonImage: "/Content/Administrator/images/calendar.gif",
+                                    buttonImageOnly: true,
+                                    minDate: new Date(),
+                                    onSelect: function (selectedDate) {
+
+                                        var newDate = $(this).datepicker('getDate');
+                                        if (newDate) { // Not null
+                                            newDate.setDate(newDate.getDate() - 1);
+                                        }
+                                        $("#From").datepicker("option", "maxDate", newDate);
+                                    }
+                                });
+
+                            });
+                               
+                        </script>
+                    </td>
+                    <td class="paddingright" style="text-align: left;">
+                        <label>
+                            Đến ngày:</label>
+                        <input type="text" id="To" name="To" value="@Service.Helpers.Protector.String(ViewBag.To)" style="width: 120px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="paddingright" colspan="2" style="text-align: right;">
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="paddingright" style="text-align: right;">
+                        <label>
+                            Loại phòng :</label>
+                        @Html.DropDownList("RoomList", ViewBag.RoomList as SelectList, "[ --- Chọn Loại Phòng --- ]")
+                    </td>
+                    <td class="paddingright">
+                        <input type="submit" name="Search" value="Tìm" class="t-button" />
+                        <input type="submit" name="Delete" value="Xóa" class="t-button" />
+                        <input type="submit" name="Add" value="+ Thêm giá phòng" class="t-button" />
+                        <input type="submit" name="Import" value="+ Import giá phòng" class="t-button" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+   
+    @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+                 .DataKeys(keys => keys.Add(c => c.RoomID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Room.Name).Template(@<text>@Html.ActionLink(item.Room.Name, "Edit", new { id = item.RoomPriceID })</text>);
+            columns.Bound(o => o.Price).Title("Giá").Format("{0:c}").Width("15%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.Date).Title("Ngày").Format("{0:dd/MM/yyyy}").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.Date.DayOfWeek).Title("Thứ").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.Quantity).Title("Số phòng trống").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.User.Email).Title("Tạo bởi").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).Title("Trạng thái").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.RoomPriceID " title="checkedRecords"/></text>)
+                  .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                  .Width("4%")
+                  .HeaderHtmlAttributes(new { style = "text-align:center" })
+                  .HtmlAttributes(new { style = "text-align:center" });
+
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

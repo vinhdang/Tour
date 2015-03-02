@@ -1,0 +1,8 @@
+﻿@model Domain.Entities.Config
+@using Service.Helpers;
+@if (Model != null)
+{
+    <div>
+        @Html.Raw(Model.Value)
+    </div>
+}

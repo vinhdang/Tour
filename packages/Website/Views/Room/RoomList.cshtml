@@ -1,0 +1,117 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Website.Models.Room.RoomListModel
+@if (Model != null)
+{
+
+    <div class="room_list">
+        @using (Html.BeginForm("RoomList", "Room", new { ProvinceName = Model.Hotel.Province.Name, provinceID = Model.Hotel.ProvinceID, HotelName = Model.Hotel.Name, hotelID = Model.Hotel.HotelID, nr = Model.NumberRoom, ng = Model.NumberGuest }, FormMethod.Post, new { id = "roomList" }))
+        {
+            <div class="room_list_search">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <span>Ngày đi: </span>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(u => u.FromDate, new { @class = "from" })
+                            @if (!string.IsNullOrEmpty(Model.FromDate))
+                            {
+                                <script type="text/javascript">
+                $(function () { 
+                 $("#FromDate").datepicker({
+                    defaultDate:@Model.FromDate,
+                    numberOfMonths: 2,
+                    minDate: new Date(),
+                    onSelect: function (selectedDate) {
+                    var newDate = $(this).datepicker('getDate');
+                            if (newDate) { // Not null
+                                newDate.setDate(newDate.getDate() + 1);
+                            }
+                            $("#ToDate").datepicker("option", "minDate", newDate);
+                    }
+                });
+                
+                });
+                                </script>
+                            }
+                            else
+                            { 
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $("#FromDate").datepicker({
+                                            numberOfMonths: 2,
+                                            minDate: new Date(),
+                                            onSelect: function (selectedDate) {
+                                                var newDate = $(this).datepicker('getDate');
+                                                if (newDate) { // Not null
+                                                    newDate.setDate(newDate.getDate() + 1);
+                                                }
+                                                $("#ToDate").datepicker("option", "minDate", newDate);
+                                            }
+                                        });
+
+                                    });
+                                </script>
+                            }
+                        </td>
+                        <td>
+                            <span>Ngày về:</span>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(u => u.ToDate, new { @class = "from" })
+                            @if (!string.IsNullOrEmpty(Model.ToDate))
+                            {
+                                <script type="text/javascript">
+                $(function () { 
+                 $("#ToDate").datepicker({
+                  defaultDate:@Model.ToDate,
+                    numberOfMonths: 2,
+                    minDate: new Date(),
+                    onSelect: function (selectedDate) {
+                      var newDate = $(this).datepicker('getDate');
+                            if (newDate) { // Not null
+                                newDate.setDate(newDate.getDate() - 1);
+                            }
+                            $("#FromDate").datepicker("option", "maxDate", newDate);
+                       
+                    }
+                });
+                
+                });
+                                </script>
+                            }
+                            else
+                            { 
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $("#ToDate").datepicker({
+                                            numberOfMonths: 2,
+                                            minDate: new Date(),
+                                            onSelect: function (selectedDate) {
+                                                var newDate = $(this).datepicker('getDate');
+                                                if (newDate) { // Not null
+                                                    newDate.setDate(newDate.getDate() - 1);
+                                                }
+                                                $("#FromDate").datepicker("option", "maxDate", newDate);
+                                            }
+                                        });
+
+                                    });
+                                </script>
+                            }
+                        </td>
+                        <td>
+                            <input type="submit" class="button" value="Xem giá phòng" id="searchPrice" />
+                        </td>
+                </table>
+            </div>
+        }
+        @if (Model.RoomList != null && Model.RoomList.Count > 0)
+        {
+            <div class="room_list_result">
+                @{Html.RenderAction("RoomListResult", "Room", new { rooms = Model.RoomList });}
+            </div>
+        }
+    </div>
+}

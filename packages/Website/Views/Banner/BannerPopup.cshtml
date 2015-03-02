@@ -1,0 +1,25 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Banner
+@if (Model != null)
+{
+    <div id="dialog">
+        @if (!string.IsNullOrEmpty(Model.Link))
+        { <a  href="@Model.Link" title="@Model.Name">
+            <img src="@FileHelper.GetBanner_Picture(Model.FileName, Model.BannerID)"  alt="@Model.Name" /></a>
+        }
+        else
+        {
+            <img src="@FileHelper.GetBanner_Picture(Model.FileName, Model.BannerID)" alt="@Model.Name" />
+        }
+    </div>
+    <script>
+        $(function () {
+            $("#dialog").dialog({ autoResize: true, show: "clip", hide: "clip", height: 'auto', width: 'auto', position: 'center', modal: true });
+            $("#ui-id-3").hide();
+            $(".ui-dialog-titlebar").removeClass("ui-widget-header");
+        });
+    </script>
+    
+
+}

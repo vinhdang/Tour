@@ -1,0 +1,169 @@
+﻿@model Website.Areas.Administrator.Models.Area.CreateAreaModel
+@{
+    ViewBag.Title = "Sửa Khu Vực"; Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Sửa Khu Vực
+    </h2>
+</div>
+@using (Html.BeginForm())
+{ 
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.NationalID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.NationalID, Model.Nationals, "[ - - - Chọn Quốc Gia - - - ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.ProvinceID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.ProvinceID, Model.Provinces, "[ - - - Chọn Tỉnh Thành - - - ]")
+                    <script type="text/javascript">
+                        $('#NationalID').change(function () {
+                            var nationalID = $(this).val();
+                            var province = $('#ProvinceID');
+
+                            if (nationalID != null && nationalID != '') {
+                                $.getJSON('@Url.Action("SelectProvince")', { nationalID: nationalID }, function (list) {
+                                    province.empty();
+                                    province.append($('<option/>', {
+                                        value: "",
+                                        text: "[ - - Chọn Tỉnh Thành - - ]"
+                                    }));
+
+                                    $.each(list, function (index, info) {
+                                        province.append($('<option/>', {
+                                            value: info.Value,
+                                            text: info.Text,
+                                            selected: info.Selected
+                                        }));
+                                    });
+                                });
+                            }
+                            else { }
+                        });
+
+                        $().ready(function () {
+                            $('#ProvinceID').change(function () {
+                                var ProvinceID = $(this).val();
+                                var DistrictID = $('#DistrictID');
+
+                                if (ProvinceID != null && ProvinceID != '') {
+                                    $.getJSON('@Url.Action("SelectDistrict")', { provinceID: ProvinceID }, function (list) {
+                                        DistrictID.empty();
+                                        DistrictID.append($('<option/>', {
+                                            value: "",
+                                            text: "[ - - Chọn Quận Huyện - - ]"
+                                        }));
+
+                                        $.each(list, function (index, info) {
+                                            DistrictID.append($('<option/>', {
+                                                value: info.Value,
+                                                text: info.Text,
+                                                selected: info.Selected
+                                            }));
+                                        });
+                                    });
+                                }
+                                else { }
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.DistrictID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.DistrictID, Model.Districts, "[ - - - Chọn Quận Huyện - - - ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Description)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Description)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.KeyWord)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.KeyWord)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Order)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Order, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+                    @Html.ActionLink("Danh Sách Khu Vực", "Index", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+    </div>
+    @Html.ValidationSummary(false)
+}

@@ -1,0 +1,25 @@
+﻿@model List<Domain.Entities.CompareType>
+@(Html.Telerik().Grid(Model)
+        .Name("Grid")
+                 .DataKeys(keys => keys.Add(c => c.CompareTypeID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Name).Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.CompareTypeID })</text>);
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.User.Email).Title("Tạo bởi").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.Order).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(
+                          @<text>
+@Html.ActionLink(@item.Name, "Edit", new { id = @item.CompareTypeID }, new { @class = "edit_icon", @title = "Sửa so sánh [" + @item.Name + "]" })
+@Ajax.ActionLink("Delete", "Delete", new { id = @item.CompareTypeID }, new AjaxOptions { Confirm = "Bạn có chắc chắn muốn xóa [" + @item.Name + "] ?", HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnFailure", UpdateTargetId = "CompareTypeList" }, new { @title = "Xóa [" + @item.Name + "]", @class = "del_icon" })</text>).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+
+
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)
+<br />

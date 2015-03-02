@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/Views/Shared/NewsDetail.cshtml";
+}
+@using Service.Helpers
+@using Domain.Entities
+@model New
+<div class="category-detail">
+    @Html.Raw(Model.Content)
+    <div class="new-other">
+        @{ Html.RenderAction("OtherNews", "New", new { currentNewID = Model.NewID, catID = Protector.String(ViewContext.RouteData.Values["id"]) }); }
+    </div>
+</div>

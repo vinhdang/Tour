@@ -1,0 +1,312 @@
+﻿@using Domain.Entities;
+@using Service.Helpers
+@model Website.Models.Order.ViewOrderModel
+@{
+    Layout = "~/Views/Shared/BookingDetail.cshtml";
+    if (Model != null)
+    {
+        ViewBag.Title = Protector.String(Model.PageTitle);
+        ViewBag.Description = Protector.String(Model.Description);
+        ViewBag.KeyWords = Protector.String(Model.Keyword);
+    }
+    
+}
+<div class="body-content-new">
+    <div class="order-hotel-detail">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td valign="top">
+                    <div class="order-hotel-detail-title">
+                        Thông tin khách sạn
+                    </div>
+                    <div class="order-hotel-detail-content">
+                        <table border="0" cellpadding="0" cellspacing="3">
+                            <tr>
+                                <td>
+                                    <span>Tên khách sạn:</span><span style="padding: 0px 0px 0px 10px; color: #0a84c1;">
+                                        <a target="_blank"  href="@UrlHelp.getHotelUrl(Model.Hotel.Province.Name, Model.Hotel.Name, Model.Hotel.HotelID, Model.Hotel.ProvinceID)" title="@Model.PageTitle">
+                                            @Model.PageTitle </a></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Địa chỉ:</span><span style="padding: 0px 0px 0px 10px; color: #000; font-weight: bold;">@Model.Hotel.Address</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Tiêu chuẩn:</span>
+                                    @{ Html.RenderAction("Star", "Hotel", new { star = @Model.Hotel.Star }); }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                <td valign="top" style="width: 239px;">
+                    <div class="order-hotel-detail-picture">
+                        @if (Model.Hotel != null && Model.Hotel.HotelPicture != null)
+                        {
+                            <a target="_blank"  href="@UrlHelp.getHotelUrl(Model.Hotel.Province.Name, Model.Hotel.Name, Model.Hotel.HotelID, Model.Hotel.ProvinceID)" title="@Model.PageTitle">
+                                <img src="@FileHelper.GetHotel_Picture(Model.Hotel.HotelPicture.FileName, Model.Hotel.HotelPicture.HotelID)" alt="@Model.Hotel.HotelPicture.Alt" />
+                            </a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="order-info">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px 0 25px 0px;">
+            Thông tin đặt phòng
+        </div>
+        <div class="order-list-info">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table-order">
+                <tr style="background-color: #EDEEEE;">
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Loại phòng
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Số phòng
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Ngày đi
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Ngày về
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Số đêm
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Giá 1 đêm
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        VAT + Phí dịch vụ
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; font-weight: bold;">
+                        Tổng cộng
+                    </td>
+                </tr>
+                @foreach (Website.Models.Order.MyOrder item in Model.Orders)
+                {
+
+                    <tr>
+                        <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px;">
+                            @item.Name
+                        </td>
+                        <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px;">
+                            @item.Quantity
+                        </td>
+                        <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px;">
+                            @String.Format("{0:dd/MM/yyyy}", item.FromDate)
+                        </td>
+                        <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px;">
+                            @String.Format("{0:dd/MM/yyyy}", item.ToDate)
+                        </td>
+                        <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px;">
+                            @String.Format("{0:#,###}", item.NumberNight)
+                        </td>
+                        <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px;">
+                            @String.Format("{0:#,###}", item.RoomPrice)
+                        </td>
+                        <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px;">
+                            @String.Format("{0:#,###}", item.VATPrice)
+                        </td>
+                        <td style="border: solid 1px #c2c2c2; border-top: 0px;">
+                            @String.Format("{0:#,###}", item.TotalPrice)
+                        </td>
+                    </tr>
+
+                }
+                <tr style="background-color: #EDEEEE;">
+                    <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px; padding-right: 10px;
+                        text-align: right; font-weight: bold;" colspan="7">
+                        Số tiền phải trả
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; font-weight: bold; color: Red; font-size: 15px;
+                        border-top: 0px;">
+                        @{Decimal TotalPrice = 0;}
+                        @foreach (Website.Models.Order.MyOrder item in Model.Orders)
+                        {
+                            TotalPrice += item.TotalPrice;
+                        }
+                        @String.Format("{0:#,###}", TotalPrice)
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="order-form">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px 0 25px 0px;">
+            Thông tin khách hàng
+        </div>
+        <div class="order-form-info">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="order-form-table">
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Họ tên:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.FullName, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Số điện thoại:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.Phone, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Email:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.Email, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Địa chỉ:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextAreaFor(t => t.Address, new { @style = "width:545px;  height:30px;", @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Loại phòng:
+                    </td>
+                    <td style="text-align: left;">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td style="padding-right: 30px">
+                                    @if (Model.RoomType == 1)
+                                    {
+                                        <input type="radio" value="1" name="RoomType" id="RoomType" checked="checked" />
+                                    }
+                                    else
+                                    { <input type="radio" value="1" name="RoomType" id="RoomType" /> }
+                                    &nbsp;<label>
+                                        Phòng không hút thuốc</label>
+                                </td>
+                                <td>
+                                    @if (Model.RoomType == 2)
+                                    {
+                                        <input type="radio" value="2" name="RoomType" id="RoomType" checked="checked" />
+                                    }
+                                    else
+                                    {
+                                        <input type="radio" value="2" name="RoomType" id="RoomType" />
+                                    }
+                                    &nbsp;<label>Phòng hút thuốc</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Ghi chú:
+                    </td>
+                    <td style="text-align: left;">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;" colspan="2">
+                        @Html.TextAreaFor(t => t.Content, new { @style = "width:700px;  height:100px;", @readonly = "readonly" })
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="order-form">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px 0 25px 0px;">
+            Chính sách khách sạn
+        </div>
+        <div class="order-form-info">
+            @Html.Raw(Model.Hotel.Policy)
+        </div>
+    </div>
+    <div class="order-form">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px
+            0 25px 0px;">
+            Phương thức thanh toán
+        </div>
+        <div class="order-form-payment">
+            <ul class="choose_buy">
+                @foreach (Payment item in Model.Payments)
+                {
+                    if (!string.IsNullOrEmpty(Model.Hotel.ListPayment))
+                    {
+                        string[] listId = Model.Hotel.ListPayment.Split(';');
+                        if (listId != null && listId.Length > 0 && listId.Contains(item.PaymentID.ToString()))
+                        {
+                            if (item.PaymentID == Model.PaymentID)
+                            {
+                    <li class="choosePaymentType active" id="@item.PaymentID">
+                        <div class="choose_buy_info">
+                            <h4>
+                                @item.Name
+                            </h4>
+                            <p>
+                                @item.Description</p>
+                        </div>
+                    </li>
+
+                            }
+                            else
+                            {
+                    <li class="choosePaymentType" id="@item.PaymentID">
+                        <div class="choose_buy_info">
+                            <h4>
+                                @item.Name
+                            </h4>
+                            <p>
+                                @item.Description</p>
+                        </div>
+                    </li>
+                            }
+
+                        }
+                    }
+                }
+            </ul>
+        </div>
+        <div style="color: #0A84C1; font-size: 18px; padding: 30px
+            0 25px 0px;">
+            Cung cấp thông tin xuất hóa đơn
+        </div>
+        <div class="order-form-info">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="order-form-table">
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Tên công ty:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.CompanyName, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Địa chỉ công ty:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.CompanyAddress, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Mã số thuế:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.MST, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+        </div>
+    </div>
+</div>

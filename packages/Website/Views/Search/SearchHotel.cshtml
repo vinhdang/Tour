@@ -1,0 +1,267 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Website.Models.Search.SearchHotelModel
+@if (Model != null)
+{
+    using (Html.BeginForm("SearchHotel", "Search", new { fd = Model.FDate, td = Model.TDate, nr = Model.NumberRoom, ng = Model.NumberGuest }, FormMethod.Post))
+    {
+          
+    <table border="0" cellpadding="0" cellspacing="3">
+        <tr>
+            <td style="width: 53px;">
+                @Html.LabelFor(u => u.ProvinceName):
+            </td>
+            <td style="padding-right: 20px;">
+                @Html.TextBoxFor(u => u.ProvinceName, new { @class = "testboxsearch", @style = " width:271px;" })
+                <input type="hidden" id="provinceID" name="provinceID" value="@Model._ProvinceID" />
+            </td>
+            <td style="text-align: right;">
+                @Html.LabelFor(u => u.FDate):
+            </td>
+            <td style="padding-right: 20px;">
+                @Html.TextBoxFor(u => u.FDate, new { @class = "testboxsearch", @style = " width:101px;" })
+            </td>
+            <td style="text-align: right;">
+                @Html.LabelFor(u => u.NumberRoom):
+            </td>
+            <td style="padding-right: 20px;">
+                <select class="select" id="NumberRoom" name="NumberRoom">
+                    @foreach (SelectListItem item in Service.Helpers.GlobalVariables.RoomList)
+                    {
+                        if (item.Value == Model.NumberRoom.ToString())
+                        {
+                        <option value="@item.Value" selected="selected" >@item.Text </option>
+                        }
+                        else
+                        {  <option value="@item.Value"  >@item.Text </option>}
+                    }
+                </select>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 53px;">
+            </td>
+            <td>
+                @Html.TextBoxFor(u => u.HotelName, new { @class = "testboxsearch", @style = " width:271px;" })
+                <input type="hidden" id="hotelID" name="hotelID" />
+            </td>
+            <td style="text-align: right;">
+                @Html.LabelFor(u => u.TDate):
+            </td>
+            <td style="padding-right: 20px;">
+                @Html.TextBoxFor(u => u.TDate, new { @class = "testboxsearch", @style = " width:101px;" })
+            </td>
+            <td style="text-align: right;">
+                @Html.LabelFor(u => u.NumberGuest):
+            </td>
+            <td style="padding-right: 20px;">
+                <select class="select" id="NumberGuest" name="NumberGuest">
+                    @for (int i = Model.NumberRoom; i <= Model.NumberRoom * 4; i++)
+                    {
+                        if (i == Model.NumberGuest)
+                        {
+                        <option value="@i" selected="selected" >@i Khách </option>
+                        }
+                        else
+                        {  <option value="@i"  >@i Khách </option>}
+                    }
+                </select>
+            </td>
+            <td>
+                <input type="image" value="Tìm kiếm" src="/Content/FrontEnd/images/button-tim-kiem1.jpg" />
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        $('#NumberRoom').change(function () {
+            var lang = $(this).val();
+            var cat = $('#NumberGuest');
+
+            if (lang != null && lang != '') {
+                $.getJSON('@Url.Action("SelectGuest")', { nroom: lang }, function (list) {
+                    cat.empty();
+
+                    $.each(list, function (index, info) {
+                        cat.append($('<option/>', {
+                            value: info.Value,
+                            text: info.Text,
+                            selected: info.Selected
+                        }));
+                    });
+                });
+            }
+            else { }
+        });
+        $(function () {
+            $("#ProvinceName").focus(function () {
+                $(this).val("");
+            });
+            $("#ProvinceName").blur(function () {
+                if (!$(this).val()) $(this).val('@Html.Raw(Model.ProvinceName)');
+            });
+            $("#HotelName").val("Tên Khách Sạn");
+            $("#HotelName").blur(function () {
+                if (!$(this).val()) $(this).val("Tên Khách Sạn");
+            });
+            $("#HotelName").focus(function () {
+                if ($(this).val() == "Tên Khách Sạn") $(this).val("");
+            });
+            $("#ProvinceName").autocomplete({
+                minLength: 0,
+                source: '@Url.Action("getProvince")',
+                open: function (event, ui) {
+                    $(this).autocomplete("widget").css({
+                        "width": 250
+                    });
+                },
+                select: function (event, ui) {
+                    $("#ProvinceName").val(ui.item.label + " , Việt Nam");
+                    $("#provinceID").val(ui.item.value);
+                    return false;
+                }
+            }).bind('focus', function () { $(this).autocomplete("search"); }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                return $("<li>").append("<a>" + item.label + "</a>").appendTo(ul);
+            };
+            $("#HotelName").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("getHotel")',
+                        dataType: "json",
+                        data: {
+                            term: request.term,
+                            provinceID: $('#provinceID').val()
+                        },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                open: function (event, ui) {
+                    $(this).autocomplete("widget").css({
+                        "width": 400
+                    });
+                },
+                minLength: 0,
+                select: function (event, ui) {
+                    $("#HotelName").val(ui.item.label);
+                    $("#hotelID").val(ui.item.value);
+                    return false;
+                }
+            }).bind('focus', function () {
+                var provinceID = $('#provinceID').val();
+                if (provinceID != null && provinceID > 0) {
+                    $(this).autocomplete("search");
+                }
+
+            }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                return $("<li>").append("<a>" + item.label + Star(item.desc) + "</a>").appendTo(ul);
+            };
+
+            function Star(i) {
+                switch (i) {
+                    case 1:
+                        return "&nbsp;&nbsp;<img src='/images/star-on.png' />";
+                    case 2:
+                        return "&nbsp;&nbsp;<img src='/images/star-on.png' /><img src='/images/star-on.png' />";
+                    case 3:
+                        return "&nbsp;&nbsp;<img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' />";
+                    case 4:
+                        return "&nbsp;&nbsp;<img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' />";
+                    case 5:
+                        return "&nbsp;&nbsp;<img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' />";
+                }
+            }
+        });
+
+
+    </script>
+                    if (!string.IsNullOrEmpty(Model.FDate))
+                    {
+    <script type="text/javascript">
+                $(function () { 
+                $("#FDate").datepicker({
+                        defaultDate:@Model.FDate,
+                        altFormat: "DD, dd/mm/yy",
+                        numberOfMonths: 2,
+                        showButtonPanel: true,
+                        minDate: new Date(),
+                        onSelect: function (selectedDate) {
+                            var newDate = $(this).datepicker('getDate');
+                            if (newDate) { // Not null
+                                newDate.setDate(newDate.getDate() + 1);
+                            }
+                            $("#TDate").datepicker("option", "minDate", newDate);
+                        }
+                    });
+                });
+    </script>
+                    }
+                    else
+                    { 
+    <script type="text/javascript">
+        $(function () {
+            $("#FDate").datepicker({
+                altField: "#alternateFromDate",
+                altFormat: "DD, dd/mm/yy",
+                numberOfMonths: 2,
+                showButtonPanel: true,
+                minDate: new Date(),
+                onSelect: function (selectedDate) {
+                    var newDate = $(this).datepicker('getDate');
+                    if (newDate) { // Not null
+                        newDate.setDate(newDate.getDate() + 1);
+                    }
+                    $("#TDate").datepicker("option", "minDate", newDate);
+                }
+            });
+        });
+    </script>
+                    }
+                    if (!string.IsNullOrEmpty(Model.TDate))
+                    {
+    <script type="text/javascript">
+                $(function () { 
+                $("#TDate").datepicker({
+                        defaultDate:@Model.TDate,
+                        altField: "#alternateToDate",
+                        altFormat: "DD, dd/mm/yy",
+                        numberOfMonths: 2,
+                        minDate: new Date(),
+                        onSelect: function (selectedDate) {
+
+                            var newDate = $(this).datepicker('getDate');
+                            if (newDate) { // Not null
+                                newDate.setDate(newDate.getDate() - 1);
+                            }
+                            $("#FDate").datepicker("option", "maxDate", newDate);
+                        }
+                    });
+                });
+    </script>
+                    }
+                    else
+                    { 
+    <script type="text/javascript">
+        $(function () {
+            $("#TDate").datepicker({
+                altField: "#alternateToDate",
+                altFormat: "DD, dd/mm/yy",
+                numberOfMonths: 2,
+                minDate: new Date(),
+                onSelect: function (selectedDate) {
+
+                    var newDate = $(this).datepicker('getDate');
+                    if (newDate) { // Not null
+                        newDate.setDate(newDate.getDate() - 1);
+                    }
+                    $("#FDate").datepicker("option", "maxDate", newDate);
+                }
+            });
+
+        });
+    </script>
+                    }
+    }
+}

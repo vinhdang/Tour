@@ -1,0 +1,91 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Website.Models.Search.SearchByPriceByStarModel
+@if (Model != null)
+{
+    <div class="by_price_by_star">
+        @using (Html.BeginForm("SearchByPrice", "Search", new { p = Model.ProvinceID, d = Model.DistrictID, a = Model.AreaID, c = Model.ComfortID, ht = Model.HotelThemeID, type = Model.HotelTypeID, hp = Model.HotelPromotion, fd = Model.FromDate, td = Model.ToDate, nr = Model.NumberRoom, ng = Model.NumberGuest }, FormMethod.Post, new { id = "fpriceID" }))
+        {
+            <div class="by_price">
+                @foreach (SelectListItem item in Model.PriceList)
+                { 
+                    <div class="by_price_item">
+                        @if (Model.ListPriceID != null && Model.ListPriceID.Length > 0 && Model.ListPriceID.Contains(item.Value.ToString()))
+                        {
+                            <input type="checkbox" value="@item.Value"  checked="checked"/><label>@item.Text</label>
+                        }
+                        else
+                        {
+                            <input type="checkbox" value="@item.Value" id="priceID"  name="priceID" /><label>@item.Text</label>
+                        }
+                    </div>
+                }
+                <script type="text/javascript">
+                    $(":checkbox[name='priceID']").click(function () {
+                        $("#fpriceID").submit();
+                    });
+                </script>
+            </div>
+        }
+        @using (Html.BeginForm("SearchByStar", "Search", new { p = Model.ProvinceID, d = Model.DistrictID, a = Model.AreaID, c = Model.ComfortID, ht = Model.HotelThemeID, type = Model.HotelTypeID, price = Model.priceID, hp = Model.HotelPromotion, fd = Model.FromDate, td = Model.ToDate, nr = Model.NumberRoom, ng = Model.NumberGuest }, FormMethod.Post, new { id = "fstarID" }))
+        {
+            <div class="by_star">
+                @foreach (SelectListItem item in Model.StarList)
+                { 
+                    <div class="by_star_item">
+                        @if (Model.ListStarID != null && Model.ListStarID.Length > 0 && Model.ListStarID.Contains(item.Text.ToString()))
+                        {
+                            <input type="checkbox" value="@item.Value"  id="starID" name="starID" checked="checked" />
+                        }
+                        else { 
+                         <input type="checkbox" value="@item.Value"  id="starID" name="starID" />
+                        }
+                        <label>
+                            @switch (item.Text)
+                            {
+                                case "1":
+                                <img src="/images/star-on1.png" />
+                                    break;
+                                case "2":
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                    break;
+                                case "3":
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                    break;
+                                case "4":
+                                <img src="/images/star-on1.png" />
+
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                    break;
+                                case "5":
+                                <img src="/images/star-on1.png" />
+
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                    break;
+                                default:
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                <img src="/images/star-on1.png" />
+                                    break;
+
+                            }
+                        </label>
+                    </div>
+                }
+                <script type="text/javascript">
+                    $(":checkbox[name='starID']").click(function () {
+                        $("#fstarID").submit();
+                    });
+                </script>
+            </div>
+        }
+    </div>
+}

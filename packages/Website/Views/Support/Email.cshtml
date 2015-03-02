@@ -1,0 +1,9 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Support
+@if (Model != null)
+{
+    <a href="mailto:@Html.Raw(Model.Value)">@Html.Raw(Model.Value)</a>
+
+    
+}

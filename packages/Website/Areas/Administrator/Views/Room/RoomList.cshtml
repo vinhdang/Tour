@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Domain.Entities.Room>
+@using Service.Helpers;
+@(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Name).Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.RoomID })</text>);
+            columns.Bound(o => o.NumberGuest).Title("Số người").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+
+            columns.Bound(o => o.Order).Title("Thứ tự").Width("4%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+
+            columns.Bound(o => o.IsActive).Title("Trạng thái").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsContact).Title("Lấy giá?").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+
+            columns.Template(
+                @<text>
+@Html.ActionLink(@item.Name, "Edit", new { id = @item.RoomID }, new { @class = "edit_icon", @title = "Sửa tệp tin ảnh [" + @item.Name + "]" })
+@Ajax.ActionLink("Delete", "Delete", new { id = @item.RoomID, HotelID = @item.HotelID }, new AjaxOptions { Confirm = "Bạn có chắc chắn muốn xóa loại phòng [" + @item.Name + "] ?", HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnFailure", UpdateTargetId = "RoomList" }, new { @title = "Xóa phòng [" + @item.Name + "]", @class = "del_icon" })</text>).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)

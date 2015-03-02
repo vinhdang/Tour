@@ -1,0 +1,55 @@
+﻿@model List<Domain.Entities.EmailGetPrice>
+@using (Html.BeginForm())
+{ <hr />
+    <div class="right">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td class="paddingright" style="text-align: right;">
+                        <label>
+                            Từ khóa:</label>
+                        <input type="text" id="key" name="key" value="@Service.Helpers.Protector.String(ViewBag.Key)" style="width: 242px;" />
+                    </td>
+                    <td class="paddingright">
+                        <input type="submit" name="Search" value="Tìm" class="t-button" />
+                        <input type="submit" name="Delete" value="Xóa" class="t-button" />
+                    </td>
+                    <td class="paddingright">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+                 .DataKeys(keys => keys.Add(c => c.EmailGetPriceID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Email).Template(@<text>@Html.ActionLink(@item.Email, "Edit", new { id = @item.EmailGetPriceID })</text>);
+            columns.Bound(o => o.Hotel.Province.Name).Title("Vị trí");
+            columns.Bound(o => o.Hotel.Name).Title("Tên khách sạn");
+            columns.Bound(o => o.Room.Name).Title("Tên phòng");
+            columns.Bound(o => o.FromDate).Title("Ngày đi").Format("{0:dd/MM/yyyy}");
+            columns.Bound(o => o.ToDate).Title("Ngày về").Format("{0:dd/MM/yyyy}");
+            columns.Bound(o => o.Phone).Title("Điện thoại").Format("{0:dd/MM/yyyy}");
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.EmailGetPriceID " title="checkedRecords"/></text>)
+                 .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                 .Width("4%")
+                 .HeaderHtmlAttributes(new { style = "text-align:center" })
+                 .HtmlAttributes(new { style = "text-align:center" });
+
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

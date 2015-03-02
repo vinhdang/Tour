@@ -1,0 +1,44 @@
+﻿@using Service.Helpers
+@using Domain.Entities
+@model List<New>
+<div class="news_home">
+    <div class="news_home_list">
+        @if (Model != null && Model.Count > 0)
+        {
+            New item_0 = Model[0];
+            <div class="news_home_list_first">
+                <h2>
+                    <a title="@item_0.Name" href="@UrlHelp.getNewUrl(item_0.Name, item_0.Category.Name, item_0.NewID, item_0.CategoryID)">
+                        @item_0.Name</a>
+                </h2>
+                <div class="news_home_list_first_des">
+                    @if (!string.IsNullOrEmpty(item_0.Avartar))
+                    {
+                        <div class="news_home_list_first_des_img">
+                            <a title="@item_0.Name"  href="@UrlHelp.getNewUrl(item_0.Name, item_0.Category.Name, item_0.NewID, item_0.CategoryID)">
+                                <img alt="@item_0.Name" src="@Service.Helpers.FileHelper.GetNew_Picture(item_0.Avartar, item_0.NewID)" width="199px" height="131px"  /></a>
+                        </div>
+                        
+                
+                    }
+                    <div class="news_home_list_first_des1">
+                        @item_0.Description
+                    </div>
+                </div>
+            </div>
+            <div class="news_home_list_other">
+                <ul>
+                    @foreach (New item in Model)
+                    {
+                        if (item != item_0)
+                        {
+                        <li><a title="@item.Name" href="@UrlHelp.getNewUrl(item.Name, item.Category.Name, item.NewID, item.CategoryID)">
+                            @item.Name</a> </li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+    @{ Html.RenderAction("HomeContact", "Config"); }
+</div>

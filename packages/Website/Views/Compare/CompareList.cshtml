@@ -1,0 +1,41 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  IEnumerable<Compare>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="compare_list">
+        <div class="compare_list_item">
+            <div class="compare_list_item_col1">
+                So sánh giá với
+            </div>
+            <div class="compare_list_item_col2">
+                &nbsp;
+            </div>
+            <div class="compare_list_item_col3">
+                &nbsp;
+            </div>
+        </div>
+        @foreach (Compare item in Model)
+        {
+            <div class="compare_list_item">
+                <div class="compare_list_item_col4">
+                    <ul>
+                        @if (!string.IsNullOrEmpty(item.CompareType.Logo))
+                        {
+                            <li>
+                                <img alt="@item.Name" width="100px" src="/Resources/CompareType/@item.CompareTypeID/@item.CompareType.Logo" /></li>
+                        }
+                        <li>@item.Name</li>
+                    </ul>
+                </div>
+                <div class="compare_list_item_col5">
+                    @item.Description
+                </div>
+                <div class="compare_list_item_col6">
+                    <a href="@item.Link" target="_blank"  title="@item.Name">
+                        <img alt="@item.Name" src="/Content/FrontEnd/images/compare_btn_chi_tiet.jpg" /></a>
+                </div>
+            </div>
+        }
+    </div>
+}

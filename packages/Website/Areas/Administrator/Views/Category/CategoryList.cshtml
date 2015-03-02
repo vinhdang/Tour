@@ -1,0 +1,32 @@
+﻿@model List<Domain.Entities.Category>
+@using (Html.BeginForm())
+{ <hr />
+    <div class="right">
+        <input type="submit" name="Delete" value="Xóa" class="t-button" />
+    </div>
+    <hr />
+
+    @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+            .DataKeys(keys => keys.Add(c => c.CategoryID))
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Name).Title("Tên").Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.CategoryID })</text>);
+            columns.Bound(o => o.Order).Title("Thứ tự").Width("4%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text>@Html.ActionLink("+ Hình ảnh(" + item.CategoryPictures.Count() + ")", "Create", "CategoryPicture", new { id = @item.CategoryID }, null)</text>).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).Title("Trạng thái").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.CategoryID " title="checkedRecords"/></text>)
+               .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+               .Width("4%")
+               .HeaderHtmlAttributes(new { style = "text-align:center" })
+               .HtmlAttributes(new { style = "text-align:center" });
+
+        })
+                                  .Pageable(paging => paging.PageSize(50))
+                                  )
+
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

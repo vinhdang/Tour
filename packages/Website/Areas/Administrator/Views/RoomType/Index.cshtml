@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.RoomType>
+@{
+    ViewBag.Title = "Danh Sách Loại Phòng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Loại Phòng
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Loại Phòng", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="RoomTypeList">
+    @Html.Partial("RoomTypeList")
+</div>

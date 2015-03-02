@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.AdminMenu>
+@{
+    ViewBag.Title = "Danh Sách Menu";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Menu
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Menu", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="AdminMenuList">
+    @Html.Partial("AdminMenuList", Model)
+</div>

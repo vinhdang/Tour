@@ -1,0 +1,19 @@
+﻿@model IQueryable<Domain.Entities.Contact>
+@(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.FullName);
+            columns.Bound(o => o.Email).Width("15%").HtmlAttributes(new { style = "text-align:left" });
+            columns.Bound(o => o.Phone).Width("10%").HtmlAttributes(new { style = "text-align:left" });
+            columns.Bound(o => o.CreatedDate).Format("{0:dd/MM/yyyy}").Width("10%");
+            columns.Bound(o => o.Isprocessing).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(
+                @<text>
+                @Html.ActionLink(@item.FullName, "Edit", new { id = @item.ContactID }, new { @class = "edit_icon", @title = @item.FullName })
+@Ajax.ActionLink("Delete", "Delete", new { id = @item.ContactID }, new AjaxOptions { Confirm = "Delete Contact ?", HttpMethod = "Post", UpdateTargetId = "divContactList" }, new { @class = "del_icon" })</text>).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+        })
+       .Pageable(paging => paging.PageSize(50))
+         .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)

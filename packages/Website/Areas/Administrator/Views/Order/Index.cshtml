@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Domain.Entities.Order>
+@{
+    ViewBag.Title = "Danh Sách Booking";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Booking
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder">
+    @Html.Partial("OrderList", Model)
+</div>

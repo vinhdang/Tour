@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.SeatType>
+@{
+    ViewBag.Title = "Danh Sách Hạng Ghế";
+    Layout = "~/Areas/Ticket/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Hạng Ghế
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Hạng Ghế", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="SeatTypeList">
+    @Html.Partial("SeatTypeList")
+</div>

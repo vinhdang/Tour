@@ -1,0 +1,28 @@
+﻿<div class="hotel_support">
+    <div class="hotel_support_title">
+        <span class="title">Hỗ trợ trực tuyến</span>
+    </div>
+    <div class="hotel_support_list">
+        <div class="hotel_support_list_item">
+            <div class="hotel_support_list_item_title">
+                Hỗ trợ đặt phòng:</div>
+            <div class="hotel_support_list_item_content">
+                @{ Html.RenderAction("Phone", "Support"); }
+            </div>
+        </div>
+        <div class="hotel_support_list_item">
+            <div class="hotel_support_list_item_title">
+                Hỗ trợ sự cố và các vấn đề khác:</div>
+            <div class="hotel_support_list_item_content">
+                @{ Html.RenderAction("Troubleshooting", "Support"); }
+            </div>
+        </div>
+        <div class="hotel_support_list_item">
+            <div class="hotel_support_list_item_content_email">
+                @{ Html.RenderAction("Email", "Support"); }
+            </div>
+        </div>
+        @{ Html.RenderAction("Yahoo1", "Support"); }
+        @{ Html.RenderAction("Skype1", "Support"); }
+    </div>
+</div>

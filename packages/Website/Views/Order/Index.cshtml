@@ -1,0 +1,300 @@
+﻿@using Domain.Entities;
+@using Service.Helpers
+@model Website.Models.Order.CreateOrderModel
+@{
+    if (Model != null)
+    {
+        ViewBag.Title = Protector.String(Model.Hotel.PageTitle);
+        ViewBag.Description = Protector.String(Model.Hotel.Description);
+        ViewBag.KeyWords = Protector.String(Model.Hotel.KeyWord);
+    }
+    Layout = "~/Views/Shared/BookingDetail.cshtml";
+    
+}
+@if (Model != null && Model.Hotel != null)
+{
+    <div class="order-hotel-detail">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td valign="top">
+                    <div class="order-hotel-detail-title">
+                        Thông tin khách sạn
+                    </div>
+                    <div class="order-hotel-detail-content">
+                        <table border="0" cellpadding="0" cellspacing="3">
+                            <tr>
+                                <td>
+                                    <span>Tên khách sạn:</span><span style="padding: 0px 0px 0px 10px; color: #0a84c1;">
+                                        <a target="_blank" href="">
+                                            @Model.Hotel.Name
+                                        </a></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Địa chỉ:</span><span style="padding: 0px 0px 0px 10px; color: #000; font-weight: bold;">@Model.Hotel.Address</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Tiêu chuẩn:</span>
+                                    @{ Html.RenderAction("Star", "Hotel", new { star = @Model.Hotel.Star }); }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                <td valign="top" style="width: 239px;">
+                    <div class="order-hotel-detail-picture">
+                        @if (Model.Hotel.HotelPicture != null)
+                        {
+                            <img  src="@FileHelper.GetHotel_Picture(Model.Hotel.HotelPicture.FileName, Model.Hotel.HotelPicture.HotelID)" alt ="@Model.Hotel.HotelPicture.Alt" />
+                        }
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="order-info">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px 0 25px 0px;">
+            Thông tin đặt phòng
+        </div>
+        <div class="order-list-info">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="table-order">
+                <tr style="background-color: #EDEEEE;">
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Loại phòng
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Số phòng
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Ngày đi
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Ngày về
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Số đêm
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        Giá 1 đêm
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; border-right: 0px; font-weight: bold;">
+                        VAT + Phí dịch vụ
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; font-weight: bold;">
+                        Tổng cộng
+                    </td>
+                </tr>
+                @foreach (Website.Models.Order.MyOrder item in Model.Orders)
+                {
+
+                    Html.RenderAction("RoomInfo", "Room", new { order = item });
+
+                }
+                <tr style="background-color: #EDEEEE;">
+                    <td style="border: solid 1px #c2c2c2; border-top: 0px; border-right: 0px; padding-right: 10px;
+                        text-align: right; font-weight: bold;" colspan="7">
+                        Số tiền phải trả
+                    </td>
+                    <td style="border: solid 1px #c2c2c2; font-weight: bold; color: Red; font-size: 15px;
+                        border-top: 0px;">
+                        @{ Html.RenderAction("TotalPrice", "Room", new { list = Model.Orders });}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+                           using (Html.BeginForm("Index", "Order", new { p = Model.ProvinceID, h = Model.HotelID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                           {
+    <div class="order-form">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px 0 25px 0px;">
+            Thông tin khách hàng <span style="padding-left: 20px; color: #ff0000; font-size: 12px;
+                font-weight: bold;">Lưu ý những ô có dấu (*) là bắt buộc phải nhập</span>
+        </div>
+        <div class="order-form-info">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="order-form-table">
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Họ tên:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.FullName) <span style="color: #FF0000;">(*)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Số điện thoại:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.Phone) <span style="color: #FF0000;">(*)</span> @*     @Html.ValidationMessageFor(o => o.Phone)*@
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Email:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.Email) <span style="color: #FF0000;">(*)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Địa chỉ:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextAreaFor(t => t.Address, new { @style = "width:545px;  height:30px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Loại phòng:
+                    </td>
+                    <td style="text-align: left;">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td style="padding-right: 30px">
+                                    <input type="radio" value="1" name="RoomType" id="RoomType" />
+                                    &nbsp;<label>
+                                        Phòng không hút thuốc</label>
+                                </td>
+                                <td>
+                                    <input type="radio" value="2" name="RoomType" id="RoomType" />
+                                    &nbsp;<label>Phòng hút thuốc</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Ghi chú:
+                    </td>
+                    <td style="text-align: left;">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;" colspan="2">
+                        @Html.TextAreaFor(t => t.Content, new { @style = "width:700px;  height:100px;" })
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+                               if (!string.IsNullOrEmpty(Model.Hotel.Policy))
+                               {
+    <div class="order-form">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px 0 25px 0px;">
+            Chính sách khách sạn
+        </div>
+        <div class="order-form-info">
+            @Html.Raw(Model.Hotel.Policy)
+        </div>
+    </div>
+                               }
+                               if (!string.IsNullOrEmpty(Model.Hotel.ListPayment))
+                               {
+    <script type="text/javascript">        $(document).ready(function () {
+            $(".choosePaymentType").bind("click",
+            function () { DoChoosePaymentType($(this)); return false; });
+        }); function DoChoosePaymentType(divClick) {
+            $(".choosePaymentType").removeClass("active"); var currentId = divClick.attr('id').toString();
+            divClick.addClass("active"); $("input[name=PaymentType]").val(currentId);
+        } </script>
+    <div class="order-form">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px
+            0 25px 0px;">
+            Phương thức thanh toán
+        </div>
+        <input type="hidden" value="@Protector.String(ViewContext.RouteData.Values["hotelID"])" id="hotelID" name="hotelID" />
+        <div class="order-form-payment">
+            <input type="hidden" value="3" name="PaymentType" id="PaymentType" />
+            <ul class="choose_buy">
+                @{int i = 0; Model.Hotel = Model.Hotel;}
+                @foreach (Payment item in Model.Payments)
+                {
+                    if (!string.IsNullOrEmpty(Model.Hotel.ListPayment))
+                    {
+                        string[] listId = Model.Hotel.ListPayment.Split(';');
+                        if (listId != null && listId.Length > 0 && listId.Contains(item.PaymentID.ToString()))
+                        {
+                            if (i == 0)
+                            {
+                    <li class="choosePaymentType active" id="@item.PaymentID">
+                        <div class="choose_buy_info">
+                            <h4>
+                                @item.Name
+                            </h4>
+                            <p>
+                                @item.Description</p>
+                        </div>
+                    </li>
+
+                            }
+                            else
+                            {
+                    <li class="choosePaymentType" id="@item.PaymentID">
+                        <div class="choose_buy_info">
+                            <h4>
+                                @item.Name
+                            </h4>
+                            <p>
+                                @item.Description</p>
+                        </div>
+                    </li>
+                            }
+                            i++;
+                        }
+                    }
+                }
+            </ul>
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="order-form">
+        <div style="color: #0A84C1; font-size: 18px; padding: 10px
+            0 25px 0px;">
+            Cung cấp thông tin xuất hóa đơn
+        </div>
+        <div class="order-form-info">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="order-form-table">
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Tên công ty:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.CompanyName)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Địa chỉ công ty:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.CompanyAddress)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; text-align: left; font-weight: bold;">
+                        Mã số thuế:
+                    </td>
+                    <td style="text-align: left;">
+                        @Html.TextBoxFor(t => t.MST)
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+        </div>
+    </div>
+  
+      
+    <div style="text-align: center; float: left; margin-bottom: 10px; margin-top: 10px;
+        padding: 10px; width: 874px;">
+        <input type="image" src="/Content/FrontEnd/images/booking.jpg" />
+    </div>
+                               }
+                           }
+}

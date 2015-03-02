@@ -1,0 +1,22 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  Config 
+<div class="hotel_good_price">
+    <div class="hotel_good_price_title">
+        <span class="title">Tìm giá tốt tại Vietrip</span>
+    </div>
+    <div class="home_search">
+        <div class="home_search_left">
+            <ul>
+                <li class="active">
+                    <div class="hotel_icon">
+                        <a>Khách sạn</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="home_search_right">
+            @Html.Raw(Model.Value)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  IEnumerable<HotelPicture>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="picturegallery">
+        <div class="picturegallery_avartar" id="imageWrap">
+            @{
+    HotelPicture avartar = Model.FirstOrDefault(p => p.IsAvartar);
+    int i = 0;
+    if (avartar != null) { }
+    else
+    {
+        avartar = Model.FirstOrDefault();
+    }
+            }
+            <img id="mainImage" src="@FileHelper.GetHotel_Picture(avartar.FileName, avartar.HotelID)" alt ="@avartar.Alt" />
+        </div>
+        <div class="picturegallery_list">
+            @foreach (HotelPicture item in Model)
+            {
+                switch (i)
+                {
+                    case 0:
+                    case 1:
+                <a href="@FileHelper.GetHotel_Picture(item.FileName, item.HotelID)" class="thumbnail">
+                    <img src="@FileHelper.GetHotel_Picture(item.FileName, item.HotelID)" alt ="@item.Alt" />
+                </a>
+                                                                                          i++;
+                                                                                          break;
+                    case 2:
+                <a href="@FileHelper.GetHotel_Picture(item.FileName, item.HotelID)" class="thumbnail">
+                    <img src="@FileHelper.GetHotel_Picture(item.FileName, item.HotelID)" alt ="@item.Alt" style="padding-right:0px;" />
+                </a>
+                                                                                          i = 0;
+                                                                                          break;
+                }
+
+
+            }
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.thumbnail').live("click", function () {
+                    // $('#mainImage').hide();
+                    $('#imageWrap').css('background-image', "url('/Content/FrontEnd/images/ajax-loader.gif')");
+                    var i = $('<img />').attr('src', this.href).load(function () {
+                        $('#mainImage').attr('src', i.attr('src'));
+                        $('#imageWrap').css('background-image', 'none');
+                        $('#mainImage').fadeIn();
+                    });
+                    return false;
+                });
+            });
+        </script>
+    </div>
+}

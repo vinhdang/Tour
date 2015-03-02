@@ -1,0 +1,15 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  string
+@if (!string.IsNullOrEmpty(Model))
+{
+    <div class="picture-list">
+        <div class="picture-list-title">
+            <span>Chính sách khách sạn</span>
+        </div>
+        <div class="hotel_content">
+            @Html.Raw(Model)
+        </div>
+    </div>
+    
+}

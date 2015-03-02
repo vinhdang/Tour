@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Domain.Entities.Area>
+@{
+    ViewBag.Title = "Danh Sách Khu Vực";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Khu Vực
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Khu Vực", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="AreaList">
+    @Html.Partial("AreaList", Model)
+</div>

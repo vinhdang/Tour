@@ -1,0 +1,31 @@
+﻿@model  List<Domain.Entities.RoomPrice>
+@using Service.Helpers;
+@if (Model != null && Model.Count > 0)
+{
+    <div>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr style="background-color: #E5F0FF;">
+                <td style="border: 1px solid #BDC8CD; color: #000000; font-weight: bold; padding: 8px 20px 8px 20px;">
+                    Ngày Lưu Trú
+                </td>
+                <td style="border: 1px solid #BDC8CD; border-left: 0px; color: #000000; font-weight: bold;
+                    padding: 8px 20px;">
+                    Giá Phòng
+                </td>
+            </tr>
+            @foreach (Domain.Entities.RoomPrice item in Model)
+            {
+                <tr>
+                    <td style="border-bottom: 1px solid #BDC8CD; border-left: 1px solid #BDC8CD; border-right: 1px solid #BDC8CD;
+                        color: #000000; font-weight: normal; padding: 8px 5px 8px 10px;">
+                        @string.Format("{0:dd/MM/yyyy}", item.Date)
+                    </td>
+                    <td style="border-bottom: 1px solid #BDC8CD; border-right: 1px solid #BDC8CD; color: #000000;
+                        font-weight: normal; padding: 8px 5px 8px 10px; text-align: center;">
+                        @String.Format("{0:#,###}", item.Price)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}

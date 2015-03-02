@@ -1,0 +1,46 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model List<Banner>
+@if (Model != null && Model.Count > 0)
+{
+    <div style="width: 283px; overflow: hidden; position: fixed; float: right; z-index: 1000000001;
+        bottom: 0px; right: 0px;" id="bannerlist">
+        <div style="width: 283px; position: relative;">
+            <div style="width: 220px; position: relative; float: left;">
+                &nbsp;
+            </div>
+            <div style="width: 58px; padding: 2px; background: none repeat scroll 0% 0% #f28006;
+                position: relative; float: left;">
+                <a href="#" id="close" style="text-decoration: none; float: right; height: 23px;
+                    width: 58px; display: block; background: url(/Content/FrontEnd/images/close_button.png) no-repeat top left;">
+                    &nbsp;</a>
+                <script type="text/javascript">
+
+                    $("#close").click(function (event) {
+                        event.preventDefault();
+                        $("#bannerlist").hide();
+                    });
+                </script>
+            </div>
+        </div>
+        <div style="background: none repeat scroll 0% 0% #f28006; padding-top: 10px; height: 220px;
+            float: left; width: 283px;">
+            <div style="sposition: absolute; display: block; z-index: 999; overflow: hidden;
+                width: 273px; right: 0px; bottom: 0px; opacity: 100; padding: 5px; text-align: center;">
+                @foreach (Banner item in Model)
+                {
+                    if (!string.IsNullOrEmpty(item.Link))
+                    { 
+                    <a  href="@item.Link" title="@item.Name" style="border:0px;">
+                        <img src="@FileHelper.GetBanner_Picture(item.FileName, item.BannerID)" style="border:0px; padding-bottom:5px; float:left;" width="273px" height="67px" alt="@item.Name" /></a>
+                    }
+                    else
+                    {
+                    <img src="@FileHelper.GetBanner_Picture(item.FileName, item.BannerID)"  style="border:0px; padding-bottom:5px; float:left;" width="273px" height="67px" alt="@item.Name" />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+}

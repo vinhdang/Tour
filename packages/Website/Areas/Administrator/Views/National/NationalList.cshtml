@@ -1,0 +1,52 @@
+﻿@model List<Domain.Entities.National>
+@using (Html.BeginForm())
+{ <hr />
+    <div class="right">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td class="paddingright" style="text-align: right;">
+                        <label>
+                            Từ khóa:</label>
+                        <input type="text" id="key" name="key" value="@Service.Helpers.Protector.String(ViewBag.Key)" style="width: 242px;" />
+                    </td>
+                    <td class="paddingright">
+                        <input type="submit" name="Search" value="Tìm" class="t-button" />
+                        <input type="submit" name="Delete" value="Xóa" class="t-button" />
+                    </td>
+                    <td class="paddingright">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+                 .DataKeys(keys => keys.Add(c => c.NationalID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Name).Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.NationalID })</text>);
+            columns.Bound(o => o.Order).Width("4%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.User.Email).Title("Tạo bởi").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.NationalID " title="checkedRecords"/></text>)
+                  .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                  .Width("4%")
+                  .HeaderHtmlAttributes(new { style = "text-align:center" })
+                  .HtmlAttributes(new { style = "text-align:center" });
+
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

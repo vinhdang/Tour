@@ -1,0 +1,15 @@
+﻿@model IQueryable<Domain.Entities.Role>
+@{
+    ViewBag.Title = "Danh Sách Nhóm";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+       Danh Sách Nhóm
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Nhóm", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="RoleList">
+    @Html.Partial("RoleList")
+</div>

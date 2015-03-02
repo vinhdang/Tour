@@ -1,0 +1,16 @@
+﻿@model IQueryable<Domain.Entities.Support>
+@(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Name).Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.SupportID })</text>);
+            columns.Bound(o => o.Value).Width("20%");
+            columns.Bound(o => o.Order).Width("4%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.CreatedDate).Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(
+                @<text>
+@Html.ActionLink(@item.Name, "Edit", new { id = @item.SupportID }, new { @class = "edit_icon", @title = "Sửa" + " [" + @item.Name + "]" })
+@Ajax.ActionLink("Delete", "Delete", new { id = @item.SupportID }, new AjaxOptions { Confirm = "Xóa hỗ trợ" + " [" + @item.Name + "] ?", HttpMethod = "Post", UpdateTargetId = "divSupportList" }, new { @title = "Xóa hỗ trợ" + " [" + @item.Name + "]", @class = "del_icon" })</text>).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+        }).Pageable(paging => paging.PageSize(50)).Sortable(sorting => sorting.OrderBy(sortOrder
+=> sortOrder.Add(o => o.CreatedDate).Descending())))

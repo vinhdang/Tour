@@ -1,0 +1,174 @@
+﻿@model List<Domain.Entities.EmailTemplate>
+@using Service.Helpers;
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body style="margin: 0px; padding: 0px;">
+    @using (Html.BeginForm())
+    {
+
+        if (Model != null && Model.Count > 0)
+        {
+        <script src="@Url.Content("~/Scripts/jquery-1.8.2.js")" type="text/javascript"></script>
+        <div id="html">
+            <center>
+                <div style="width: 100%; background: none repeat scroll 0 0 #0984C0; font-family: Arial, Helvetica, sans-serif;">
+                    <table style="" cellpadding="0" cellspacing="0" width="633px">
+                        <tbody>
+                            <tr style="background: #333333;">
+                                <td style="text-align: left; padding: 0px;" align="left" width="172">
+                                    <a title="vietrip.vn" href="http://vietrip.vn/" target="_blank" style="text-decoration: none;">
+                                        <img title="vietrip.vn" style="display: block; padding: 7px;" alt="vietrip.vn" src="http://vietrip.vn/Images/Logo1.jpg"
+                                            border="0" height="59" width="172"></a>
+                                </td>
+                                <td style="font-size: 13px; color: #FFF; text-align: right; padding-right: 10px;
+                                    vertical-align: middle;" align="left">
+                                    <div style="border: 1px solid #FFFFFF; border-radius: 4px 4px 4px 4px; color: #FFFFFF;
+                                        float: right; font-size: 17px; font-weight: bold; padding: 5px 5px; text-align: right;">
+                                        Hotline: 08 3517 6281, 08 3517 6208
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="background: #333333;">
+                                <td colspan="2" align="center">
+                                    <div style="width: 633px; float: right; padding: 0px 0;">
+                                        <ul style="float: right; margin: 0px; padding: 0px;">
+                                            <li style="float: left; list-style: none outside none; margin: 0;"><a title="Trang chủ"
+                                                href="http://vietrip.vn/" style="color: #FFFFFF; float: left; font-size: 19px;
+                                                font-weight: normal; padding: 4px 7px 5px; text-decoration: none;">Trang chủ</a></li>
+                                            <li style="background: url('http://vietrip.vn/Content/FrontEnd/images/menu-separator.png')
+            no-repeat scroll center center transparent; float: left; height: 35px; padding: 0 15px; width: 1px; list-style: none outside none;
+                                                margin: 0;">&nbsp;</li>
+                                            <li style="float: left; list-style: none outside none; margin: 0;"><a style="color: #FFFFFF;
+                                                float: left; font-size: 19px; font-weight: normal; padding: 4px 7px 5px; text-decoration: none;"
+                                                title="Khách sạn" href="http://vietrip.vn/khach-san/" class="">Khách sạn</a></li>
+                                            <li style="background: url('http://vietrip.vn/Content/FrontEnd/images/menu-separator.png')
+            no-repeat scroll center center transparent; float: left; height: 35px; padding: 0 15px; width: 1px; list-style: none outside none;
+                                                margin: 0;">&nbsp;</li>
+                                            <li style="float: left; list-style: none outside none; margin: 0;"><a style="color: #FFFFFF;
+                                                float: left; font-size: 19px; font-weight: normal; padding: 4px 7px 5px; text-decoration: none;"
+                                                title="Hướng dẫn" href="http://vietrip.vn/huong-dan/6/c/" class="">Hướng dẫn</a></li>
+                                            <li style="background: url('http://vietrip.vn/Content/FrontEnd/images/menu-separator.png')
+            no-repeat scroll center center transparent; float: left; height: 35px; padding: 0 15px; width: 1px; list-style: none outside none;
+                                                margin: 0;">&nbsp;</li>
+                                            <li style="float: left; list-style: none outside none; margin: 0;"><a title="Liên hệ "
+                                                href="http://vietrip.vn/lien-he/7/ct/" style="color: #FFFFFF; float: left; font-size: 19px;
+                                                font-weight: normal; padding: 4px 7px 5px; text-decoration: none;" class="">Liên
+                                                hệ </a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-top: 4px solid #7eaf44; background: #FFF;" colspan="2" align="center">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background: #fff; padding: 5px;" colspan="2" align="center">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3">
+                                                    @foreach (Domain.Entities.EmailTemplate item in Model)
+                                                    {            
+                                                        <div style="float: left; width: 311px; height: 330px; padding-top: 5px; background: #EFEEEE;
+                                                            margin-bottom: 10px;">
+                                                            <table style="margin-bottom: 15px;" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="padding: 5px 5px 0px 10px; height: 40px;">
+                                                                            <a title="@item.Hotel.Name" href="@string.Format("http://www.vietrip.vn{0}", UrlHelp.getHotelUrl(item.Hotel.Province.Name, item.Hotel.Name, item.HotelID, item.Hotel.ProvinceID))"
+                target="_blank" style="text-decoration: none; font-size:14px; color:#0A84C1; font-weight:bold;">
+                                                                                @item.Hotel.Name - <span style="color: #5baa00;"><a style="color: #5baa00;text-decoration: none; " target="_blank" href="@string.Format("http://www.vietrip.vn{0}", UrlHelp.getProvinceUrl(item.Hotel.National.Name, item.Hotel.Province.Name, item.Hotel.ProvinceID, item.Hotel.NationalID))">
+                                                                                    @item.Hotel.Province.Name</a></span></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @{Domain.Entities.HotelPicture picture = item.Hotel.HotelPictures.FirstOrDefault(p => p.IsAvartar && p.IsActive);}
+                                                                    @if (picture != null)
+                                                                    {
+                                                                        <tr>
+                                                                            <td style="padding: 5px 0px 5px 10px;">
+                                                                                <div style="float: left; position: relative;">
+                                                                                    <a title="@item.Hotel.Name" href="@string.Format("http://www.vietrip.vn{0}", UrlHelp.getHotelUrl(item.Hotel.Province.Name, item.Hotel.Name, item.HotelID, item.Hotel.ProvinceID))"
+                    target="_blank" style="text-decoration: none;">
+                                                                                        <img title="@item.Hotel.Name" style="display:
+                    block;" alt="@item.Hotel.Name" src="@string.Format("http://www.vietrip.vn{0}", @FileHelper.GetHotel_Picture(picture.FileName, picture.HotelID))"
+                    width="291" height="200px">
+                                                                                    </a>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                    <tr>
+                                                                        <td style="padding: 5px 10px 5px 10px;" align="right">
+                                                                            @if (item.Price > 0)
+                                                                            {
+                                                                                <span style="font-size: 15px;">Giá khuyến mãi:</span> <span style="color: #968909;
+                                                                                    text-align: right; font-size: 18px; font-weight: bold;">
+                                                                                    @String.Format("{0:#,###} VND", item.Price)</span> }
+                                                                            else
+                                                                            {
+                                                                                <span style="font-size: 15px;">Giá khuyến mãi:</span> <span style="color: #968909;
+                                                                                    text-align: right; font-size: 18px; font-weight: bold;"> Liên hệ</span>
+                                                                            }
+                                                                            <div style="padding-top: 10px;">
+                                                                                <a title="@item.Hotel.Name" href="@string.Format("http://www.vietrip.vn{0}", UrlHelp.getHotelUrl(item.Hotel.Province.Name, item.Hotel.Name, item.HotelID, item.Hotel.ProvinceID))"
+                target="_blank" style="text-decoration: none; text-align:center; color:#fff; border-radius:
+                4px 4px 4px 4px;  width:70px;background-color:
+                #0984bf; padding: 5px;"><span>Xem chi tiết ></span> </a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>      
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="background: #fff; padding: 5px 0px 20px 0px; font-size: 18px;" colspan="3"
+                                                    align="center">
+                                                    Xem nhiều khách sạn khuyến mãi khác tại <a href="http://vietrip.vn/" target="_blank">
+                                                        http://vietrip.vn/</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 15px
+            0px 35px 0px; background: #D0E2BB; color: #000; font-size: 15px;" colspan="3" align="center" valign="middle">
+                                                    <strong>C&ocirc;ng ty TNHH MTV Du Lịch VIETRIP ( VIETRIP TRAVEL CO..).</strong><br />
+                                                    Địa chỉ: 137 Hoa Lan, phường 2, Quận Ph&uacute; Nhuận , Hồ Ch&iacute; Minh.<br />
+                                                    Điện Thoại: 0835170183-0835173083-0835176281<br />
+                                                    Email: info@vietrip.vn<br />
+                                                    Website: www.vietrip.vn
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+                    <br />
+                </div>
+            </center>
+        </div>
+        <br />
+        <br />
+        <textarea id="textbox" rows="15" name="textbox" cols="160"></textarea>
+        <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+        <br />
+        <br />
+        <br />
+        <br />
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("textarea#textbox").val($("#html").html());
+            }); </script>
+        }
+    }
+</body>
+</html>

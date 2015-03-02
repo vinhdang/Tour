@@ -1,0 +1,64 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  List<Province> 
+@if (Model != null && Model.Count > 0)
+{
+
+    <div class="province_attractive">
+        <div class="province_attractive_title">
+            <span class="title">Điểm đến hấp dẫn</span>
+        </div>
+        <div class="province_attractive_list">
+            @{
+    int i = 0;
+            }
+            @foreach (Province item in Model)
+            {
+                switch (i)
+                {
+                    case 0:
+                    case 1:
+                        if (!string.IsNullOrEmpty(item.Avartar))
+                        { 
+                <div class="province_attractive_list_item">
+                    <a title="@item.Name" href="@UrlHelp.getProvinceUrl(item.National.Name, item.Name, item.ProvinceID, item.NationalID)">
+                        <img src="@FileHelper.GetProvince_Picture(item.Avartar, item.ProvinceID)" alt="@item.Name" />
+                        <div class="province_attractive_list_item_content">
+                            <div style="padding: 9px 3px 0px 5px;">
+                                @item.Name
+                                <div style="font-weight: normal; font-size: 11px;">
+                                    @item.Hotels.Count Khách sạn
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                            i++;
+                        }
+
+                        break;
+                    case 2:
+                        if (!string.IsNullOrEmpty(item.Avartar))
+                        { 
+                <div class="province_attractive_list_item" style="padding-right: 0px !important;">
+                    <a title="@item.Name" href="@UrlHelp.getProvinceUrl(item.National.Name, item.Name, item.ProvinceID, item.NationalID)">
+                        <img src="@FileHelper.GetProvince_Picture(item.Avartar, item.ProvinceID)" alt="@item.Name" />
+                        <div class="province_attractive_list_item_content">
+                            <div style="padding: 9px 3px 0px 5px;">
+                                @item.Name
+                                <div style="font-weight: normal; font-size: 11px;">
+                                    @item.Hotels.Count Khách sạn
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                            i = 0;
+                        }
+
+                        break;
+                }
+            }
+        </div>
+    </div>
+}

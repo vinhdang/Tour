@@ -1,0 +1,59 @@
+﻿@model Website.Models.User.LogOnModel
+@{
+    ViewBag.Title = "LogOn"; Layout = "~/Views/Shared/_LayoutLogOn.cshtml"; }
+@using (Html.BeginForm())
+{ 
+    <div class="mvl ptm width  border">
+        <div class="uiHeader mhl BottomBorder">
+            <h2 class="uiHeaderTitle">
+                Log On
+            </h2>
+        </div>
+        <br />
+        <br />
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label" style="width: 20% ! important;">
+                    @Html.LabelFor(u => u.Email)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(u => u.Email)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(u => u.Password)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.PasswordFor(u => u.Password, new { @style = "width:70% !important;" })
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="dot">
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(u => u.RememberMe) @Html.LabelFor(u => u.RememberMe)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" class="t-button" value="Log In" />
+                    @Html.ActionLink("Forgot your password ?", "ForgotPassword", "User", new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+        @Html.ValidationSummary(false)
+        <br />
+        <br />
+    </div>
+}

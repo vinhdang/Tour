@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.CompareType>
+@{
+    ViewBag.Title = "Danh Sách So Sánh";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách So Sánh
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới So Sánh", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="CompareTypeList">
+    @Html.Partial("CompareTypeList")
+</div>

@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.Payment>
+@{
+    ViewBag.Title = "Danh Sách Loại Thanh Toán";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+      Danh Sách Loại Thanh Toán
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Thanh Toán", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="RoleList">
+    @Html.Partial("PaymentList")
+</div>

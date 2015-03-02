@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.Airline>
+@{
+    ViewBag.Title = "Danh Sách Hãng Bay";
+    Layout = "~/Areas/Ticket/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Hãng Bay
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Hãng Bay", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="AirlineList">
+    @Html.Partial("AirlineList")
+</div>

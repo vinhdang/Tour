@@ -1,0 +1,137 @@
+﻿@model Website.Areas.Administrator.Models.RoomPrice.EditRoomPriceModel
+@{
+    ViewBag.Title = "Sửa Giá Phòng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Sửa Giá Phòng <span style="color: Red;">@Model.Hotel.Name</span>
+    </h2>
+</div>
+@using (Html.BeginForm())
+{ 
+
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    Phòng
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Model.Room.Name
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Date)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @string.Format("{0:dd/MM/yyyy}", Model.Date)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Price)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Price, new { @class = "numerictextBox" })
+                    <div style="font-weight: bold;" id="pricetext">
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+
+                            $('#Price').bind({
+                                click: function () {
+                                    if (this.value == '0')
+                                        this.value = '';
+                                },
+                                blur: function () {
+                                    ConvertPriceText(this.value);
+                                },
+                                focusout: function () {
+                                    ConvertPriceText(this.value);
+                                }
+                            });
+
+
+                        });
+                        function ConvertPriceText(strTemp) {
+                            strTemp = strTemp.replace(/,/g, "");
+                            var priceTy = parseInt(strTemp / 1000000000, 0)
+                            var priceTrieu = parseInt((strTemp % 1000000000) / 1000000, 0)
+                            var priceNgan = parseInt(((strTemp % 1000000000)) % 1000000 / 1000, 0)
+                            var priceDong = parseInt(((strTemp % 1000000000)) % 1000000 % 1000, 0)
+                            var strTextPrice = ""
+
+                            if (priceTy > 0 && parseInt(strTemp, 0) > 900000000)
+                                strTextPrice = strTextPrice + " " + priceTy + " tỷ "
+                            if (priceTrieu > 0)
+                                strTextPrice = strTextPrice + " " + priceTrieu + "  triệu "
+                            if (priceNgan > 0)
+                                strTextPrice = strTextPrice + " " + priceNgan + "  nghìn ";
+
+                            if (priceTy > 0 || priceTrieu > 0 || priceNgan > 0 || priceDong > 0)
+                                strTextPrice = strTextPrice;
+                            $('#pricetext').html(strTextPrice);
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Quantity)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Quantity, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+                    @Html.ActionLink("Danh Sách Giá Phòng", "Index", "RoomPrice", new { id = Model.Hotel.HotelID }, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+        @Html.ValidationSummary(false)
+    </div>
+}

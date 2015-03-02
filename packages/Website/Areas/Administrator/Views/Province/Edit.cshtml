@@ -1,0 +1,216 @@
+﻿@model Website.Areas.Administrator.Models.Province.CreateProvinceModel
+@using Service.Helpers
+@{
+    ViewBag.Title = "Sửa Tỉnh Thành";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Sửa Tỉnh Thành
+    </h2>
+</div>
+@using (Html.BeginForm("Edit", "Province", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.NationalID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.NationalID, Model.Nationals, "[ - - - Chọn Quốc Gia - - - ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Type)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.Type, Model.Types, "[ - - - Chọn Khu Vực / Miền - - - ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.PageTitle)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.PageTitle)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Description)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.Description)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.KeyWord)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(r => r.KeyWord)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Order)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Order, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Vị trí
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    <div class="checkboxlist">
+                        @foreach (SelectListItem p in Model.Positions)
+                        {
+                            if ((Protector.Int(p.Value) & Model.Position) == Protector.Int(p.Value))
+                            { 
+                            <input type="checkbox" value="@p.Value" checked="checked" name="p" id="p" /><label>@p.Text</label>
+                            }
+                            else
+                            { 
+                            <input type="checkbox" value="@p.Value" name="p" id="p" /><label>@p.Text</label>
+                            }
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Vị trí hiển thị
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    <div class="checkboxlist">
+                        @foreach (SelectListItem p in Model.SiteList)
+                        {
+                            if ((Protector.Int(p.Value) & Model.SiteID) == Protector.Int(p.Value))
+                            { 
+                            <input type="checkbox" value="@p.Value" checked="checked" name="s" id="s" /><label>@p.Text</label>
+                            }
+                            else
+                            { 
+                            <input type="checkbox" value="@p.Value" name="s" id="s" /><label>@p.Text</label>
+                            }
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            @if (!string.IsNullOrEmpty(Model.Avartar))
+            { 
+                
+                <tr class="dataRow">
+                    <td class="label">
+                        @Html.LabelFor(r => r.Avartar)
+                    </td>
+                    <td class="dot">
+                        :
+                    </td>
+                    <td class="data">
+                        <img src="@FileHelper.GetProvince_Picture(Model.Avartar, Model.ProvinceID)" width="200px" />
+                    </td>
+                </tr>
+           
+            
+            
+            }
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.FAvartar)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(u => u.FAvartar, new { @type = "file" })<span style="color: Red;">(
+                        max 200px )</span>
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+                    @Html.ActionLink("Danh Sách Tỉnh Thành", "Index", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+        @Html.ValidationSummary(false)
+    </div>
+}

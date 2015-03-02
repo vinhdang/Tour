@@ -1,0 +1,246 @@
+﻿@model Website.Areas.Administrator.Models.RoomPrice.CreateRoomPriceModel
+@{
+    ViewBag.Title = "Thêm Mới Giá Phòng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Thêm Mới Giá Phòng <span style="color: Red;">@Model.Hotel.Name</span>
+    </h2>
+</div>
+@using (Html.BeginForm())
+{ 
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.21.custom.min.js")" type="text/javascript"></script>
+
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.RoomID)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(r => r.RoomID, Model.Rooms, "[ - - - Chọn Loại Phòng - - - ]")
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.FromDate)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(p => p.FromDate, new { @class = "numerictextBox" })
+                    <script type="text/javascript">
+                        $(function () {
+                            $("#FromDate").datepicker({
+                                altFormat: "DD, dd/mm/yy",
+                                dateFormat: 'dd/mm/yy',
+                                numberOfMonths: 2,
+                                showButtonPanel: true,
+
+                                showOn: "button",
+                                buttonImage: "/Content/Administrator/images/calendar.gif",
+                                buttonImageOnly: true,
+                                minDate: new Date(),
+                                onSelect: function (selectedDate) {
+                                    var newDate = $(this).datepicker('getDate');
+                                    if (newDate) { // Not null
+                                        newDate.setDate(newDate.getDate() + 1);
+                                    }
+                                    $("#ToDate").datepicker("option", "minDate", newDate);
+                                }
+                            });
+                            $("#ToDate").datepicker({
+                                altFormat: "DD, dd/mm/yy",
+                                numberOfMonths: 2,
+                                showOn: "button",
+                                dateFormat: 'dd/mm/yy',
+                                buttonImage: "/Content/Administrator/images/calendar.gif",
+                                buttonImageOnly: true,
+                                minDate: new Date(),
+                                onSelect: function (selectedDate) {
+
+                                    var newDate = $(this).datepicker('getDate');
+                                    if (newDate) { // Not null
+                                        newDate.setDate(newDate.getDate() - 1);
+                                    }
+                                    $("#FromDate").datepicker("option", "maxDate", newDate);
+                                }
+                            });
+                            $('#Price').bind({
+                                click: function () {
+                                    if (this.value == '0')
+                                        this.value = '';
+                                },
+                                blur: function () {
+                                    ConvertPriceText(this.value);
+                                },
+                                focusout: function () {
+                                    ConvertPriceText(this.value);
+                                }
+                            });
+                            $('#Price1').bind({
+                                click: function () {
+                                    if (this.value == '0')
+                                        this.value = '';
+                                },
+                                blur: function () {
+                                    ConvertPriceText1(this.value);
+                                },
+                                focusout: function () {
+                                    ConvertPriceText1(this.value);
+                                }
+                            });
+
+                        });
+                        function ConvertPriceText(strTemp) {
+                            strTemp = strTemp.replace(/,/g, "");
+                            var priceTy = parseInt(strTemp / 1000000000, 0)
+                            var priceTrieu = parseInt((strTemp % 1000000000) / 1000000, 0)
+                            var priceNgan = parseInt(((strTemp % 1000000000)) % 1000000 / 1000, 0)
+                            var priceDong = parseInt(((strTemp % 1000000000)) % 1000000 % 1000, 0)
+                            var strTextPrice = ""
+
+                            if (priceTy > 0 && parseInt(strTemp, 0) > 900000000)
+                                strTextPrice = strTextPrice + " " + priceTy + " tỷ "
+                            if (priceTrieu > 0)
+                                strTextPrice = strTextPrice + " " + priceTrieu + "  triệu "
+                            if (priceNgan > 0)
+                                strTextPrice = strTextPrice + " " + priceNgan + "  nghìn ";
+
+                            if (priceTy > 0 || priceTrieu > 0 || priceNgan > 0 || priceDong > 0)
+                                strTextPrice = strTextPrice;
+                            $('#pricetext').html(strTextPrice);
+                        }
+                        function ConvertPriceText1(strTemp) {
+                            strTemp = strTemp.replace(/,/g, "");
+                            var priceTy = parseInt(strTemp / 1000000000, 0)
+                            var priceTrieu = parseInt((strTemp % 1000000000) / 1000000, 0)
+                            var priceNgan = parseInt(((strTemp % 1000000000)) % 1000000 / 1000, 0)
+                            var priceDong = parseInt(((strTemp % 1000000000)) % 1000000 % 1000, 0)
+                            var strTextPrice = ""
+
+                            if (priceTy > 0 && parseInt(strTemp, 0) > 900000000)
+                                strTextPrice = strTextPrice + " " + priceTy + " tỷ "
+                            if (priceTrieu > 0)
+                                strTextPrice = strTextPrice + " " + priceTrieu + "  triệu "
+                            if (priceNgan > 0)
+                                strTextPrice = strTextPrice + " " + priceNgan + "  nghìn ";
+
+                            if (priceTy > 0 || priceTrieu > 0 || priceNgan > 0 || priceDong > 0)
+                                strTextPrice = strTextPrice;
+                            $('#pricetext1').html(strTextPrice);
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.ToDate)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(p => p.ToDate, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Price)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Price, new { @class = "numerictextBox" })
+                    <div style="font-weight: bold;" id="pricetext">
+                    </div>
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Price1)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Price1, new { @class = "numerictextBox" })
+                    <div style="font-weight: bold;" id="pricetext1">
+                    </div>
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Ngày cuối tuần
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxList("dl", Model.DateList, null)
+                </td>
+                <tr class="spacer">
+                    <td colspan="3">
+                        <hr />
+                    </td>
+                </tr>
+                <tr class="dataRow">
+                    <td class="label">
+                        @Html.LabelFor(r => r.Quantity)
+                    </td>
+                    <td class="dot">
+                        :
+                    </td>
+                    <td class="data">
+                        @Html.TextBoxFor(r => r.Quantity, new { @class = "numerictextBox" })
+                    </td>
+                </tr>
+                <tr class="spacer">
+                    <td colspan="3">
+                        <hr />
+                    </td>
+                </tr>
+                <tr class="dataRow">
+                    <td class="label">
+                        @Html.LabelFor(r => r.IsActive)
+                    </td>
+                    <td class="dot">
+                        :
+                    </td>
+                    <td class="data">
+                        @Html.CheckBoxFor(r => r.IsActive)
+                    </td>
+                </tr>
+                <tr class="spacer">
+                    <td colspan="3">
+                        <hr />
+                    </td>
+                </tr>
+                <tr class="dataRow">
+                    <td class="label">
+                    </td>
+                    <td class="button" colspan="2">
+                        <input type="submit" value="+ Thêm Giá Phòng" class="t-button" />
+                        @Html.ActionLink("Danh Sách Khách Sạn", "Index", "Hotel", null, new { @class = "t-button" })
+                    </td>
+                </tr>
+        </table>
+        @Html.ValidationSummary(false)
+    </div>
+}

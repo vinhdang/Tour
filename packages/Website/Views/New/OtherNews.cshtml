@@ -1,0 +1,17 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model List<New>
+@if (Model != null && Model.Count > 0)
+{ 
+
+    <div class="new-other-title">
+        Các tin khác
+    </div>
+    <ul>
+        @foreach (New item in Model)
+        { 
+            <li><a href="@UrlHelp.getNewUrl(item.Name, item.Category.Name, item.NewID, item.CategoryID)">@item.Name</a><span>(@string.Format("{0:dd/MM}", item.CreatedDate))</span>
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,221 @@
+﻿<div class="hotel_good_price">
+    <div class="hotel_good_price_title">
+        <span class="title">Tìm giá tốt tại Vietrip</span>
+    </div>
+    <div class="home_search">
+        <div class="home_search_left">
+            <ul>
+                <li class="active">
+                    <div class="hotel_icon">
+                        <a>Khách sạn</a>
+                    </div>
+                </li>
+             @*   <li>
+                    <div class="ticket_icon">
+                        <a href="/?s=ticket">Máy bay</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="tour_icon">
+                        <a href="/?s=tour">Tour</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="car_icon">
+                        <a href="/?s=car">Thuê xe</a></div>
+                </li>
+                <li>
+                    <div class="restaurant_icon">
+                        <a href="/?s=restaurant">Quán ăn</a></div>
+                </li>
+                <li>
+                    <div class="apartment_icon">
+                        <a href="/?s=apartment">Căn hộ</a></div>
+                </li>*@
+            </ul>
+        </div>
+        @using (Html.BeginForm("Home_Search_Hotel", "Home", FormMethod.Post))
+        {
+            <div class="home_search_right">
+                <div class="home_search_right_item">
+                    <div class="home_search_right_item_select1">
+                        <input type="radio" value="1" id="type_Hotel" name="type_Hotel" checked="checked" />
+                        Tìm khách sạn
+                    </div>
+                    <div class="home_search_right_item_select2">
+                        <input type="radio" value="2" id="type_Mail" name="type_Hotel" />
+                        Nhận giá tốt qua mail
+                    </div>
+                </div>
+                <div class="home_search_right_item">
+                    <div class="home_search_right_item_province">
+                        <input type="text" id="province" name="province" />
+                        <input type="hidden" id="provinceID" name="provinceID" />
+                    </div>
+                    <div class="home_search_right_item_hotel">
+                        <input type="text" id="hotel" name="hotel" />
+                        <input type="hidden" id="hotelID" name="hotelID" />
+                    </div>
+                </div>
+                <div class="home_search_right_item">
+                    <div class="home_search_right_item_from">
+                        <span>Ngày đến:</span>
+                        <input type="text" id="FromDate" name="FromDate" />
+                        <img src="/Content/FrontEnd/images/calendar1.gif">
+                    </div>
+                    <div class="home_search_right_item_to">
+                        <span>Ngày đi:</span>
+                        <input type="text" id="ToDate" name="ToDate" />
+                        <img src="/Content/FrontEnd/images/calendar1.gif">
+                    </div>
+                </div>
+                <div class="home_search_right_item" style="padding: 5px 0px 0px 20px !important;">
+                    <div class="home_search_right_item_alternate1">
+                        <input type="text" id="alternateFromDate" readonly="readonly" />
+                    </div>
+                    <div class="home_search_right_item_alternate2">
+                        <input type="text" id="alternateToDate" readonly="readonly" />
+                    </div>
+                </div>
+                <div class="home_search_right_item">
+                    <div class="home_search_right_item_btn">
+                        <input type="image" id="search_hotel" src="/Content/FrontEnd/images/button-tim-kiem.jpg" />
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $("#province").val("Tỉnh / Thành Phố");
+                    $("#province").blur(function () {
+                        if (!$(this).val()) $(this).val("Tỉnh / Thành Phố");
+                    });
+                    $("#province").focus(function () {
+                        if ($(this).val() == "Tỉnh / Thành Phố") $(this).val("");
+                        $("#province").removeClass("input-validation-error");
+                    });
+                    $("#hotel").val("Tên Khách Sạn");
+                    $("#hotel").blur(function () {
+                        if (!$(this).val()) $(this).val("Tên Khách Sạn");
+                    });
+                    $("#hotel").focus(function () {
+                        if ($(this).val() == "Tên Khách Sạn") $(this).val("");
+                    });
+
+
+                    $("#province").autocomplete({
+                        minLength: 0,
+                        source: '@Url.Action("getProvince")',
+                        open: function (event, ui) {
+                            $(this).autocomplete("widget").css({
+                                "width": 250
+                            });
+                        },
+                        select: function (event, ui) {
+                            $("#province").val(ui.item.label);
+                            $("#provinceID").val(ui.item.value);
+                            return false;
+                        }
+                    }).bind('focus', function () { $(this).autocomplete("search"); }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                        return $("<li>").append("<a>" + item.label + "</a>").appendTo(ul);
+                    };
+                    $("#hotel").autocomplete({
+                        source: function (request, response) {
+                            $.ajax({
+                                url: '@Url.Action("getHotel")',
+                                dataType: "json",
+                                data: {
+                                    term: request.term,
+                                    provinceID: $('#provinceID').val()
+                                },
+                                success: function (data) {
+                                    response(data);
+                                }
+                            });
+                        },
+                        open: function (event, ui) {
+                            $(this).autocomplete("widget").css({
+                                "width": 400
+                            });
+                        },
+                        minLength: 0,
+                        select: function (event, ui) {
+                            $("#hotel").val(ui.item.label);
+                            $("#hotelID").val(ui.item.value);
+                            return false;
+                        }
+                    }).bind('focus', function () {
+                        var provinceID = $('#provinceID').val();
+                        if (provinceID != null && provinceID > 0) {
+                            $(this).autocomplete("search");
+                        }
+
+                    }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                        return $("<li>").append("<a>" + item.label + Star(item.desc) + "</a>").appendTo(ul);
+                    };
+
+                    function Star(i) {
+                        switch (i) {
+                            case 1:
+                                return "&nbsp;&nbsp;<img src='/images/star-on.png' />";
+                            case 2:
+                                return "&nbsp;&nbsp;<img src='/images/star-on.png' /><img src='/images/star-on.png' />";
+                            case 3:
+                                return "&nbsp;&nbsp;<img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' />";
+                            case 4:
+                                return "&nbsp;&nbsp;<img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' />";
+                            case 5:
+                                return "&nbsp;&nbsp;<img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' /><img src='/images/star-on.png' />";
+                        }
+                    }
+                    $("#FromDate").datepicker({
+                        altField: "#alternateFromDate",
+                        altFormat: "DD, dd/mm/yy",
+                        numberOfMonths: 2,
+                        showButtonPanel: true,
+
+
+                        minDate: new Date(),
+                        onSelect: function (selectedDate) {
+                            var newDate = $(this).datepicker('getDate');
+                            if (newDate) { // Not null
+                                newDate.setDate(newDate.getDate() + 1);
+                            }
+                            $("#ToDate").datepicker("option", "minDate", newDate);
+                        }
+                    });
+                    $("#ToDate").datepicker({
+                        altField: "#alternateToDate",
+                        altFormat: "DD, dd/mm/yy",
+                        numberOfMonths: 2,
+
+                        minDate: new Date(),
+                        onSelect: function (selectedDate) {
+
+                            var newDate = $(this).datepicker('getDate');
+                            if (newDate) { // Not null
+                                newDate.setDate(newDate.getDate() - 1);
+                            }
+                            $("#FromDate").datepicker("option", "maxDate", newDate);
+                        }
+                    });
+                    $('#search_hotel').click(function () {
+                        var province = $('#province').val();
+                        if (province != null && province != "Tỉnh / Thành Phố") {
+                            return true;
+                        }
+                        else {
+                            alert("Vui lòng chọn Tỉnh / Thành Phố !");
+                            $("#province").addClass("input-validation-error");
+                        }
+                        return false;
+                    });
+                    $('#type_Mail').click(function () {
+                        url = "/?s=mail";
+                        window.location.replace(url);
+                    });
+                });
+            </script>
+           
+        }
+    </div>
+</div>

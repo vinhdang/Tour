@@ -1,0 +1,24 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  IEnumerable<HotelPicture>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="picture-list">
+        <div class="picture-list-title">
+            <span>Hình ảnh</span>
+        </div>
+        @{int i = 0;}
+        @foreach (HotelPicture item in Model)
+        {
+            <div class="picture-list-item">
+                <img src="@FileHelper.GetHotel_Picture(item.FileName, item.HotelID)" alt ="@item.Alt" />
+            </div>
+            if (i % 2 == 0)
+            {
+            <div class="picture-list-item-sep">
+            </div>
+            }
+            i++;
+        }
+    </div>
+}

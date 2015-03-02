@@ -1,0 +1,154 @@
+﻿@{
+    Layout = "~/Views/Shared/SearchHotel.cshtml";
+
+}
+@using Domain.Entities;
+@using Service.Helpers;
+@model  List<MyHotel> 
+@if (Model != null && Model.Count > 0)
+{<script type="text/javascript">
+     $(document).ready(function () {
+         $(".btn_search").colorbox({ iframe: true, innerWidth: 700, innerHeight: 450 });
+     });
+</script>
+    <div class="hotel-list">
+        @foreach (MyHotel item in Model)
+        { 
+            <div class="hotel-list-item">
+                @if (item.HotelPicture != null)
+                {
+                    <div class="hotel-list-item-picture">
+                        <a  title="@item.Name" href="@{Html.RenderAction("HotelUrl", "Hotel", new { provinceName = item.Province.Name, hotelName = item.Name, hotelID = item.HotelID, provinceID = item.ProvinceID });}">
+                            <img src="@FileHelper.GetHotel_Picture(item.HotelPicture.FileName, item.HotelPicture.HotelID)" alt="@item.HotelPicture.Alt" />
+                        </a>
+                    </div>
+                }
+                <div class="hotel-list-item-content">
+                    <p>
+                        <a class="title" href="@{Html.RenderAction("HotelUrl", "Hotel", new { provinceName = item.Province.Name, hotelName = item.Name, hotelID = item.HotelID, provinceID = item.ProvinceID });}" title="@item.Name">
+                            @item.Name
+                        </a>
+                    </p>
+                    <p>
+                        Tiêu chuẩn:
+                        @{ Html.RenderAction("Star", "Hotel", new { star = item.Star }); }
+                    </p>
+                    <p>
+                        Địa chỉ: <span>@item.Address</span>
+                    </p>
+                    @if (!string.IsNullOrEmpty(item.Lat) && !string.IsNullOrEmpty(item.Lng))
+                    {
+                        <p>
+                            Bản đồ:@Html.ActionLink("Xem bản đồ", "MapDetail", "Hotel", new { h = item.HotelID, p = item.ProvinceID }, new { @class = "btn_search" })
+                        </p>
+                      
+                    }
+                    @if (item.Compares != null && item.Compares.Count() > 0)
+                    {
+                        <p>
+                            <span>So sánh giá với:</span>
+                            @{int i = 0;}
+                            @foreach (Compare com in item.Compares)
+                            {
+                            
+                                <a style="font-weight:bold;" rel="nofollow" target="_blank" href="@com.Link">@com.Name</a>
+                                if (i == item.Compares.Count() - 1)
+                                {
+
+                                }
+                                else
+                                {<span>|</span>}
+
+                                { i++; }
+                            }
+                        </p>
+                    }
+                </div>
+                <div class="hotel-list-item-price">
+                    @if (item.IsContact)
+                    {
+
+                        if (!string.IsNullOrEmpty(item.Promotion) && item.IsPromotion)
+                        {
+                        <div class="promotion">
+                            <p>
+                                @Html.Raw(item.Promotion)</p>
+                        </div>
+                        <br /> <br />
+                        <br />
+                        <div class="hotel-list-item-contact">
+                            <p>
+                                Vui lòng gọi
+                            </p>
+                            <p>
+                                Vietrip để biết giá
+                            </p>
+                            <p class="phone">
+                                @{ Html.RenderAction("PhoneListHotel", "Support"); }
+                            </p>
+                        </div>
+                         
+                        }
+                        else
+                        {
+                        <div class="hotel-list-item-contact">
+                            <p>
+                                Vui lòng gọi
+                            </p>
+                            <p>
+                                Vietrip để biết giá
+                            </p>
+                            <p class="phone">
+                                @{ Html.RenderAction("PhoneListHotel", "Support"); }
+                            </p>
+                        </div>
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(item.Promotion) && (item.Type
+                      & 1) == 1 && item.IsPromotion)
+                        {
+                        <div class="promotion">
+                            <p>
+                                @Html.Raw(item.Promotion)</p>
+                        </div>
+                       
+                        <div class="hotel-list-item-price1">
+                            <p>
+                                Giá từ</p>
+                            <p class="price">
+                                @String.Format("{0:#,###}", item.Price)
+                            </p>
+                            <p>
+                                1 Đêm
+                            </p>
+                            <p>
+                                <a href="@{Html.RenderAction("HotelUrl", "Hotel", new { provinceName = item.Province.Name, hotelName = item.Name, hotelID = item.HotelID, provinceID = item.ProvinceID });}" title="@item.Name">
+                                    <img src="/Content/FrontEnd/images/btn_chitiet.jpg" /></a>
+                            </p>
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="hotel-list-item-price1" style="padding-top: 10px;">
+                            <p>
+                                Giá từ</p>
+                            <p class="price">
+                                @String.Format("{0:#,###}", item.Price)
+                            </p>
+                            <p>
+                                1 Đêm
+                            </p>
+                            <p>
+                                <a href="@{Html.RenderAction("HotelUrl", "Hotel", new { provinceName = item.Province.Name, hotelName = item.Name, hotelID = item.HotelID, provinceID = item.ProvinceID });}" title="@item.Name">
+                                    <img src="/Content/FrontEnd/images/btn_chitiet.jpg" /></a>
+                            </p>
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,45 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model  List<Province> 
+@if (Model != null && Model.Count > 0)
+{
+    <script src="/Scripts/jquery.msAccordion.js"></script>
+    <div class="home_province_left">
+        <div class="home_province_left_title">
+            <span class="title">Khách sạn theo tỉnh / Tp</span>
+        </div>
+        <div class="home_province_left_list" id="accordionGiftLelo">
+            @{int i = 0;}
+            @foreach (Province item in Model)
+            {
+                <div class="home_province_left_list_item">
+                    @if (i == Model.Count - 1)
+                    {
+                        <div class="home_province_left_list_item_title" style="border-bottom: 0px solid #0984C0;">
+                            @item.Name
+                        </div>
+                        <div class="home_province_left_list_item_content" style="border-bottom: 0px solid #0984C0;
+                            border-top: 1px solid #0984C0;">
+                            @{ Html.RenderAction("getTopHotelsByProvinceID", "Hotel", new { provinceID = item.ProvinceID });}
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="home_province_left_list_item_title">
+                            @item.Name
+                        </div>
+                        <div class="home_province_left_list_item_content">
+                            @{ Html.RenderAction("getTopHotelsByProvinceID", "Hotel", new { provinceID = item.ProvinceID });}
+                        </div>
+                    }
+                </div>
+                    i++;
+            }
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("#accordionGiftLelo").msAccordion({ vertical: true });
+        });
+    </script>
+}

@@ -1,0 +1,20 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model List<Banner>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="banner-home">
+        @foreach (Banner item in Model)
+        {
+            if (!string.IsNullOrEmpty(item.Link))
+            { 
+            <a  href="@item.Link" title="@item.Name">
+                <img src="@FileHelper.GetBanner_Picture(item.FileName, item.BannerID)" width="309px"  alt="@item.Name" /></a>
+            }
+            else
+            {
+            <img src="@FileHelper.GetBanner_Picture(item.FileName, item.BannerID)" width="309px"  alt="@item.Name" />
+            }
+        }
+    </div>
+}

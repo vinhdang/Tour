@@ -1,0 +1,41 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model Website.Models.Comfort.ComfortModel
+@if (Model != null && Model.Comforts != null && Model.Comforts.Count > 0)
+{
+    using (Html.BeginForm("Comforts", "Comfort", new { p = Model.ProvinceID, d = Model.DistrictID, a = Model.AreaID, ht = Model.HotelThemeID, type = Model.HotelTypeID, hp = Model.HotelPromotion, fd = Model.FromDate, td = Model.ToDate, nr = Model.NumberRoom, ng = Model.NumberGuest }, FormMethod.Post, new { id = "ComfortID" }))
+    {
+    <div class="district_list">
+        <div class="district_list_title">
+            <span>Tiện Nghi</span>
+        </div>
+        <div class="district_list_content">
+            <table border="0" cellpadding="0" cellspacing="0">
+                @foreach (Domain.Entities.Comfort item in Model.Comforts)
+                {  
+                    <tr>
+                        <td style="padding-right: 10px; padding-top: 6px;">
+                            @if (Model.ListComfortID != null && Model.ListComfortID.Length > 0 && Model.ListComfortID.Contains(item.ComfortID.ToString()))
+                            {
+                                <input type="checkbox" id="ComfortID" name="ComfortID" value="@item.ComfortID" checked="checked" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" value="@item.ComfortID" id="ComfortID" name="ComfortID" />
+                            }
+                        </td>
+                        <td>
+                            <label style="color: #0A84C1;">@item.Name</label>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <script type="text/javascript">
+                $(":checkbox[name='ComfortID']").click(function () {
+                    $("#ComfortID").submit();
+                });
+            </script>
+        </div>
+    </div>
+    }
+}

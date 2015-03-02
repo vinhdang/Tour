@@ -1,0 +1,32 @@
+﻿@using Domain.Entities;
+@using Service.Helpers;
+@model List<SelectListItem> 
+@if (Model != null && Model.Count > 0)
+{
+   
+    <div class="picture-list">
+        <div class="picture-list-title">
+            <span>Tiện nghi</span>
+        </div>
+        <ul>
+            @foreach (SelectListItem item in Model)
+            {
+                if (item.Selected)
+                { 
+                <li class="yes">
+                    @item.Text
+                </li>
+                }
+                else
+                { 
+                <li class="no">
+                    @item.Text
+                </li>
+               
+                }
+
+            }
+        </ul>
+    </div>
+
+}

@@ -1,0 +1,301 @@
+﻿@model  Website.Models.Comment.CreateCommentModel
+<div class="picture-list">
+    <div class="picture-list-title">
+        <span>Gửi nhận xét</span>
+    </div>
+    <div class="hotel_content">
+        <br />
+        <br />
+        @using (Html.BeginForm("Comment", "Comment", new { h = Model.HotelID }, FormMethod.Post))
+        {
+            <table border="0" class="form" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td class="text">
+                        Tên:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input">
+                        @Html.TextBoxFor(t => t.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Email:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input">
+                        @Html.TextBoxFor(t => t.Email)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Tiêu đề:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input">
+                        @Html.TextBoxFor(t => t.Title)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Nội dung:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input">
+                        @Html.TextAreaFor(t => t.Content, new { @cols = "20", @rows = "6" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Nhận xét chung:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input" style="padding-bottom: 10px;">
+                        <input type="radio" name="rate1" id="rate1" value="1" />
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png" />
+                        </label>
+                        <input type="radio" name="rate1" id="rate1" value="2" />
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png" />
+                            <img src="/images/star-on.png" />
+                        </label>
+                        <input type="radio" name="rate1" id="rate1" value="3" checked="checked">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate1" id="rate1" value="4">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate1" id="rate1" value="5">
+                        <label>
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Chất lượng dịch vụ:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input" style="padding-bottom: 10px;">
+                        <input type="radio" name="rate2" id="rate2" value="1">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate2" id="rate2" value="2">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate2" id="rate2" value="3" checked="checked">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate2" id="rate2" value="4">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate2" id="rate2" value="5">
+                        <label>
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Chất lượng phòng:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input" style="padding-bottom: 10px;">
+                        <input type="radio" name="rate3" id="rate3" value="1">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate3" id="rate3" value="2">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate3" id="rate3" value="3" checked="checked">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate3" id="rate3" value="4">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate3" id="rate3" value="5">
+                        <label>
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Sạch sẽ:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input" style="padding-bottom: 10px;">
+                        <input type="radio" name="rate4" id="rate4" value="1">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate4" id="rate4" value="2">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate4" id="rate4" value="3" checked="checked">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate4" id="rate4" value="4">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate4" id="rate4" value="5">
+                        <label>
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Nhân viên phục vụ<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input" style="padding-bottom: 10px;">
+                        <input type="radio" name="rate5" id="rate5" value="1">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate5" id="rate5" value="2">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate5" id="rate5" value="3" checked="checked">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate5" id="rate5" value="4">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate5" id="rate5" value="5">
+                        <label>
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                        Tiện nghi phòng:<span style="color: Red; font-size: 11px; padding: 0px 0px 10px 2px;">*</span>
+                    </td>
+                    <td class="input" style="padding-bottom: 10px;">
+                        <input type="radio" name="rate6" id="rate6" value="1">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate6" id="rate6" value="2">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate6" id="rate6" value="3" checked="checked">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate6" id="rate6" value="4">
+                        <label style="padding-right: 20px;">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                        <input type="radio" name="rate6" id="rate6" value="5">
+                        <label>
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                            <img src="/images/star-on.png">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                    </td>
+                    <td class="input">
+                        @Html.Partial("_Captcha", new Website.Models.Captcha.Captcha())
+                        @Html.Partial("_InvisibleCaptcha", new Website.Models.Captcha.InvisibleCaptcha())
+                        <style>
+                            .captcha_input
+                            {
+                                border: 1px solid #BDC8CD;
+                                -moz-border-radius: 3px 3px 3px 3px;
+                                padding: 3px 3px 3px 3px;
+                                border-radius: 3px;
+                                width: 100px !important;
+                            }
+                        </style>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                    </td>
+                    <td class="input">
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">
+                    </td>
+                    <td class="input">
+                        <input type="image" src="/Content/FrontEnd/images/contact_button.jpg" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿@model List<Domain.Entities.Comfort>
+@{
+    ViewBag.Title = "Danh Sách Tiện Nghi";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+       Danh Sách Tiện Nghi
+        <div class="fr">
+            @Html.ActionLink("+ Thêm Mới Tiện Nghi", "Create")</div>
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="RoleList">
+    @Html.Partial("ComfortList")
+</div>
