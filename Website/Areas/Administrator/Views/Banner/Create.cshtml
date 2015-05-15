@@ -1,0 +1,122 @@
+﻿@model Website.Areas.Administrator.Models.Banner.CreateBannerModel
+@{
+    ViewBag.Title = "Thêm Banner";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml"; }
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Thêm Banner
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder">
+    @using (Html.BeginForm("Create", "Banner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    { 
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    Chuyên mục
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(u => u.ProvinceID, Model.ListProvince, "[ --- Chọn Tỉnh / Thành Phố --- ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Link)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Link)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.File)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(u => u.File, new { @type = "file" })
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Order)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Order, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Vị trí
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxList("Position", Model.ListPosition, null)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="+ Thêm Banner" class="t-button" />
+                    @Html.ActionLink("Danh Sách Banner", "Index", "Product", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+        @Html.ValidationSummary(false)
+    }
+</div>

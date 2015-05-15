@@ -1,0 +1,152 @@
+﻿@using Domain
+@{
+    var tourPrices = ViewData["Prices"] == null ? null : (List<Website.Model.Tour.PriceDisplay>)ViewData["Prices"];
+    var tourAgenda = ViewData["Agenda"] == null ? null : (List<TourAgenda>)ViewData["Agenda"];
+    var tourSuggestion = ViewData["Suggestion"] == null ? null : (List<TourSuggestion>)ViewData["Suggestion"];
+    var phoneSupport = ViewData["PhoneSupport"];
+    var emailSupport = ViewData["EmailSupport"];
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/sys.tour.detail.js")"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        sys.detail.index.info.initPage();
+    });
+</script>
+
+<div class="col-md-8 pagecontainer2 offset-0">
+	<div class="cstyle10"></div>
+	<ul id="sidebar"class="nav nav-tabs sidebar" data-spy="affix" data-offset-top="760" data-offset-bottom="200">
+		<li class="active"><a href="#price"><span class="hidetext"> Giá</span>&nbsp;</a></li>
+		<li><a href="#maps"><span class="hidetext"> Bản đồ</span>&nbsp;</a></li>
+		<li class=""><a href="#schedules"><span class="hidetext"> Hành trình</span>&nbsp;</a></li>
+		<li class=""><a href="#comment"><span class="hidetext"> Nhận xét</span>&nbsp;</a></li>
+		<li class=""><a href="#thingstodo"><span class="hidetext"> Dịch vụ & Tiện ích gần đây</span>&nbsp;</a></li>
+	</ul>			
+	<div class="tab-content" >
+		<!-- TAB 2 -->
+        <div id="price" style="display: block;">
+            @if (tourPrices != null && tourPrices.Count > 0)
+            {
+                <h1>Giá</h1>
+                <div class="line2"></div>
+                foreach (var price in tourPrices)
+                {
+                    <div class="row portfolio-block" style="padding: 10px;">
+                        <div class="col-md-5" style="padding: 0">
+                            <div class="portfolio-text">
+                                <div style="width: 150px;">
+                                    <img src="@price.TourProvider.Avatar" alt="" style="max-height: 40px;">
+                                </div>
+                                <div class="portfolio-text-info">
+                                    <h4><a href="@price.TourProvider.Website">@price.TourProvider.Name</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 portfolio-stat">
+                            <div class="portfolio-info">
+                              @*  Thời gian tour <span> @price. </span>*@
+                            </div>
+                            <div class="portfolio-info" style="padding: 0;">
+                               @* Giá <span> 5Tr </span>*@
+                                <span> Vui lòng liên hệ </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="portfolio-btn">
+                                <a href="@price.LinkBooking" class="btn bigicn-only">
+                                    <span>Xem </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                	 
+            }else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Không có dữ liệu</p>
+                    </div>
+                </div>
+                <div class="line4"></div>
+            }
+            <div class="row">
+                    <div class="col-md-12">
+                        <strong style="color: #f00;">Email: </strong>@emailSupport<br/>
+                        <strong style="color: #f00;">Hỗ trợ: </strong>@phoneSupport
+                    </div>
+                </div>
+                <div class="line4"></div>
+        </div>
+		<!-- TAB 3 -->					
+		<div id="maps" style="display: block;">
+			@Html.Partial("Map")						
+		</div>
+		<!-- TAB 4 -->					
+		<div id="schedules" style="display: block;text-align:justify; overflow: auto;">
+			<h1>Hành Trình</h1>
+            <div class="line2"></div>
+            @if (tourAgenda != null && tourAgenda.Count > 0)
+            {
+                foreach (var agenda in tourAgenda)
+                {
+                    <div class="hpadding20">
+                        <strong>@agenda.Name </strong>
+                        @Html.Raw(agenda.Description)
+                    </div>
+                }
+                <div class="line4"></div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Không có dữ liệu</p>
+                    </div>
+                </div>
+                <div class="line2"></div>
+            }
+					
+		</div>
+		<!-- TAB 5 -->					
+		<div id="comment" style="display: block;">
+			@Html.Partial("Comment")
+		</div>		
+		<!-- TAB 6 -->					
+		<div id="thingstodo" style="display: block;">
+			<h1>Dịch Vụ & Tiện Ích Gần Đây</h1>
+            @if (tourSuggestion != null && tourSuggestion.Count > 0)
+            {
+                foreach (var suggestion in tourSuggestion)
+                {
+                    <div class="padding20">
+				        <div class="col-md-4 offset-0">
+					        <a href="#"><img src="@suggestion.TourActivity.ImageUrl" alt="@suggestion.TourActivity.KeyWord" class="fwimg"/></a>
+				        </div>
+				        <div class="col-md-8 offset-0">
+					        <div class="col-md-12 mediafix1">
+						        <span class="opensans dark size16 margtop1 margtop-5">@suggestion.TourActivity.Name</span><br/>
+							        <span class="green">“@suggestion.TourActivity.KeyWord”</span> @(((DateTime)suggestion.CreatedDate).ToString("dd/MM/yyyy"))<br/>
+							        <p class="margtop10">@suggestion.TourActivity.Description</p>
+						        <div class="clearfix"></div>
+					        </div>
+				        </div>
+				        <div class="clearfix"></div>
+			        </div>
+			        <div class="line2"></div>	
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Không có dữ liệu</p>
+                    </div>
+                </div>
+                <div class="line2"></div>
+            }
+				
+            </div>						
+        <div class="clearfix"></div>	
+    </div>
+</div>

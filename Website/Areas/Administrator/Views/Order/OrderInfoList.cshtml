@@ -1,0 +1,19 @@
+﻿@model List<Domain.OrderInfo>
+@using Service.Helpers;
+@(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Room.Name).Title("Tên phòng");
+            columns.Bound(o => o.Quantity).Title("Số phòng").Width("5%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.FromDate).Title("Ngày đến").Format("{0:dd/MM/yyyy}").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.ToDate).Title("Ngày đi").Format("{0:dd/MM/yyyy}").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.Quantity).Title("Số đêm").Template(@<text>@item.ToDate.Subtract(@item.FromDate).Days</text>).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.RoomPrice).Title("Giá 1 đêm").Format("{0:c}").Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.TotalPrice).Title("Tổng số tiền").Format("{0:c}").Width("15%").Aggregate(aggreages => aggreages.Sum()).FooterTemplate(@<text>
+@item.Sum.Format("{0:c}")</text>)
+             .GroupFooterTemplate(@<text>Sum: @item.Sum.Format("{0:c}")</text>);
+
+        })
+       .Pageable(paging => paging.PageSize(50))
+       )

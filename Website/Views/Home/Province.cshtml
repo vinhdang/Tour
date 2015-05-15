@@ -1,0 +1,21 @@
+﻿@using Service.Helpers
+@using Domain
+@model List<Province>
+<nav>
+@if (Model != null && Model.Count > 0)
+{
+<div class="footerNav">
+                    <div class="footerItems">
+                        <h3>
+                            Khách Sạn Theo Tỉnh Thành Phố</h3>
+                        <ul style="padding:0px 20px 20px 20px;">
+                             @foreach (Province item in Model)
+                             {
+                        <li style="width:260px;  margin:2px;  float:left;"><a href="@UrlHelp.getProvinceUrl(item.National.Name, item.Url, item.ProvinceID)" title="@item.Name - @item.National.Name">@item.Name</a></li>
+                             }
+                        </ul>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+}

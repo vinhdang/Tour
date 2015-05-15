@@ -1,0 +1,154 @@
+﻿@model List<Domain.Tour>
+@using (Html.BeginForm())
+{  
+    <div class="box">
+        <div class="heading">
+            <h1>
+                <img alt="" src="/Content/Administrator/Images/category.png">
+                Quản Lý >> Tour</h1>
+            <div class="buttons">
+                @Html.ActionLink("+ Thêm Mới Tour", "Create", null, new { @class = "t-button" })
+                <input type="submit" name="Delete" value="Xóa Tour" class="t-button" />
+            </div>
+        </div>
+        <div class="content">
+            <div style="display: inline-block; width: 100%; margin-bottom: 15px; margin-top: 15px;
+                clear: both;">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr style="text-align: left;" >
+                            <td colspan="3" style="padding-bottom: 10px;">
+                                <span style="font-weight: bold; color: #00A7B3; font-size: 14px;">Địa điểm đến : </span>
+                            </td>
+                        </tr>       
+                        <tr>
+                            <td class="paddingright" style="text-align: right;">
+                                <label>
+                                    Quốc gia:</label>
+                                @Html.DropDownList("NationalList", ViewBag.NationalList as SelectList, "[ --- Chọn Quốc Gia --- ]")
+                            </td>
+                            <td class="paddingright" style="text-align: right;">
+                                <label>
+                                    Tỉnh thành:</label>
+                                @Html.DropDownList("ProvinceList", ViewBag.NationalList as SelectList, "[ --- Chọn Tỉnh Thành --- ]")
+                            </td>
+                            <td class="paddingright" style="text-align: right;">
+                                <label>
+                                    Quận Huyện:</label>
+                                @Html.DropDownList("DistrictList", ViewBag.DistrictList as SelectList, "[ --- Chọn Quận Huyện --- ]")
+                                <script type="text/javascript">
+                                    $('#NationalList').change(function () {
+                                        var nationalID = $(this).val();
+                                        var province = $('#ProvinceList');
+
+                                        if (nationalID != null && nationalID != '') {
+                                            $.getJSON('@Url.Action("SelectProvince")', { nationalID: nationalID }, function (list) {
+                                                province.empty();
+                                                province.append($('<option/>', {
+                                                    value: "",
+                                                    text: "[ - - Chọn Tỉnh Thành - - ]"
+                                                }));
+
+                                                $.each(list, function (index, info) {
+                                                    province.append($('<option/>', {
+                                                        value: info.Value,
+                                                        text: info.Text,
+                                                        selected: info.Selected
+                                                    }));
+                                                });
+                                            });
+                                        }
+                                        else { }
+                                    });
+
+                                    $().ready(function () {
+                                        $('#ProvinceList').change(function () {
+                                            var ProvinceID = $(this).val();
+                                            var DistrictID = $('#DistrictList');
+
+                                            if (ProvinceID != null && ProvinceID != '') {
+                                                $.getJSON('@Url.Action("SelectDistrict")', { provinceID: ProvinceID }, function (list) {
+                                                    DistrictID.empty();
+                                                    DistrictID.append($('<option/>', {
+                                                        value: "",
+                                                        text: "[ - - Chọn Quận Huyện - - ]"
+                                                    }));
+
+                                                    $.each(list, function (index, info) {
+                                                        DistrictID.append($('<option/>', {
+                                                            value: info.Value,
+                                                            text: info.Text,
+                                                            selected: info.Selected
+                                                        }));
+                                                    });
+                                                });
+                                            }
+                                            else { }
+                                        });
+                                    });
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="height: 15px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="paddingright" style="text-align: right;">
+                                <label>
+                                    Từ khóa:</label>
+                                <input type="text" id="key" name="key" value="@Service.Helpers.Protector.String(ViewBag.Key)" style="width: 242px;" />
+                            </td>
+                            <td class="paddingright" style="text-align: left;">
+                                <input type="submit" name="Search" value="Tìm" class="t-button" />
+                                <input type="submit" name="Delete" value="Xóa" class="t-button" />
+                            </td>
+                            <td class="paddingright">
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            @(Html.Telerik().Grid(Model)
+        .Name("Grid")
+             .DataKeys(keys => keys.Add(c => c.ID))
+
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Name).Title("Tên Tour").Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.ID })</text>).Width("25%").HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.NumberGuest).Title("Số lượng khách").Width("8%");
+            columns.Bound(o => o.Duration).Title("Thời lượng tour").Template(@<text> @item.Duration ngày @(item.Duration-1) đêm </text>);
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.IsActive).Title("Trạng thái").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text>@Html.ActionLink("Lịch trình (" + item.TourAgendas.Count + ")", "Index", "TourAgenda", new { id = @item.ID }, null)</text>).Width("10%").Title("Lịch trình").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text>@Html.ActionLink("Hình ảnh (" + item.TourPictures.Count + ")", "Index", "TourPicture", new { id = @item.ID }, null)</text>).Width("10%").Title("Hình ảnh").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text>@Html.ActionLink("Giá(" + item.TourPrices.Count + ")", "Index", "TourPrice", new { id = @item.ID }, null)</text>).Width("10%").Title("Giá").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text>@Html.ActionLink("Dịch vụ(" + item.TourSuggestions.Count + ")", "Index", "TourService", new { id = @item.ID }, null)</text>).Width("10%").Title("Dịch vụ").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text> @{ var totalPoint = item.Comments.Where(c => (bool)c.IsEnable).Select(c => c.Level).ToList();
+                                        var avg = "0.0";
+                                        if(totalPoint != null && totalPoint.Count > 0)
+                                        {
+                                            avg = ((Decimal)totalPoint.Sum(l => l.Value) / (Decimal)totalPoint.Count).ToString("0.0");  
+                                        }
+                                       }
+                                  @Html.ActionLink(avg + " - (" + item.Comments.Count + ")", "Index", "TourComment", new { id = @item.ID }, null)
+                              </text>).Width("10%").Title("Nhận xét").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" });
+            columns.Template(@<text><input name="checkedRecords" id="checkedRecords" type="checkbox"  value="@item.ID " title="checkedRecords"/></text>)
+                      .HeaderTemplate(@<text><input type="checkbox" title="check all records" id="checkAllRecords" /></text>)
+                      .Width("4%")
+                      .HeaderHtmlAttributes(new { style = "text-align:center" })
+                      .HtmlAttributes(new { style = "text-align:center" });
+        })
+                .Pageable(paging => paging.PageSize(50))
+                .Sortable(sorting => sorting
+                .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+            )
+        </div>
+    </div>
+
+}
+@{ Html.Telerik().ScriptRegistrar().OnDocumentReady(@<text> $('#checkAllRecords').click(function
+    checkAll() { $("#Grid tbody #checkedRecords").attr("checked", this.checked); });
+    </text>); }

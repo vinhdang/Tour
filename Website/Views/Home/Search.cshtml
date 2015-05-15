@@ -1,0 +1,86 @@
+﻿@*<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">*@
+@*<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>*@
+
+<style type="text/css">
+  .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+    background-color: #72bf66;
+    background-image: none;
+    padding: 0px;
+    margin: 0px;
+    border-radius: 0;
+    font-size: 14px;
+      color: #fff;
+}
+  .ui-menu-item {
+      margin-top: 5px;
+      margin-bottom: 5px;   
+      font-size: 14px;
+  }
+  .ui-menu {
+      background: white !important;
+    }
+</style>
+
+<div id="dajy" class="fullscreen-container2 mtslideb sliderbg fixed">
+	<div class="searchcontainer" style="">
+		<span class="slim white" style="font-size: 37px;"><strong>HÀNG TRĂM TOUR ĐANG ĐỢI BẠN!</strong></span><br/>
+		<span class="size20 slim white"><strong>Hotline:</strong> (08) 3517 3083 - (08) 3517 0183 - 0913 199 206</span>
+		<div class="row search-box">
+			<div class="col-md-12">
+				<form action="@Url.Action("PostSearch", "Home")" method="POST" class="form-wrapper cf">
+					<div class="input-group">
+                        <input id="home_search_input" type="text"  name="search-text" class="form-control" placeholder="Nhập thông tin tour bạn muốn tìm...">
+                        <input id="administrative_area_level_1" type="hidden" name="home-province" value=""/>
+                        <input id="country" type="hidden" name="home-national" value=""/>
+                        <input id="locality" type="hidden" name="home-district" value=""/>
+                        <input type="hidden" name="search-province-url" value="@Url.Action("SearchProvince", "Home")"/>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">Tìm kiếm</button>
+						</span>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="fullscreenbanner">
+		<ul>
+			<li data-transition="fade" data-slotamount="1" data-masterspeed="300"> 										
+				<img src="@Url.Content("~/Content/FrontEnd/custom/p6.jpg")" alt=""/>
+				<div class="tp-caption scrolleffect sft"
+						data-x="center"
+						data-y="120"
+						data-speed="1000"
+						data-start="800"
+						data-easing="easeOutExpo">
+				</div>	
+			</li>
+			<li data-transition="fade" data-slotamount="1" data-masterspeed="300"> 										
+				<img src="@Url.Content("~/Content/FrontEnd/custom/p9.jpg")" alt=""/>
+				<div class="tp-caption scrolleffect sft"
+						data-x="center"
+						data-y="120"
+						data-speed="1000"
+						data-start="800"
+						data-easing="easeOutExpo">
+				</div>	
+			</li>			
+			<li data-transition="fade" data-slotamount="1" data-masterspeed="300"> 										
+				<img src="@Url.Content("~/Content/FrontEnd/custom/p7.jpg")" alt=""/>
+				<div class="tp-caption scrolleffect sft"
+						data-x="center"
+						data-y="120"
+						data-speed="1000"
+						data-start="800"
+						data-easing="easeOutExpo">
+				</div>	
+			</li>	
+		</ul>
+		<div class="tp-bannertimer none"></div>
+	</div>
+</div>
+	
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        sys.home.index.search.initPage();
+	    });
+	</script>

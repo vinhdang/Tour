@@ -1,0 +1,13 @@
+﻿@using Domain
+@using Service.Helpers
+@model Domain.Category
+@if (Model != null)
+{
+    if (Model.IsActive)
+    {
+    <input type="checkbox" id="permission" checked="checked" value ="@Model.ID" name="permission" />
+    }
+    else
+    {<input type="checkbox" id="permission" name="permission" value ="@Model.ID" /> }
+    <label>@Model.Name</label>
+}

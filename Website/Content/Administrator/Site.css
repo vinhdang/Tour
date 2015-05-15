@@ -1,0 +1,820 @@
+﻿
+html
+{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body, td, th, input, select, textarea, option, optgroup
+{
+    color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+}
+hr
+{
+    background: none repeat scroll 0 0 #D9D9D9;
+    border-width: 0;
+    color: #D9D9D9;
+    height: 1px;
+}
+select
+{
+    border: 1px solid #BDC7D8;
+    border-radius: 3px 3px 3px 3px;
+    min-width: 250px;
+    height: 23px;
+    padding: 3px;
+}
+a
+{
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover
+{
+    color: #000000;
+    text-decoration: underline;
+}
+a img
+{
+    border: 0 none;
+}
+form
+{
+    margin: 0;
+    padding: 0;
+}
+label
+{
+    cursor: pointer;
+}
+.add_icon, .edit_icon, .del_icon, .btn_search, .delete_icon, .bin_icon, .check_icon, .uncheck_icon, .icon_collapse, .icon_expand, .info_icon, .save_icon, .cancel_icon, .up_icon, .uptotop_icon, .down_icon, .downtobottom_icon, .edit_img_icon, .del_img_icon {
+    background-image: url("/Content/Administrator/images/function_icons16x16.gif");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+    line-height: 1;
+    margin: 1px 1px 0;
+    overflow: hidden;
+    text-indent: -9999em;
+    white-space: nowrap;
+    width: 16px;
+}
+.btn_search {
+    background-position: -16px -16px;
+}
+.edit_icon {
+    background-position: -112px 0;
+}
+#header .div1
+{
+    background: url("/Content/Administrator/images/header.png") repeat-x scroll 0 0 transparent;
+    height: 56px;
+    min-width: 900px;
+    padding: 0 30px;
+}
+#header .div2
+{
+    color: #00A7B3;
+    float: left;
+    padding: 18px 0 0;
+}
+#header .div3
+{
+    color: #00A7B3;
+    float: right;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    padding: 15px 0 0;
+    text-align: right;
+}
+#header .div2 span
+{
+    font-weight: 700;
+}
+#menu
+{
+    background: url("/Content/Administrator/images/silver_nav_background.gif") repeat-x scroll 0 0 transparent;
+    clear: both;
+    height: 41px;
+    min-width: 900px;
+    padding: 0 30px;
+    position: relative;
+    z-index: 1;
+}
+#menu > ul.left
+{
+    float: left;
+}
+#menu > ul.right
+{
+    float: right;
+}
+#menu > ul
+{
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+#menu > ul ul
+{
+    background-color: #E1E1E1;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+#menu > ul a
+{
+    color: #FFFFFF;
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+}
+#menu > ul > li + li
+{
+}
+#menu > ul .top, #menu > ul li li.sfhover
+{
+    color: #00A7B3;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 13px 15px 14px 17px;
+    text-align: center;
+    text-transform: uppercase;
+}
+#menu > ul li:hover .top
+{
+    background: url("/Content/Administrator/images/selected1.png") no-repeat scroll center top #E1E1E1;
+    color: #00A7B3;
+}
+#menu > ul .selected .top
+{
+    background: url("/Content/Administrator/images/selected1.png") no-repeat scroll center top #E1E1E1;
+    color: #00A7B3;
+}
+#menu > ul .parent
+{
+    background: url("/Content/Administrator/images/arrow-right.png") no-repeat scroll 95% center transparent;
+}
+#menu > ul li
+{
+    float: left;
+    list-style: none outside none;
+}
+#menu > ul li ul
+{
+    position: absolute;
+}
+#menu > ul li ul a
+{
+    color: #00A7B3;
+    height: 15px;
+    text-transform: uppercase;
+    width: 255px;
+}
+#menu > ul li ul ul
+{
+    margin: -27px 0 0 157px;
+}
+#menu > ul li li a:hover
+{
+    color: #00A7B3;
+    text-decoration: underline;
+}
+#container
+{
+    height: 100%;
+}
+body > #container
+{
+    height: auto;
+    min-height: 100%;
+}
+#content
+{
+    background: url("/Content/Administrator/images/background.png") repeat-x scroll 0 1px #FFFFFF;
+    min-width: 900px;
+    padding: 10px 30px 128px;
+}
+#footer
+{
+    background: url("/Content/Administrator/images/footer.png") repeat-x scroll 0 0 #FFFFFF;
+    clear: both;
+    color: #333333;
+    font-size: 12px;
+    height: 30px;
+    margin-top: -68px;
+    padding-top: 38px;
+    position: relative;
+    text-align: center;
+}
+#footer a
+{
+    color: #00A7B3;
+    text-decoration: underline;
+}
+.breadcrumb, .breadcrumb a
+{
+    color: #666666;
+    display: none;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+.success
+{
+    background: url("/Content/Administrator/images/success.png") no-repeat scroll 10px center #EAF7D9;
+    border: 1px solid #BBDF8D;
+    border-radius: 5px 5px 5px 5px;
+    color: #555555;
+    margin-bottom: 15px;
+    padding: 10px 10px 10px 33px;
+}
+.warning
+{
+    background: url("/Content/Administrator/images/warning.png") no-repeat scroll 10px center #FFD1D1;
+    border: 1px solid #F8ACAC;
+    border-radius: 5px 5px 5px 5px;
+    color: #555555;
+    margin-bottom: 15px;
+    padding: 10px 10px 10px 33px;
+}
+.attention
+{
+    background: url("/Content/Administrator/images/attention.png") no-repeat scroll 10px center #FFF5CC;
+    border: 1px solid #F2DD8C;
+    border-radius: 5px 5px 5px 5px;
+    color: #555555;
+    margin-bottom: 15px;
+    padding: 10px 10px 10px 33px;
+}
+.required
+{
+    color: red;
+    font-weight: 700;
+}
+.error
+{
+    color: red;
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 3px;
+}
+.help
+{
+    color: #666666;
+    display: block;
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+}
+.icon
+{
+    cursor: pointer;
+    vertical-align: middle;
+}
+.image
+{
+    border: 1px solid #EEEEEE;
+    display: inline-block;
+    padding: 10px;
+}
+.image img
+{
+    margin-bottom: 5px;
+}
+.box
+{
+    margin-bottom: 15px;
+}
+.box > .heading
+{
+    background: url("/Content/Administrator/images/box.png") repeat-x scroll 0 0 transparent;
+    border: 1px solid #DBDBDB;
+    border-radius: 7px 7px 0 0;
+    height: 38px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.box > .heading h1
+{
+    color: #00A7B3;
+    float: left;
+    font-size: 16px;
+    margin: 0;
+    padding: 11px 0 0;
+}
+.box > .heading h1 img
+{
+    float: left;
+    margin-left: 3px;
+    margin-right: 8px;
+    margin-top: -1px;
+}
+.box > .heading .buttons
+{
+    float: right;
+    margin-right: 5px;
+    padding-top: 7px;
+}
+.box > .heading .buttons .button
+{
+    margin-left: 5px;
+}
+.box > .content
+{
+    border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    min-height: 300px;
+    overflow: auto;
+    padding: 10px;
+}
+a.button, .list a.button
+{
+    border: 1px solid #BFBFBF;
+    border-radius: 4px 4px 4px 4px;
+    color: #00A7B3;
+    display: inline-block;
+    font-weight: bold;
+    padding: 5px 10px 5px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+a.button:hover, .list a.button:hover
+{
+    border: 1px solid #00A7B3;
+}
+.list
+{
+    border-collapse: collapse;
+    border-left: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.list td
+{
+    border-bottom: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+}
+.list thead td
+{
+    background: none repeat scroll 0 0 #EFEFEF;
+    padding: 0 5px;
+}
+.list thead td a, .list thead td
+{
+    color: #222222;
+    font-weight: 700;
+    text-decoration: none;
+}
+.list tbody td a
+{
+    text-decoration: underline;
+}
+.list tbody td
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 0 5px;
+    vertical-align: middle;
+}
+.list .left
+{
+    padding: 7px;
+    text-align: left;
+}
+.list .right
+{
+    padding: 7px;
+    text-align: right;
+}
+.list .center
+{
+    padding: 7px;
+    text-align: center;
+}
+.list .asc
+{
+    background: url("/Content/Administrator/images/asc.png") no-repeat scroll right center transparent;
+    padding-right: 15px;
+}
+.list .desc
+{
+    background: url("/Content/Administrator/images/desc.png") no-repeat scroll right center transparent;
+    padding-right: 15px;
+}
+.list tr.filter td
+{
+    background: none repeat scroll 0 0 #E7EFEF;
+    padding: 5px;
+}
+.pagination
+{
+    border-top: 1px solid #CCCCCC;
+    display: inline-block;
+    padding-top: 6px;
+    width: 100%;
+}
+.pagination .links
+{
+    float: left;
+    padding-top: 6px;
+}
+.pagination .links a
+{
+    border: 1px solid #CCCCCC;
+    color: #A3A3A3;
+    font-size: 12px;
+    padding: 4px 10px;
+    text-decoration: none;
+}
+.pagination .links b
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #00A7B3;
+    color: #00A7B3;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 4px 10px;
+    text-decoration: none;
+}
+.pagination .links a:hover
+{
+    border: 1px solid #00A7B3;
+}
+.pagination .results
+{
+    float: right;
+    font-size: 12px;
+    padding-top: 6px;
+}
+table.form
+{
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    width: 100%;
+}
+table.form > tbody > tr > td:first-child
+{
+    width: 200px;
+}
+table.form > tbody > tr > td
+{
+    border-bottom: 1px dotted #CCCCCC;
+    color: #000000;
+    padding: 10px;
+}
+.scrollbox
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    height: 100px;
+    overflow-y: scroll;
+    width: 350px;
+}
+.scrollbox img
+{
+    cursor: pointer;
+    float: right;
+}
+.htabs
+{
+    border-bottom: 1px solid #CCCCCC;
+    height: 30px;
+    line-height: 16px;
+    margin-bottom: 15px;
+    padding: 0 0 0 10px;
+}
+.htabs a
+{
+    background: url("/Content/Administrator/images/tab.png") repeat-x scroll 0 0 #FFFFFF;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    color: #000000;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 2px;
+    padding: 7px 15px 6px;
+    text-align: center;
+    text-decoration: none;
+}
+.htabs a.selected
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding-bottom: 7px;
+}
+.vtabs
+{
+    border-right: 1px solid #CCCCCC;
+    display: block;
+    float: left;
+    min-height: 300px;
+    padding: 10px 0;
+    width: 190px;
+}
+.vtabs a
+{
+    display: none;
+}
+.vtabs a, .vtabs span
+{
+    background: none repeat scroll 0 0 #F7F7F7;
+    border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    clear: both;
+    color: #000000;
+    display: block;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    padding: 6px 14px 7px 15px;
+    text-align: right;
+    text-decoration: none;
+    width: 160px;
+}
+.vtabs a.selected
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding-right: 15px;
+}
+.vtabs a img, .vtabs span img
+{
+    cursor: pointer;
+    position: relative;
+    top: 3px;
+}
+.vtabs-content
+{
+    margin-left: 205px;
+}
+.accordion-heading
+{
+    background: none repeat scroll 0 0 #EFEFEF;
+    border: 1px solid #CCCCCC;
+    color: #555555;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding: 8px;
+}
+.accordion-heading a
+{
+    float: right;
+    font-weight: 400;
+    margin-top: 1px;
+    text-decoration: none;
+}
+.accordion-content
+{
+    overflow: auto;
+    padding: 0 0 15px;
+}
+.scrollbox div
+{
+    padding: 3px;
+}
+.scrollbox div input
+{
+    margin: 0 3px 0 0;
+    padding: 0;
+}
+.scrollbox div.odd
+{
+    background: none repeat scroll 0 0 #E4EEF7;
+}
+.overview
+{
+    float: left;
+    margin-bottom: 20px;
+    width: 49%;
+}
+.overview table
+{
+    width: 100%;
+}
+.overview td + td
+{
+    text-align: right;
+}
+.statistic
+{
+    float: right;
+    margin-bottom: 20px;
+    width: 49%;
+}
+.range
+{
+    color: #FFFFFF;
+    float: right;
+    padding-right: 1px;
+    padding-top: 1px;
+    vertical-align: middle;
+}
+.range, .range select
+{
+    font-size: 11px;
+}
+.dashboard-heading
+{
+    background: none repeat scroll 0 0 #00A7B3;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 5px;
+}
+.dashboard-content
+{
+    background: none repeat scroll 0 0 #FCFCFC;
+    border: 1px solid #8EAEC3;
+    min-height: 180px;
+    padding: 10px;
+}
+.refresh
+{
+    cursor: pointer;
+    position: relative;
+    top: 3px;
+}
+input[type="text"], input[type="password"], textarea, #menu > ul ul li
+{
+    padding: 2px;
+}
+#menu > ul li li, .latest
+{
+    clear: both;
+}
+.scrollbox div.even, .latest tbody td
+{
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.buttons .add
+{
+    background: url("/Content/Administrator/images/add_new.png") no-repeat scroll 3px center transparent;
+}
+.buttons .delete
+{
+    background: url("/Content/Administrator/images/delete_new.png") no-repeat scroll 3px center transparent;
+}
+.filter
+{
+    background: url("/Content/Administrator/images/filter_data.gif") no-repeat scroll 3px center transparent;
+}
+.modify
+{
+    background: url("/Content/Administrator/images/modify.png") no-repeat scroll 3px center transparent;
+}
+.save
+{
+    background: url("/Content/Administrator/images/save.png") no-repeat scroll 3px center transparent;
+}
+.cancel
+{
+    background: url("/Content/Administrator/images/cancel.png") no-repeat scroll 3px center transparent;
+}
+.exit
+{
+    background: url("/Content/Administrator/images/exit.png") no-repeat scroll 3px center transparent;
+    color: #00A7B3 !important;
+    font-weight: bold;
+    padding: 14px 14px 14px 40px !important;
+    text-transform: uppercase;
+}
+.login
+{
+    background: url("/Content/Administrator/images/login1.png") no-repeat scroll 3px center transparent;
+}
+.btn_list
+{
+    background: url("/Content/Administrator/images/btn_list.png") no-repeat scroll 3px center transparent;
+}
+table.list tr:hover td
+{
+    background: none repeat scroll 0 0 #EFEFEF;
+}
+.goto
+{
+    background: url("/Content/Administrator/images/goto.png") no-repeat scroll 3px center transparent;
+}
+.deletetab
+{
+    background: url("/Content/Administrator/images/delete.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 20px;
+    margin-top: -10px;
+    position: absolute;
+    width: 20px;
+}
+.box_into
+{
+    background: none repeat scroll 0 0 #fff;
+}
+.input_label
+{
+    border-bottom: 1px dotted #D9D9D9;
+    border-right: 1px dotted #D9D9D9;
+    color: #333333;
+    font-weight: bold;
+    text-align: right;
+    padding: 5px;
+    vertical-align: top;
+}
+.input_textbox
+{
+    color: #333333;
+    padding: 5px;
+    border-bottom: 1px dotted #D9D9D9;
+}
+.numerictextBox
+{
+    border: 1px solid #BDC7D8;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0;
+    padding: 3px;
+    text-align: center;
+    width: 120px !important;
+}
+textarea
+{
+    border: 1px solid #BDC7D8;
+    border-radius: 3px 3px 3px 3px;
+    height: 60px;
+    margin: 0;
+    padding: 3px;
+    width: 80%;
+}
+input[type="password"], .inputsmall
+{
+    border: 1px solid #BDC7D8;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0;
+    padding: 3px;
+    width: 50% !important;
+}
+span.star
+{
+    color: Red;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 0 2px;
+    vertical-align: top;
+}
+.input-validation-error
+{
+    background-color: #FFEBE8;
+    border: 1px solid #DD3C10 !important;
+    border-radius: 3px 3px 3px 3px;
+}
+.validation-summary-errors
+{
+    background-color: #FFEBE8;
+    border: 1px solid #DD3C10;
+    border-radius: 3px 3px 3px 3px;
+    margin: 20px 0;
+    padding: 10px 10px 10px 20px;
+}
+input[type='text']
+{
+    border: 1px solid #BDC7D8;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0;
+    padding: 3px;
+    width: 70%;
+}
+select
+{
+    padding: 1px;
+}
+textarea
+{
+    padding: 2px;
+}
+ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.help {
+    color: #666666;
+    display: block;
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+}

@@ -1,0 +1,68 @@
+﻿@model Domain.Role
+@{
+
+    ViewBag.Title = "Sửa Nhóm Người Dùng";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+@using Service.Helpers
+@using (Html.BeginForm("Edit", "Role"))
+{ 
+    <div class="box">
+        <div class="heading">
+            <h1>
+                <img alt="" src="/Content/Administrator/Images/category.png">
+                Sửa Nhóm Người Dùng</h1>
+            <div class="buttons">
+                <input type="submit" value="Lưu Thay Đổi" class="t-button" />
+                @Html.ActionLink("Danh Sách Nhóm Người Dùng", "Index", null, new { @class = "t-button" })
+            </div>
+        </div>
+        <div class="content">
+            <div style="display: inline-block; width: 100%; margin-bottom: 15px; margin-top: 15px;
+                clear: both;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="box_into">
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextBoxFor(r => r.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.Description)
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextAreaFor(r => r.Description)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.Order)
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.TextBoxFor(r => r.Order, new { @class = "numerictextBox" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                            @Html.LabelFor(r => r.IsActive)
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                            @Html.CheckBoxFor(r => r.IsActive)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width: 20%" class="input_label">
+                        </td>
+                        <td width="80%" align="left" class="input_textbox">
+                        </td>
+                    </tr>
+                </table>
+                @Html.ValidationSummary(false)
+            </div>
+        </div>
+    </div>
+           
+}

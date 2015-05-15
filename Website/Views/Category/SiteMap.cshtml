@@ -1,0 +1,17 @@
+﻿@using Service.Helpers
+@using Domain
+@model List<Category>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="footerItems">
+        <h2>
+            Bố cục web Vietrip</h2>
+        <ul>
+            @foreach (Category item in Model)
+            {
+                <li><a href="@item.Url" title="@item.Name">@item.Name</a></li>
+            
+            }
+        </ul>
+    </div>
+}

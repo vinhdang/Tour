@@ -1,0 +1,78 @@
+﻿@using Domain
+@using Service.Helpers
+@model List<Domain.Social>
+@{
+    var socials = Model;
+    var phones = ViewBag.Phone == null ? null : (List<Support>)ViewBag.Phone;
+}
+<div class="footerbg lcfix" style="padding-bottom: 0px; padding-top: 30px;">
+    <div class="container">
+        <div class="col-md-6" itemscope itemtype="http://schema.org/TravelAgency">
+            <span class="ftitle" itemprop="legalName">Công ty TNHH MTV Du Lịch VIETRIP (VIETRIP TRAVEL CO., LTD)</span>
+            <div class="scont">
+                <br />
+                <p itemprop="address">Địa chỉ: Tầng M, Toà Nhà Văn Oanh 54 Phan Đăng Lưu, P5, Q.Phú Nhuận, TPHCM</p>
+                <p itemprop="telephone">Điện thoại: Từ 8h đến 17h: @(phones != null ? string.Join(" - ", phones.Select(p => p.Value).ToList()) : string.Empty)@*08.35173818 - 08 35170183 - 08 35173083*@</p>
+                <p itemprop="email">Email: sale1@vietrip.vn - sale@vietrip.vn</p>
+                <p>Mã số thuế: 0311717512</p>
+                <p>Website: <a itemprop="url" href="http://vietrip.vn">www.vietrip.vn</a></p>
+                &copy; 2014 All Rights Reserved 
+                <br />
+                <a href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=7889" target="_blank"><img style="width: 100px;" class="fwimg" alt="" title="" src="http://online.gov.vn/seals/zLu79z06/KZM1+0c2NUL9w==.jpgx" /></a>
+            </div>
+        </div>		
+        <!-- End of column 1-->
+    
+        <!-- End of column 2-->		
+    
+        <div class="col-md-3">
+            <span class="ftitle"></span>
+            <br /><br />
+            <ul class="footerlist">
+                <li><a href="http://vietrip.vn" target="_blank">Khách Sạn</a></li>
+                <li><a href="http://canhodulich.com" target="_blank">Căn Hộ Du Lịch</a></li>
+                <li><a href="#">Tour</a></li>
+                <li><a href="http://vietrip.vn/huong-dan/" target="_blank">Hướng dẫn</a></li>
+                <li><a href="http://vietrip.vn/lien-he/" target="_blank">Liên hệ</a></li>
+                <li><a href="@UrlHelp.getRecruimentUrl()" target="_blank">Tuyển dụng</a></li>
+                <li><a href="@UrlHelp.getPolicyUrl()" target="_blank">Quy chế</a></li>
+            </ul>
+        </div>
+        <!-- End of column 3-->
+    
+        <div class="col-md-3 grey">
+            <span class="ftitle">Mạng xã hội</span>
+            <br/>
+            <div class="relative">
+                
+                @if(socials != null)
+                {
+                    var i = 1;
+                    foreach (var social in socials)
+                    {
+                        var classLink = string.Format("social{0}", i); 
+                        <a href="@social.Link" class="@classLink" style="top: 0px !important;"><img src="@social.ICon" alt="@social.Name" width="38px" height="38px"/></a>
+                        i++;
+                    }
+                }
+            </div>
+            <br/>
+            <span class="ftitle">Hỗ trợ - Chăm sóc khách hàng</span><br/>
+            @if (phones != null)
+            {
+                foreach (var phone in phones)
+                {
+                    <span class="pnr">@phone.Value</span><br/>
+                }
+            }
+            
+            <a href="http://vietrip.vn"><span style="font-weight: bold;">VIETRIP.VN</span></a>
+        </div>			
+        <!-- End of column 4-->
+    </div>	
+</div>
+<div class="footerbg3" style="padding-top: 0px;">
+    <div class="container center grey"> 
+        <a href="#top" id="gotop2" class="gotop"><img src="@Url.Content("~/Content/FrontEnd/images/spacer.png")" alt=""/></a>
+    </div>
+</div>

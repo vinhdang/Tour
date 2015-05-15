@@ -1,0 +1,7 @@
+﻿@using Domain;
+@using Service.Helpers;
+@model  Website.Models.Room.MyRoom
+@if (Model != null)
+{
+    @String.Format("{0:#,###}", Model.TotalPrice)
+}

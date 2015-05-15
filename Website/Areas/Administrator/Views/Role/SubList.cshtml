@@ -1,0 +1,17 @@
+﻿@using Domain
+@using Service.Helpers
+@model IEnumerable<Domain.Category>
+@if (Model != null && Model.Count() > 0)
+{
+    <ul id="listcheckbox">
+        @foreach (Category item in Model)
+        {
+            
+            <li>
+                @{ Html.RenderAction("CheckBox", "Role", new { categoryID = item.ID });}
+            </li>
+            
+        
+        }
+    </ul>
+}

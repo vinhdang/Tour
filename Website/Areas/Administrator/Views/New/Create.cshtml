@@ -1,0 +1,166 @@
+﻿@model Website.Areas.Administrator.Models.New.CreateNewModel
+@{
+    ViewBag.Title = "Thêm Mới Tin Tức";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml"; }
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Thêm Mới Tin Tức
+    </h2>
+</div>
+@using (Html.BeginForm("Create", "New", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    <div class="pal grayArea uiBoxGray noborder">
+        <table class="uiInfoTable" cellpadding="2" cellspacing="0">
+            <tr class="dataRow">
+                <td class="label">
+                    Chuyên mục<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.DropDownListFor(u => u.CategoryID, Model.Categories, "[ --- Chọn chuyên mục --- ]")
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Name)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Name)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.PageTitle)<span class="star">(*)</span>
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.PageTitle)
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Description)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(m => m.Description, new { id = "Description", @name = "Description" })
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Keyword)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextAreaFor(m => m.Keyword, new { id = "Keyword", @name = "Keyword" })
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Content)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    <script src="@Url.Content("~/ckeditor/ckeditor.js")" type="text/javascript"></script>
+                    <script src="@Url.Content("~/ckfinder/ckfinder.js")" type="text/javascript"></script>
+                    @Html.TextAreaFor(m => m.Content, new { id = "Content", @name = "Content" })
+                    <script type="text/javascript">
+                        var Content = CKEDITOR.replace("Content");
+                        CKFinder.setupCKEditor(Content, "/ckfinder/");
+                    </script>
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.FAvartar)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(u => u.FAvartar, new { @type = "file" })
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.Order)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.TextBoxFor(r => r.Order, new { @class = "numerictextBox" })
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    Vị trí
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxList("Type", Model.ListType, null)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                    @Html.LabelFor(r => r.IsActive)
+                </td>
+                <td class="dot">
+                    :
+                </td>
+                <td class="data">
+                    @Html.CheckBoxFor(r => r.IsActive)
+                </td>
+            </tr>
+            <tr class="spacer">
+                <td colspan="3">
+                    <hr />
+                </td>
+            </tr>
+            <tr class="dataRow">
+                <td class="label">
+                </td>
+                <td class="button" colspan="2">
+                    <input type="submit" value="+ Thêm Mới Tin Tức" class="t-button" />
+                    @Html.ActionLink("Danh Sách Tin Tức", "Index", null, new { @class = "t-button" })
+                </td>
+            </tr>
+        </table>
+        @Html.ValidationSummary(false)
+    </div>
+}

@@ -1,0 +1,43 @@
+/*******************
+Author: Patrick Ryan
+URL: http://www.agavegroup.com
+
+Feel free to use this however you like.  Credit is always appreciated.
+*******************/
+
+input, 
+textarea, 
+select {/*font-family:Verdana, Geneva, sans-serif;color:#666; font-size:12px; border:0;*/ margin:3px; padding:3px 5px;}
+label {float:left; /*margin:5px; width:100px;*/ display:block;}
+.clearAll {clear:both;}
+
+/***** Shadows that wrap around ALL elements ***********/
+.frmShdwTopLt {background:url(../images/form_element/shadowUpperLeft.gif) top left no-repeat; float:left;}
+.frmShdwBottomRt {background:url(../images/form_element/shadowLowerRight.gif) bottom right no-repeat; float:left;}
+.frmShdwBottomLt {background:transparent url(../images/form_element/shadowBottomLeft.gif) bottom left no-repeat; float:left;}
+.frmShdwTopRt {background:transparent url(../images/form_element/shadowTopRight.gif) top right no-repeat; float:left; line-height:12px !important;}
+
+/***** styles specific to the CHECKBOX **********/
+.frmShdwCheck {border:0; margin:0; padding:0;}
+.frmShdwCheck img {border:0; margin:3px;}
+
+/***** styles specific to the RADIO BUTTONS **********/
+.frmShdwRadio {float:left; margin:0;}
+.frmShdwRadio img {border:0; margin:0; *margin:4px 0 0;}
+
+.formInline span.radio {float:left; padding:0 15px 0 2px;}
+
+/***** styles specific to the SUBMIT BUTTONS **********/
+.frmShdwSubmit {border:0; background:#f7f7f7 !important; background:transparent; float:left; font-weight:bold; cursor:pointer;}
+.frmShdwSubmit:hover {color:#000;}
+
+/***** styles specific to the SELECT BOX **********/
+.frmShdwSelectDropChosen {margin:3px 3px 3px 5px; padding:0 0 0 2px !important; padding:0 0 3px 2px; font-size:.9em; float:left; border-right:1px solid #CCC; border-left:1px solid #FFF !important; border-left:0; display:block; cursor:pointer; /*some stuff for IE*/ color:#666; text-decoration:none;}
+.frmShdwSelectDropShown {margin:3px 3px 3px 5px; padding:0 0 0 2px; font-size:.9em; float:left; border-right:1px solid #CCC; border-left:1px solid #CCC; border-bottom:1px solid #CCC; position:absolute; background:#FFF;}
+.frmShdwSelectDrop {display:none;}
+.fakeSelectImg {border:0; margin:5px 5px 0px 0px;}
+.frmShdwSelectDropShown a {display:block; margin:0; padding:0px; border-bottom:1px dashed #FFF; text-decoration:none; color:#666;}
+.frmShdwSelectDropShown a.selected {background:#f7f7f7; color:#000; border-bottom:1px dashed #CCC;}
+.frmShdwSelectDropShown a.selected:after {content:" <<";}
+.frmShdwSelectDropShown a:hover {background:#f7f7f7; border-bottom:1px dashed #CCC; text-decoration:none; color:#666;}
+.frmShdwSelectDropShown a:hover:after {content:" <<";}

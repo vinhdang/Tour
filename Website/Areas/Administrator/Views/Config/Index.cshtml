@@ -1,0 +1,14 @@
+﻿@model IQueryable<Domain.Config>
+@{
+    ViewBag.Title = "Danh Sách Cấu Hình";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="uiHeader mhl">
+    <h2 class="uiHeaderTitle">
+        Danh Sách Cấu Hình @*<div class="fr">
+            @Html.ActionLink(Localization.Clip.ListButtonAdd, "Create")</div>*@
+    </h2>
+</div>
+<div class="pal grayArea uiBoxGray noborder" id="divConfigList">
+    @Html.Partial("ConfigList", Model)
+</div>

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Domain.Banner>
+@using Service.Helpers;
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".btn_search").colorbox();
+
+    });</script>
+@(Html.Telerik().Grid(Model)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(o => o.Name).Title("Tên banner").Template(@<text>@Html.ActionLink(@item.Name, "Edit", new { id = @item.BannerID })</text>).Width("20%");
+            columns.Bound(o => o.Link).Title("Đường dẫn");
+            columns.Bound(o => o.Order).Title("Thứ tự").Width("4%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Bound(o => o.CreatedDate).Title("Ngày tạo").Format("{0:dd/MM/yyyy}").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+     
+            columns.Bound(o => o.IsActive).Title("Trạng thái").HeaderHtmlAttributes(new { style = "text-align:center" }).Width("8%").HtmlAttributes(new { style = "text-align:center" });
+            columns.Template(
+                @<text> <a class="btn_search"  href="@FileHelper.GetBanner_Picture(item.FileName, (int)item.BannerID)" title="@item.Name">
+                    Xem</a>
+@Html.ActionLink(@item.Name, "Edit", new { id = @item.BannerID }, new { @class = "edit_icon", @title = "Sửa tệp tin ảnh [" + @item.Name + "]" })
+@Ajax.ActionLink("Delete", "Delete", new { id = @item.BannerID }, new AjaxOptions { Confirm = "Bạn có chắc chắn muốn xóa tệp tin [" + @item.Name + "] ?", HttpMethod = "Post", OnSuccess = "OnSuccess", OnFailure = "OnFailure", UpdateTargetId = "BannerList" }, new { @title = "Xóa tệp tin [" + @item.Name + "]", @class = "del_icon" })</text>).Width("10%").HtmlAttributes(new { style = "text-align:center" });
+        })
+       .Pageable(paging => paging.PageSize(50))
+       .Sortable(sorting => sorting
+       .OrderBy(sortOrder => sortOrder.Add(o => o.CreatedDate).Descending()))
+)

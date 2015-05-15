@@ -1,0 +1,6 @@
+﻿@model List<Domain.ApartmentPrice>
+@{
+    ViewBag.Title = "Quản Lý >> Căn Hộ >> Giá Theo Ngày";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("ApartmentPriceList", Model)

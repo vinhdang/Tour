@@ -1,0 +1,121 @@
+﻿@using Website.Model.Tour
+@using Website.Helpers
+@{
+    var tours = ViewData["Tours"] == null ? null : (TourResult)ViewData["Tours"];
+    var index = tours != null ? tours.PageIndex : 1;
+    var totalPage = tours != null ? tours.TotalPages : 0;
+    var totalReccord = tours != null ? tours.TotalRecords : 0;
+    var keyword = string.Empty;
+    var searchby = string.Empty;
+    var baseUrl = Url.Action("ChangePage", "Province");
+}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        sys.search.index.tour.initPage();
+    });
+</script>
+
+<style type="text/css">
+    .grey{
+        color: #666; 
+    }
+    .filters, .itemlabel2 {
+        background: #FBFBFB;
+    }
+</style>
+
+<div class="itemscontainer offset-1">
+    @if (tours != null && tours.Tours != null && tours.Tours.Count > 0)
+    {
+        var i = 1;
+        var qty = 1;
+        foreach (var tour in tours.Tours)
+        {
+            
+            
+            <div class="col-md-4">
+                <div class="listitem">
+                    <a href="@tour.LinkToDetail">
+                        <img src="@tour.AvatarUrl" alt="@tour.AvatarPic.Alt"/>
+                    </a>
+                    @*<div class="liover"></div>
+                    <a class="fav-icon" href="@tour.LinkToDetail"></a>
+                    <a class="book-icon" href="@tour.LinkToDetail"></a>*@
+                </div>
+                <div class="itemlabel2">
+                    <div class="labelright">
+                        @*<img src="images/filter-rating-5.png" width="60" alt=""/><br/><br/><br/>*@
+                        <span class="size11 grey">@string.Format("{0}N{1}Đ", tour.Duration, tour.Duration - 1)</span>
+                        <br/><br/><br/>
+                        <img src="@tour.Rating_Url" width="60" alt="@tour.PageTitle"/><br/>
+                        <span class="size11 grey">@tour.CommentCount Nhận xét</span><br/><br/>
+                        <span class="green size18"><b>Liên Hệ</b></span><br/>
+                        <br/><br/><br/>
+                        <button class="bookbtn mt1" onClick="location.href='@tour.LinkToDetail'">Xem</button>		
+                    </div>
+                    <div class="labelleft">			
+                        <b>@tour.Name</b><br/><br/><br/>
+                        <p class="grey">@tour.Description</p>
+                    </div>
+                </div>
+            </div>
+        
+            i++;
+
+            if (i == 4 || qty == tours.Tours.Count && i < 4)
+            {
+                i = 1;
+                <div class="clearfix"></div>
+                <div class="offset-2">
+                    <hr class="featurette-divider3">
+                </div>
+            }
+
+            qty++;
+        }
+    }
+    else
+    {
+        <div class="col-md-4">
+            <p>Không có dữ liệu</p>
+        </div>
+    }
+
+</div>	
+	<!-- End of offset1-->		
+      @*  <div class="total">Total records: <span class="total-page-num">@totalReccord</span></div>*@
+    @if (tours != null && tours.Tours != null && tours.Tours.Count > 0)
+    {
+        <div class="hpadding20">
+            <ul class="pagination right paddingbtm20">
+            @{
+            var first = string.Format("{0}?index=0", baseUrl);
+            var last = string.Format("{0}?index={1}", baseUrl, totalPage);
+            var currentPageClass = "active";
+            var currentUrl = "";
+            var display = "";
+            
+                <li class="@(index == 1 ? "disabled" : string.Empty)"><a class="navigate_page"  href="javascript:void(0);" navigate="@first" >&laquo;</a></li>
+            for (var i = 1; i <= totalPage; i++)
+            {
+                currentUrl = string.Format("{0}?index={1}", baseUrl, i);
+                display = i.ToString();
+                currentPageClass = "";
+                if (i == index)
+                {
+                    currentPageClass = "active";
+                }
+                if (i > 15 && i < (totalPage - 2))
+                {
+                    display = "..";
+                    i = totalPage - 2;
+                }
+                    <li class="@currentPageClass"><a class="navigate_page" href = "javascript:void(0);" navigate="@currentUrl">@display</a></li>
+            }                                              
+                <li class="@(index == totalPage ? "disabled" : string.Empty)"><a class="navigate_page"  href="javascript:void(0);" navigate="@last">&raquo;</a></li>
+            }
+          </ul>
+        </div>
+    }
+    
